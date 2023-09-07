@@ -5,27 +5,29 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+
+    - name: action checkout
+    - uses: actions/checkout@v2
+
+    - name: Install NodeJs
+      uses: action/strp-node@v2-beta
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+        node-version: 12
+
+    - name: Install Yarn
+      uses: borales/action-yarn@v2.0.0
+      with:
+       cmd: install # will run `yarn install` command
+
+    - name: Build React App
+      run: yarn build

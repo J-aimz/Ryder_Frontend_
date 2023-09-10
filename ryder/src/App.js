@@ -1,12 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AppNavbar from "./components/landingPage/AppNavbar";
-import LandingPage from "./components/landingPage/LandingPage";
-//import AboutPage from "./AboutPage";
-//import ServicesPage from "./ServicesPage";
-//import ContactPage from "./ContactPage";
-//import LoginPage from "./LoginPage";
-import Footer from "./components/landingPage/Footer";
+import AppNavbar from "./components/landing_page/appNavbar";
+import LandingPage from "./components/landing_page/landingPage";
+import Footer from "./components/landing_page/footer";
+// Import require Styles
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../src/styles/landingPage.css";
 
 function App() {
   return (
@@ -14,11 +13,7 @@ function App() {
       <div>
         <AppNavbar />
         <Routes>
-          <Route path="/" exact component={LandingPage} />
-          {/* <Route path="/about" component={AboutPage} />
-          <Route path="/services" component={ServicesPage} />
-          <Route path="/contact" component={ContactPage} />
-          <Route path="/login" component={LoginPage} /> */}
+          <Route path="/" exact element={<LandingPage />} />
         </Routes>
         <Footer />
       </div>

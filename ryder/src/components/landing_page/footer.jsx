@@ -10,7 +10,7 @@ import dispatchBuddy from "../../images/dispatch-buddy.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light py-4 bg-custom">
+    <footer className="bg-dark text-light py-4 ft-bg-custom">
       <div className="container">
         <div className="row justify-content-center ">
           {/* First div */}
@@ -28,7 +28,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col-md-4">
-              <div className="d-flex justify-content-between align-items-center">
+              <div className="d-flex justify-content-between">
                 <p>Home</p>
                 <p>About Us</p>
                 <p>FAQ</p>

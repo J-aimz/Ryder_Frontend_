@@ -6,28 +6,32 @@ import {
   FaGoogle
 } from "react-icons/fa";
 
-import { dispatchBuddy } from "../../images";
+import dispatchBuddy from "../../images/dispatch-buddy.svg";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light py-4">
+    <footer className="bg-dark text-light py-4 bg-custom">
       <div className="container">
         {/* First div */}
-        <div className="row">
+        <div className="row align-items-center">
           <div className="col-md-4">
             <div className="d-flex align-items-center">
               <img src={dispatchBuddy} alt="Dispatch Buddy" className="mr-2" />
-              <p className="mb-0">Dispatch Buddy</p>
+              <p className="mb-0 ms-2">
+                Dispatch<br></br>Buddy
+              </p>
             </div>
           </div>
           <div className="col-md-4">
-            <p>Home</p>
-            <p>About Us</p>
-            <p>FAQ</p>
-            <p>Contact Us</p>
+            <div className="d-flex justify-content-between align-items-center">
+              <p>Home</p>
+              <p>About Us</p>
+              <p>FAQ</p>
+              <p>Contact Us</p>
+            </div>
           </div>
           <div className="col-md-4">
-            <div className="d-flex">
+            <div className="d-flex align-items-center justify-content-between ms-5 me-5 ps-5 pe-5">
               <FaFacebookSquare className="mr-3" />
               <FaTwitterSquare className="mr-3" />
               <FaLinkedin className="mr-3" />
@@ -42,12 +46,14 @@ const Footer = () => {
             <p>© 2022 All rights reserved</p>
           </div>
           <div className="col-md-4">
-            <p>Privacy Policy</p>
-            <p>Terms of Service</p>
-            <p>Legal</p>
-            <p>Help</p>
+            <div className="d-flex justify-content-between">
+              <p>Privacy Policy</p>
+              <p>Terms of Service</p>
+              <p>Legal</p>
+              <p>Help</p>
+            </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 justify-content-center d-flex">
             <p>English version</p>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // import required images
 import bgImage from "../../images/slider-bg-img.svg";
@@ -153,13 +154,15 @@ const LandingPage = () => {
             Fast, Reliable & Quality Dispatch Service
           </h1>
           <p className="text-light">Send. Track. Receive.</p>
-          <div className="d-flex justify-content-center mt-4">
-            <button className="btn btn-warning me-2">
-              Register as a Customer
-            </button>
-            <button className="btn btn-outline-light">
-              Register as a Rider
-            </button>
+          <div className="d-flex justify-content-center mt-4" style={{
+              fontFamily: "Inter",
+            }}>
+              <Link to="/customer-registration" className="btn btn-warning me-2 fw-medium">
+                Register as a Customer
+              </Link>
+              <Link to="/rider-registration" className="btn btn-outline-light fw-medium">
+                Register as a Rider
+              </Link>
           </div>
         </div>
       </section>
@@ -193,7 +196,7 @@ const LandingPage = () => {
                     alt="Service Icon"
                     className="service-icon"
                   />
-                  <p className="service-description ">{service.description}</p>
+                  <p className="service-description fw-bold">{service.description}</p>
                   <p className="service-details ">{service.details}</p>
                 </div>
               </div>
@@ -267,7 +270,7 @@ const LandingPage = () => {
                   />
                   <p className="text-center mt-3">{review.review}</p>
                   <div className="d-flex justify-content-between">
-                    <p>{review.name}</p>
+                    <p className="fw-bold">{review.name}</p>
                     <StarRating rating={review.rating} />
                   </div>
                 </div>

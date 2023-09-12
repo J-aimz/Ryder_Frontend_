@@ -1,12 +1,14 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import ryder from "../../images/ryder.svg";
+import { Link } from "react-router-dom";
 
 const AppNavbar = () => {
   return (
     <Navbar bg="white" expand="lg">
       <Container>
-        <Navbar.Brand href="/">
+        <Navbar.Brand as={Link} to="/">
           <img
             src={ryder}
             alt="Ryder Logo"
@@ -16,13 +18,23 @@ const AppNavbar = () => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="mx-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
-            <Nav.Link href="/services">Services</Nav.Link>
-            <Nav.Link href="/contact">Contact Us</Nav.Link>
+            <LinkContainer to="/" exact>
+              <Nav.Link>Home</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/about">
+              <Nav.Link>About</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/services">
+              <Nav.Link>Services</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/contact">
+              <Nav.Link>Contact Us</Nav.Link>
+            </LinkContainer>
           </Nav>
           <Nav>
-            <Nav.Link href="/login">Login</Nav.Link>
+            <LinkContainer to="/login">
+              <Nav.Link>Login</Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>

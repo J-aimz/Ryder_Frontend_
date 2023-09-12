@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 // import required images
 import bgImage from "../../images/slider-bg-img.svg";
@@ -123,6 +124,7 @@ const StarRating = ({ rating }) => {
 };
 
 const LandingPage = () => {
+  const linkStyle = {textDecoration: 'none', color: '#000', fontSize: '18px', fontWeight: '600'};
   return (
     <div>
       {/* First Section */}
@@ -155,10 +157,10 @@ const LandingPage = () => {
           <p className="text-light">Send. Track. Receive.</p>
           <div className="d-flex justify-content-center mt-4">
             <button className="btn btn-warning me-2">
-              Register as a Customer
+              <Link to="/customerSignUp" style={linkStyle}>Register as a Customer</Link>
             </button>
             <button className="btn btn-outline-light">
-              Register as a Rider
+              <Link to="/riderSignUp" style={linkStyle}>Register as a Rider</Link>
             </button>
           </div>
         </div>

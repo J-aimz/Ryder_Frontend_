@@ -47,7 +47,7 @@ function RiderSignUp() {
                 return;
             }
            
-            const response = await axios.post('', {
+            const response = await axios.post('http://', {
                 firstName,
                 lastName,
                 phoneNumber,
@@ -61,7 +61,7 @@ function RiderSignUp() {
   
             function sendOTP() {
             axios
-                .post('', { email: email })
+                .post('http://', { email: email })
                 .then(response => {
                 console.log('OTP Sent:', response.data);
                 })

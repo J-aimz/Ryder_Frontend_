@@ -6,12 +6,14 @@ import Footer from "./components/landing_page/footer";
 // Import require Styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
+import UserNavbar from "./components/dashboard/userNavbar";
 
 function App() {
   return (
     <Router>
       <div>
         <AppNavbar />
+        <UserNavbar />
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
         </Routes>

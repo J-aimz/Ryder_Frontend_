@@ -5,13 +5,13 @@ import {shoppingBagIcon} from "../../assets"
 
 function OrdersOverview() {
   return (
-      <div>
-          <div>
-              <span>Toatal orders</span>
-              <span className={styles.secondary}>make a request</span>
+      <div className={styles.overview_container}>
+          <div className={styles.header}>
+              <span>Total orders</span>
+              <span className={styles.secondary}>Make a Request</span>
           </div>
 
-          <div>
+          <div className={styles.body}>
               <div>
                   <span>200</span>
                   <span>orders completed</span>

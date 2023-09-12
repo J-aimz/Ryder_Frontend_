@@ -3,6 +3,8 @@ import "../styles/ConfirmEmail.css";
 import Email from "../images/Email.svg";
 
 const ConfirmEmail = () => {
+  
+
   return (
     <div className="email-verification">
       <div className="frame-wrapper">
@@ -15,8 +17,11 @@ const ConfirmEmail = () => {
           </p>
           <p className="didn-t-receive-the">
             <span className="span">Didn’t receive the email? </span>
-            <button className="text-wrapper-2">Click to Resend link </button>
+            <a className="link-to-page" href="">
+              <button className="text-wrapper-2">Click to Resend link </button>
+            </a>
           </p>
+
           <div className="div-wrapper">
             <button className="text-wrapper-3">Back to Login</button>
           </div>

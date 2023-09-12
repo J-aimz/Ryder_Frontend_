@@ -106,3 +106,30 @@
     
 }
 
+@media (max-width: 768px) {
+    .email-verification .frame {
+        left: 0;
+        width: 100%;
+        padding: 40px 20px; /* Adjust padding for smaller screens */
+    }
+
+    .email-verification .text-wrapper {
+        font-size: 24px; /* Decrease font size for readability */
+    }
+
+    .email-verification .div {
+        width: 100%; /* Make text full width */
+    }
+
+    .email-verification .didn-t-receive-the {
+        width: 100%; /* Make text full width */
+    }
+
+    .email-verification .div-wrapper {
+        padding: 12px 20px; /* Adjust padding for smaller screens */
+    }
+
+    .email-verification .text-wrapper-3 {
+        font-size: 16px; /* Decrease font size for readability */
+    }
+}

@@ -1,12 +1,12 @@
 import './App.css';
-//import ConfirmEmail from './components/ConfirmEmail';
-import Login from './components/Login';
+import ConfirmEmail from './components/ConfirmEmail';
+//import Login from './components/Login';
 
 function App() {
   return (
     <div className="App">
-      <Login/>
-      {/* <ConfirmEmail/> */}
+      {/* <Login/> */}
+      <ConfirmEmail/>
     </div>
   );
 }

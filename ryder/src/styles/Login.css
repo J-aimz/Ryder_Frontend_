@@ -1,281 +1,306 @@
 .login {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .login .div {
-    background-color: #ffffff;
-    height: 1024px;
-    position: relative;
-    width: 1440px;
+  background-color: #ffffff;
+  height: auto;
+  position: relative;
+  padding: 20px;
+  width: 100%;
 }
 
 .login .frame {
-    background-color: #d9d9d9;
-    height: 1024px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 796px;
+  background-color: #d9d9d9;
+  height: 1024px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 796px;
 }
 
+
 .login .overlap-group {
-    height: 1024px;
-    position: relative;
+  height: 1024px;
+  position: relative;
 }
 
 .login .image {
-    height: 1023px;
-    left: 0;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    width: 796px;
+  height: 1023px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 796px;
 }
 
 .login .rectangle {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
-    height: 1024px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 796px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  height: 1024px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 796px;
 }
 
 .login .delivery-service {
-    color: transparent;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 40px;
-    font-weight: 700;
-    left: 161px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 758px;
+  color: transparent;
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 40px;
+  font-weight: 700;
+  left: 161px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 758px;
 }
 
 .login .text-wrapper {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .login .span {
-    color: #fb8500;
+  color: #fb8500;
 }
 
 .login .frame-2 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex-direction: column;
-    gap: 80px;
-    left: 894px;
-    position: absolute;
-    top: 85px;
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 80px;
+  left: 894px;
+  position: absolute;
+  top: 85px;
 }
 
 .login .logo {
-    align-items: center;
-    display: inline-flex;
-    flex: 0 0 auto;
-    gap: 12px;
-    position: relative;
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 12px;
+  position: relative;
 }
 
 .login .mdi-delivery-dining {
-    height: 72px;
-    position: relative;
-    width: 72px;
+  height: 72px;
+  position: relative;
+  width: 72px;
 }
 
 .login .text-wrapper-2 {
-    color: #1a1a1a;
-    font-family: var(--headline-bold-32-font-family);
-    font-size: var(--headline-bold-32-font-size);
-    font-style: var(--headline-bold-32-font-style);
-    font-weight: var(--headline-bold-32-font-weight);
-    letter-spacing: var(--headline-bold-32-letter-spacing);
-    line-height: var(--headline-bold-32-line-height);
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: #1a1a1a;
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 32px;
+  font-weight: 700;
+  left: 0;
+  letter-spacing: 0.25px;
+  line-height: 44.8px;
+  position: relative;
+  top: 0;
+  white-space: nowrap;
 }
 
 .login .frame-3 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 32px;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+  border: none;
 }
 
 .login .text-wrapper-3 {
-    color: #012a4a;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: 0;
-    line-height: 24px;
-    margin-top: -1px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: #012a4a;
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 24px;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .login .frame-4 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 24px;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
 }
 
 .login .frame-5 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
 }
 
 .login .frame-6 {
-    align-items: flex-start;
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
 }
 
 .login .text-wrapper-4 {
-    color: #012a4a;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 16px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 24px;
-    margin-top: -1px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: #012a4a;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 24px;
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .login .frame-7 {
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid;
-    border-color: #012a4a;
-    border-radius: 6px;
-    display: flex;
-    gap: 16px;
-    height: 48px;
-    opacity: 0.8;
-    padding: 9px 16px 8px;
-    position: relative;
-    width: 395px;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #012a4a;
+  border-radius: 6px;
+  display: flex;
+  gap: 16px;
+  height: 48px;
+  opacity: 0.8;
+  padding: 9px 16px 8px;
+  position: relative;
+  width: 395px;
 }
 
 .login .icon {
-    height: 12px;
-    position: relative;
-    width: 16px;
+  height: 12px;
+  position: relative;
+  width: 16px;
 }
 
 .login .text-wrapper-5 {
-    color: #c4c4c4;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 24px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  align-items: center;
+  border: none;
+  border-color: transparent;
+  display: flex;
+  height: 110%;
+  width: 120%;
+  position: relative;
+}
+
+.input {
+  border-color: transparent;
+  border: none;
+  height: inherit;
+  width: inherit;
 }
 
 .login .frame-8 {
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid;
-    border-color: #012a4a;
-    border-radius: 6px;
-    display: flex;
-    gap: 16px;
-    height: 48px;
-    opacity: 0.8;
-    padding: 9px 16px 8px;
-    position: relative;
-    width: 396px;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #012a4a;
+  border-radius: 6px;
+  display: flex;
+  gap: 16px;
+  height: 48px;
+  opacity: 0.8;
+  padding: 9px 16px 8px;
+  position: relative;
+  width: 396px;
 }
 
 .login .vector {
-    height: 16px;
-    position: relative;
-    width: 16px;
+  height: 16px;
+  position: relative;
+  width: 16px;
 }
 
 .login .text-wrapper-6 {
-    color: #4285f4;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 24px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: #4285f4;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .login .div-wrapper {
-    align-items: center;
-    background-color: #fb8500;
-    border-radius: 6px;
-    display: flex;
-    gap: 16px;
-    height: 48px;
-    justify-content: center;
-    padding: 16px 24px;
-    position: relative;
-    width: 396px;
+  align-items: center;
+  background-color: #fb8500;
+  border-radius: 6px;
+  display: flex;
+  gap: 16px;
+  height: 48px;
+  justify-content: center;
+  padding: 16px 24px;
+  position: relative;
+  width: 396px;
 }
 
 .login .text-wrapper-7 {
-    color: #ffffff;
-    font-family: "Inter-SemiBold", Helvetica;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 0;
-    line-height: normal;
-    margin-bottom: -0.5px;
-    margin-top: -2.5px;
-    position: relative;
-    text-align: center;
-    white-space: nowrap;
-    width: fit-content;
+  color: #ffffff;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-bottom: -0.5px;
+  margin-top: -2.5px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .login .don-t-have-an {
-    color: transparent;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 24px;
-    position: relative;
-    white-space: nowrap;
-    width: fit-content;
+  color: transparent;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 24px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .login .text-wrapper-8 {
-    color: #012a4a;
+  color: #012a4a;
 }
 
 .login .text-wrapper-9 {
-    color: #fb8500;
-    font-family: "Inter-Bold", Helvetica;
-    font-weight: 700;
+  color: #fb8500;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }

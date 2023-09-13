@@ -7,14 +7,17 @@ import Passwordreset from "./components/passwordresets/passwordreset";
 // Import require Styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
-import Passwordresetverification from "./components/passwordresets/Passwordresetverification";
-
+import "../src/styles/dashboard.css";
+// import UserNavbar from "./components/dashboard/userNavbar";
+// import RiderNavbar from "./components/dashboard/riderNavbar";
 
 function App() {
   return (
     <Router>
       <div>
         <AppNavbar />
+        {/* <UserNavbar />
+        <RiderNavbar /> */}
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
           <Route path="/passwordreset" exact element={<Passwordreset />} />

@@ -3,6 +3,8 @@ import "../../styles/signUp.css";
 import axios from 'axios';
 import SignUpBanner from '../../images/RyderImg.svg';
 import RyderLogo from '../../images/Ryder-Logo.svg';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RiderSignUp() {
     const [firstName, setFirstName] = useState('');
@@ -23,6 +25,30 @@ function RiderSignUp() {
     const [loading, setLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
+    function successMess(successMessage){
+        toast.success(successMessage, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
+    function errorMesage(error){
+        toast.error(error, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -32,17 +58,20 @@ function RiderSignUp() {
             
             if (!isEmailValid) {
                 setError('Please enter a valid email address.');
+                errorMesage('Please enter a valid email address.');
                 setSuccessMessage('');
                 return;
             }
             if (password !== confirmPassword) {
                 setError('Passwords do not match');
+                errorMesage('Passwords do not match');
                 setSuccessMessage('');
                 return;
             }
   
             if (!isPasswordValid) {
                 setError('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
+                errorMesage('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
                 setSuccessMessage('');
                 return;
             }
@@ -58,7 +87,6 @@ function RiderSignUp() {
                 passport,
                 password,
             });
-  
             function sendOTP() {
             axios
                 .post('http://', { email: email })
@@ -69,17 +97,19 @@ function RiderSignUp() {
                 console.error('Error sending OTP:', error);
                 });
             };
-
+            
             // Handle the response here, e.g., show a success message to the user.
             console.log(response.data);
             if (!response.data.succeeded) {
                  setSuccessMessage('');
                 setError(response.data.data);
+                errorMesage(response.data.data);
                 // Display the error message 
             }
             else {
                 setError(''); // Clear any previous error
                 setSuccessMessage(response.data.data);
+                successMess(response.data.data);
                 localStorage.setItem('email', email);
                 sendOTP();
                 //navigate("/opt-verification");
@@ -100,11 +130,13 @@ function RiderSignUp() {
         catch (error) {
             if (error.response) {
                 setSuccessMessage('');
-                setError(error.response.data.data);  
+                setError(error.response.data.data); 
+                errorMesage(error.response.data.data);
             }
             else {
                 console.error(error);
                 setError('An error occurred during Rigistration');
+                errorMesage('An error occurred during Rigistration')
             }
         }
         finally
@@ -167,16 +199,12 @@ function RiderSignUp() {
                             </div>
                             <div className="form-holder col-md-8">
                                 <label className='mt-2'><b>City</b></label>
-                                <select name="" id="" 
-                                    className='form-control' 
-                                    value={city}
-                                    onChange={(e) => setCity(e.target.value)}
-                                >
+                                <select name="" id="" className='form-control' required>
                                     <option value="">Select a City</option>
-                                    <option value="">Lagos</option>
-                                    <option value="">Benue</option>
-                                    <option value="">Abuja</option>
-                                    <option value="">Portharcort</option>
+                                    <option value={city} onChange={(e) => setCity(e.target.value)}>Lagos</option>
+                                    <option value={city} onChange={(e) => setCity(e.target.value)}>Benue</option>
+                                    <option value={city} onChange={(e) => setCity(e.target.value)}>Abuja</option>
+                                    <option value={city} onChange={(e) => setCity(e.target.value)}>Portharcort</option>
                                 </select>
                             </div>
                             <div className="form-holder col-md-8">
@@ -185,7 +213,7 @@ function RiderSignUp() {
                                 className='form-control mt-1' 
                                 value={bikeDocument}
                                 onChange={(e) => setBikeDocument(e.target.value)}
-                                />
+                                required/>
                             </div>
                             <div className="form-holder col-md-8">
                                 <label className='mt-2'><b>Valid Id Card</b></label>
@@ -193,7 +221,7 @@ function RiderSignUp() {
                                 className='form-control mt-1' 
                                 value={validID}
                                 onChange={(e) => setValidID(e.target.value)}
-                                />
+                                required/>
                             </div>
                             <div className="form-holder col-md-8">
                                 <label className='mt-2'><b>Passport Photo</b></label>
@@ -201,7 +229,7 @@ function RiderSignUp() {
                                 className='form-control mt-1' 
                                 value={passport}
                                 onChange={(e) => setPassport(e.target.value)}
-                                />
+                                required/>
                             </div>
                             <div className="form-holder col-md-8">
                                 <label className='mt-2'><b>Password</b></label>
@@ -225,15 +253,15 @@ function RiderSignUp() {
                             </div>
 
                             {/* Display error message */}
-                            {error && <div className="form-holder" style={{ color: 'red', textAlign: 'center' }}>
+                            {error && <div className="form-holder col-md-8" style={{ color: 'red', textAlign: 'center' }}>
                                 <small><b>{error}</b></small>
                             </div>}
                             {/* Display success message */}
-                            {successMessage && <div className="form-holder" style={{ color: 'green', textAlign: 'center' }}>
+                            {successMessage && <div className="form-holder col-md-8" style={{ color: 'green', textAlign: 'center' }}>
                                 <small><b>{successMessage}</b></small>
                             </div>}
                             {/* Display loading spinner */}
-                            {loading && <div className="form-holder" style={{ textAlign: 'center' }}>
+                            {loading && <div className="form-holder col-md-8" style={{ textAlign: 'center' }}>
                                 <small>Loading...</small>
                             </div>}
 
@@ -242,7 +270,6 @@ function RiderSignUp() {
                                     className="submitting"
                                     type="submit"
                                     onClick={handleRegister}
-                                    disabled={!isPasswordValid} // Disable button if password is not a match
                                 > Sign Up </button>
                             </div>
                             <div className="form-holder mt-2" style={{ textAlign: 'left' }}>
@@ -255,6 +282,7 @@ function RiderSignUp() {
                 </div>
             </div>
         </div>
+        <ToastContainer />
     </>
   )
 }

@@ -3,6 +3,8 @@ import "../../styles/signUp.css";
 import axios from 'axios';
 import SignUpBanner from '../../images/RyderImg.svg';
 import RyderLogo from '../../images/Ryder-Logo.svg';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CustomerSignUp() {
     const [firstName, setFirstName] = useState('');
@@ -19,6 +21,30 @@ function CustomerSignUp() {
     const [loading, setLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
+    function successMess(successMessage){
+        toast.success(successMessage, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
+    function errorMesage(error){
+        toast.error(error, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -28,17 +54,20 @@ function CustomerSignUp() {
             
             if (!isEmailValid) {
                 setError('Please enter a valid email address.');
+                errorMesage('Please enter a valid email address.');
                 setSuccessMessage('');
                 return;
             }
             if (password !== confirmPassword) {
                 setError('Passwords do not match');
+                errorMesage('Passwords do not match');
                 setSuccessMessage('');
                 return;
             }
   
             if (!isPasswordValid) {
                 setError('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
+                errorMesage('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
                 setSuccessMessage('');
                 return;
             }
@@ -71,6 +100,7 @@ function CustomerSignUp() {
             else {
                 setError(''); // Clear any previous error
                 setSuccessMessage(response.data.data);
+                successMess(response.data.data)
                 localStorage.setItem('email', email);
                 sendOTP();
                 //navigate("/opt-verification");
@@ -86,16 +116,18 @@ function CustomerSignUp() {
         catch (error) {
             if (error.response) {
                 setSuccessMessage('');
-                setError(error.response.data.data);  
+                setError(error.response.data.data); 
+                errorMesage(error.response.data.data); 
             }
             else {
                 console.error(error);
                 setError('An error occurred during Rigistration');
+                errorMesage('An error occurred during Rigistration');
             }
         }
         finally
         {
-            setLoading(false);
+        setLoading(false);
         }
     };
   return (
@@ -173,24 +205,24 @@ function CustomerSignUp() {
                             </div>
 
                             {/* Display error message */}
-                            {error && <div className="form-holder" style={{ color: 'red', textAlign: 'center' }}>
+                            {error && <div className="form-holder col-md-7" style={{ color: 'red', textAlign: 'center' }}>
                                 <small><b>{error}</b></small>
                             </div>}
                             {/* Display success message */}
-                            {successMessage && <div className="form-holder" style={{ color: 'green', textAlign: 'center' }}>
+                            {successMessage && <div className="form-holder col-md-7" style={{ color: 'green', textAlign: 'center' }}>
                                 <small><b>{successMessage}</b></small>
                             </div>}
                             {/* Display loading spinner */}
-                            {loading && <div className="form-holder" style={{ textAlign: 'center' }}>
+                            {loading && <div className="form-holder col-md-7" style={{ textAlign: 'center' }}>
                                 <small>Loading...</small>
-                            </div>}
+                            </div>} 
 
                             <div className="form-holder col-md-7" >
                                 <button
                                     className="submitting"
                                     type="submit"
                                     onClick={handleRegister}
-                                    disabled={!isPasswordValid} // Disable button if password is not a match
+                                    //disabled={!isPasswordValid} // Disable button if password is not a match
                                 > Sign Up </button>
                             </div>
                             <div className="form-holder mt-2" style={{ textAlign: 'left' }}>
@@ -203,6 +235,7 @@ function CustomerSignUp() {
                 </div>
             </div>
         </div>
+        <ToastContainer />
     </>
   )
 }

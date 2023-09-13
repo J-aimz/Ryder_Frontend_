@@ -90,7 +90,11 @@ button:hover {
 @media (min-width: 992px) {
     .body_container {
         margin: auto;
-        max-height: 530px;
+        min-height: 530px;
         box-shadow: 0px 0px 8px var(--secondary-bg);
+    }
+
+    button {
+        margin-top: 3rem;
     }
 }

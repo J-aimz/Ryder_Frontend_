@@ -29,7 +29,6 @@ const UserNavbar = ({ userData }) => {
       text: "Delivery in progress.",
       date: "3 days ago"
     }
-    // Add more notification objects as needed
   ];
 
   return (
@@ -59,7 +58,7 @@ const UserNavbar = ({ userData }) => {
           <Nav>
             <Dropdown alignRight>
               <Dropdown.Toggle variant="transparent" className="nav-link">
-                <BsBell size={24} /> {/* Use the BsBell icon */}
+                <BsBell size={24} />
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 {notifications.map((notification) => (

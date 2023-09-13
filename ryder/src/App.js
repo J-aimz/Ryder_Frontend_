@@ -19,7 +19,7 @@ function App() {
         <AppNavbar />
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
-          <Route path="customer-dashboard" element={<CustomerDashBoard />} />
+          <Route path="dashboard" element={<CustomerDashBoard />} />
           <Route path="request-form" element={<RequestRiderForm />} />
         </Routes>
         <Footer />

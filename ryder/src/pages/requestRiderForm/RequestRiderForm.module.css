@@ -98,3 +98,7 @@ button:hover {
         margin-top: 3rem;
     }
 }
+
+.back_btn {
+    cursor: pointer;
+}

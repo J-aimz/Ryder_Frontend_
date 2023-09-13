@@ -1,8 +1,10 @@
+import {useNavigate} from "react-router-dom"
 import { useState } from "react";
 import styles from "./RequestRiderForm.module.css";
 import { backArrowIcon } from "../../assets";
 
 function RequestRiderForm() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     pickUpLocation: "",
     dropOffLocation: "",
@@ -22,7 +24,7 @@ function RequestRiderForm() {
     <div className={styles.con}>
           <div className={styles.body_container}>
         <div className={styles.header}>
-          <div>
+          <div className={styles.back_btn} onClick={()=>navigate(-1)}>
             <img src={backArrowIcon} alt="" />
             <span>Back</span>
           </div>

@@ -1,6 +1,9 @@
 import React from "react";
  import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./components/landing_page/landingPage";
+import Passwordreset from "./components/passwordresets/passwordreset";
+import Passwordresetverification from "./components/passwordresets/Passwordresetverification.jsx";
+// Import require Styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
 import "../src/styles/dashboard.css";
@@ -13,9 +16,14 @@ function App() {
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
           <Route path="/earnings" element={<RyderEarnings/>}/>
-        </Routes>      
+          <Route path="/passwordreset" exact element={<Passwordreset />} />
+          <Route path="/passwordresetverification" exact element={<Passwordresetverification/>} />
+        </Routes>
+     
       </div>
     </Router>
+    
+    
   );
 }
 

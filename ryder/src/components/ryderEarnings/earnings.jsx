@@ -2,17 +2,18 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import '../../styles/ryderEarnings.css'
 import Vector from '../../images/Vector.svg';
-import Time from '../../images/Time.svg';
+import Time from '../../images/Time.svg'
+import RiderNavbar from '../dashboard/riderNavbar'
 
 
 
 export default function RyderEarnings(){
   return (
     <div>
-    
+     <RiderNavbar/>
      <div className='container-fluid parent mt-4'>
         <div className='container-fluid layer'></div>
-        <div className="card">
+        <div className="card container">
             <div className='container show-earnings text-center py-3'>
                 <p className='myEarnings'>MY EARNINGS</p>
                 <h4 className='fs-3 fw-bold earning-amount'>N236,000</h4>

@@ -69,7 +69,7 @@ function RiderSignUp() {
                 console.error('Error sending OTP:', error);
                 });
             };
-  
+
             // Handle the response here, e.g., show a success message to the user.
             console.log(response.data);
             if (!response.data.succeeded) {

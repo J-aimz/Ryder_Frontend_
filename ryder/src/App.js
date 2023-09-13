@@ -7,6 +7,7 @@ import Footer from "./components/landing_page/footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
 import UserNavbar from "./components/dashboard/userNavbar";
+import RiderNavbar from "./components/dashboard/riderNavbar";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <div>
         <AppNavbar />
         <UserNavbar />
+        <RiderNavbar />
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
         </Routes>

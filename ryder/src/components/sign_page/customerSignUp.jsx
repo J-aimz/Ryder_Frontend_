@@ -154,7 +154,7 @@ function CustomerSignUp() {
                             <div className="form-holder col-md-7">
                                 <label className='mt-2'><b>Password</b></label>
                                 <input
-                                    type="text"
+                                    type="password"
                                     placeholder="Enter your password"
                                     className="form-control mt-1"
                                     value={password}
@@ -164,7 +164,7 @@ function CustomerSignUp() {
                             <div className="form-holder col-md-7">
                                 <label className='mt-2'><b>Confirm Password</b></label>
                                 <input
-                                    type="text"
+                                    type="password"
                                     placeholder="Confirm your password"
                                     className="form-control mt-1"
                                     value={confirmPassword}

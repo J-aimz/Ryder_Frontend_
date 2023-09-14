@@ -6,9 +6,14 @@ import Footer from "./components/landing_page/footer";
 import CustomerSignUp from "./components/sign_page/customerSignUp";
 import RiderSignUp from "./components/sign_page/riderSignUp";
 
+import Passwordreset from "./components/passwordresets/passwordreset";
+import Passwordresetverification from "./components/passwordresets/Passwordresetverification.jsx";
 // Import require Styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
+import "../src/styles/dashboard.css";
+// import UserNavbar from "./components/dashboard/userNavbar";
+// import RiderNavbar from "./components/dashboard/riderNavbar";
 
 function App() {
   return (
@@ -16,15 +21,21 @@ function App() {
     <Router>
       <div>
         <AppNavbar />
+        {/* <UserNavbar />
+        <RiderNavbar /> */}
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
           <Route path="/customerSignUp" exact element={<CustomerSignUp />} />
           <Route path="/riderSignUp" exact element={<RiderSignUp />} />
+          <Route path="/passwordreset" exact element={<Passwordreset />} />
+          <Route path="/passwordresetverification" exact element={<Passwordresetverification/>} />
         </Routes>
         <Footer />
 
       </div>
     </Router>
+    
+    
   );
 }
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 import SignUpBanner from '../../images/RyderImg.svg';
 import RyderLogo from '../../images/Ryder-Logo.svg';
 import { ToastContainer, toast } from 'react-toastify';
-import styled from 'styled-components';
+//import styled from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
 
 function RiderSignUp() {

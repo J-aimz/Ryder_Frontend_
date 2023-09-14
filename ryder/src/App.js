@@ -12,6 +12,7 @@ import Passwordresetverification from "./components/passwordresets/Passwordreset
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
 import "../src/styles/dashboard.css";
+import "../src/styles/signUp.css";
 // import UserNavbar from "./components/dashboard/userNavbar";
 // import RiderNavbar from "./components/dashboard/riderNavbar";
 

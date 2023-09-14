@@ -2,17 +2,11 @@
 
 
 .left {
-    /* background-color: wheat; */
     display: flex;
     justify-content: right;
     align-items: center;
-    /* margin-right: 100px; */
-}
-.left img{
-    /* height: 100%; */
 }
 .right{
-    /* background-color: greenyellow; */
     margin-left: 50px;
 }
 .right .content{
@@ -28,7 +22,6 @@
     align-items: center;
     font-family: Inter;
     width: 100%;
-    /* background-color: red; */
 }
 
 .holder{

@@ -1,9 +1,17 @@
+import {useState} from "react"
 import styles from "./RiderDashboard.module.css";
 
+//imgs
+import { mastercard } from "../../assets";
+
+//components
+import { MapComponent } from "../../components";
+
 function RiderDashboard() {
+    const [newNotification, setNewNotication] = useState(false)
   return (
-    <div>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.content_body}>
         <h1>Request Details</h1>
 
         <div>
@@ -27,15 +35,22 @@ function RiderDashboard() {
           <span>Payment method</span>
           <p>N3,500</p>
         </div>
-        <div>
-          <input type="radio" />
-          <label htmlFor="">Card payment</label>
-          <img src="" alt="" />
+        <div className={styles.form}>
+          <div>
+            <input type="radio" name="paymentMethod" id="paymentMethod" />
+            <label htmlFor="paymentMethod">Card payment</label>
+          </div>
+          <img src={mastercard} alt="" />
         </div>
         <button type="button">Accept Request</button>
-        <button type="button">Decline request</button>
+        <button className={styles.decline_btn} type="button">
+          Decline request
+        </button>
       </div>
-      <div></div>
+      <div className={styles.map_container}>
+              <MapComponent className={styles.map_container} />
+              {/* <Notification  /> */}
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
 
 //pages
-import { CustomerDashBoard, RequestRiderForm, LandingPage } from './pages';
+import { CustomerDashBoard, RequestRiderForm, LandingPage, RiderDashboard } from './pages';
 
 //components
 import { AppNavbar } from "./components"
@@ -21,6 +21,7 @@ function App() {
           <Route path="/" exact element={<LandingPage />} />
           <Route path="dashboard" element={<CustomerDashBoard />} />
           <Route path="request-form" element={<RequestRiderForm />} />
+          <Route path="ryder-dasboard" element={<RiderDashboard />} />
         </Routes>
         <Footer />
       </div>

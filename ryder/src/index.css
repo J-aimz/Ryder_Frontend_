@@ -23,3 +23,7 @@ code {
   --text-success: #34A853;
   --text-success-bg: #34a85338;
 }
+
+body {
+  color: var(--text-primary) !important;
+}

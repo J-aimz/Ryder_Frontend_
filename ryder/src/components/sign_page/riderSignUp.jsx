@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import "../../styles/signUp.css";
+//import "../../styles/signUp.css";
 import axios from 'axios';
 import SignUpBanner from '../../images/RyderImg.svg';
 import RyderLogo from '../../images/Ryder-Logo.svg';
 import { ToastContainer, toast } from 'react-toastify';
-//import styled from 'styled-components';
+import styles from '../../styles/signUp.module.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 function RiderSignUp() {
@@ -147,17 +147,17 @@ function RiderSignUp() {
     };
   return (
     <>
-        <div className="wrapper row">
-            <div className="holder col-md-12">
-                <div className="left col-md-6">
+        <div className={`${styles.wrapper} row`}>
+            <div className={`${styles.holder} col-md-12`}>
+                <div className= {`${styles.left} col-md-6`}>
                     <img src={SignUpBanner} alt="" srcset="" height={1000}/>
                 </div>
-                <div className="right col-md-5">
-                    <div className="content">
-                        <div className="logoholder mt-6"> <img src={RyderLogo} alt="" srcset="" /></div>
+                <div className={`${styles.right} col-md-5`}>
+                    <div className={`${styles.content}`}>
+                        <div className={`${styles.logoholder} mt-6`}> <img src={RyderLogo} alt="" srcset="" /></div>
 
                         <form action="" method="post" className='elements'>
-                            <h2 className='SignUp-H4 mt-4'>Sign Up as a Rider</h2>
+                            <h2 className={`${styles.SignUp_H4} mt-4`}>Sign Up as a Rider</h2>
                             <div className="form-holder col-md-8">
                                 <label className='mt-4'><b>First Name</b></label>
                                 <input
@@ -266,9 +266,10 @@ function RiderSignUp() {
                                 <small>Loading...</small>
                             </div>}
 
+
                             <div className="form-holder col-md-8" >
                                 <button
-                                    className="submitting"
+                                    className={`${styles.submitting}`}
                                     type="submit"
                                     onClick={handleRegister}
                                 > Sign Up </button>

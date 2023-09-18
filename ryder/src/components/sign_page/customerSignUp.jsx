@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../../styles/signUp.css";
+import styles from '../../styles/signUp.module.css';
 import axios from 'axios';
 import SignUpBanner from '../../images/RyderImg.svg';
 import RyderLogo from '../../images/Ryder-Logo.svg';
@@ -51,7 +51,7 @@ function CustomerSignUp() {
         setLoading(true);
   
         try {
-            
+            //<Loader />
             if (!isEmailValid) {
                 setError('Please enter a valid email address.');
                 errorMesage('Please enter a valid email address.');
@@ -132,17 +132,17 @@ function CustomerSignUp() {
     };
   return (
     <>
-        <div className="wrapper row">
-            <div className="holder col-md-12">
+        <div className={`${styles.wrapper} row`}>
+            <div className={`${styles.holder} col-md-12`}>
                 <div className="left col-md-7">
                     <img src={SignUpBanner} alt="" srcset="" height={700}/>
                 </div>
-                <div className="right col-md-5">
-                    <div className="content">
-                        <div className="logoholder mt-6"> <img src={RyderLogo} alt="" srcset="" /></div>
+                <div className={`${styles.right} col-md-5`}>
+                    <div className={`${styles.content}`}>
+                        <div className={`${styles.logoholder} mt-6`}> <img src={RyderLogo} alt="" srcset="" /></div>
 
                         <form action="" method="post" className='elements'>
-                            <h3 className='SignUp-H4 mt-4'>Sign Up as a Customer</h3>
+                            <h3 className={`${styles.SignUp_H4} mt-4`}>Sign Up as a Customer</h3>
                             <div className="form-holder col-md-7">
                                 <label className='mt-4'><b>First Name</b></label>
                                 <input
@@ -219,7 +219,7 @@ function CustomerSignUp() {
 
                             <div className="form-holder col-md-7" >
                                 <button
-                                    className="submitting"
+                                    className={`${styles.submitting}`}
                                     type="submit"
                                     onClick={handleRegister}
                                     //disabled={!isPasswordValid} // Disable button if password is not a match

@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import AppNavbar from "./components/AppNavbar";
 import Footer from "./pages/landing_page/footer";
 // Import require Styles
 import "bootstrap/dist/css/bootstrap.min.css";

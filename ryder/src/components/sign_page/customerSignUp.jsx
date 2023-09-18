@@ -134,7 +134,7 @@ function CustomerSignUp() {
     <>
         <div className={`${styles.wrapper} row`}>
             <div className={`${styles.holder} col-md-12`}>
-                <div className="left col-md-7">
+                <div className={`${styles.left} col-md-7`}>
                     <img src={SignUpBanner} alt="" srcset="" height={700}/>
                 </div>
                 <div className={`${styles.right} col-md-5`}>

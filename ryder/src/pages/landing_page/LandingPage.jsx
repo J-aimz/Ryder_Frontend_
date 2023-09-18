@@ -159,13 +159,15 @@ const LandingPage = () => {
             Fast, Reliable & Quality Dispatch Service
           </h1>
           <p className="text-light">Send. Track. Receive.</p>
-          <div className="d-flex justify-content-center mt-4">
-            <button className="btn btn-warning me-2">
-              <Link to="/customerSignUp" style={linkStyle}>Register as a Customer</Link>
-            </button>
-            <button className="btn btn-outline-light">
-              <Link to="/riderSignUp" style={linkStyle}>Register as a Rider</Link>
-            </button>
+          <div className="containr d-flex justify-content-center row">
+            <div className="d-flex justify-content-center mt-4 col-6">
+              <button className="btn btn-warning me-2 col-md-6">
+                <Link to="/customerSignUp" style={linkStyle}>Register as a Customer</Link>
+              </button>
+              <button className="btn btn-outline-light col-md-6">
+                <Link to="/riderSignUp" style={linkStyle}>Register as a Rider</Link>
+              </button>
+            </div>
           </div>
         </div>
       </section>

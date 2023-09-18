@@ -113,6 +113,7 @@ const customerReviews = [
     rating: 5
   }
 ];
+
 // StarRating component
 const StarRating = ({ rating }) => {
   const stars = [];

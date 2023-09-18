@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import AppNavbar from "./components/AppNavbar";
 import Footer from "./pages/landing_page/footer";
-import AppNavbar from "./components/landing_page/appNavbar";
-import Footer from "./components/landing_page/footer";
+// import AppNavbar from "./components/landing_page/appNavbar";
+// import Footer from "./components/landing_page/footer";
 import Passwordreset from "./components/passwordresets/passwordreset";
 import Passwordresetverification from "./components/passwordresets/Passwordresetverification.jsx";
 // Import require Styles

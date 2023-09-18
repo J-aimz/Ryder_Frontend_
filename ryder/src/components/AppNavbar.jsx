@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import ryder from "../../images/ryder.svg";
+import ryder from "../images/ryder.svg";
 import { Link } from "react-router-dom";
 
 const AppNavbar = () => {

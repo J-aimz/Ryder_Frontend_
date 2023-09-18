@@ -15,6 +15,8 @@ import shipping from "../../images/icons/fa-solid_shipping-fast.svg";
 import customer_service from "../../images/icons/ri_customer-service-fill.svg";
 import world from "../../images/icons/bx_world.svg";
 import building from "../../images/icons/fluent_building-shop-16-filled.svg";
+import AppNavbar from "./appNavbar";
+import Footer from "./footer";
 
 // Define the list of services with their data
 const servicesData = [
@@ -126,6 +128,7 @@ const StarRating = ({ rating }) => {
 const LandingPage = () => {
   return (
     <div>
+      <AppNavbar/>
       {/* First Section */}
       <section
         className="bg-image bg-custom"
@@ -279,6 +282,7 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   );
 };

@@ -1,8 +1,5 @@
 import React from "react";
- import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-//import LandingPage from "./components/landing_page/landingPage";
-//import Footer from "./components/landing_page/footer";
-//import ConfirmEmail from "./components/ConfirmEmail";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Passwordreset from "./components/passwordresets/passwordreset";
 import Passwordresetverification from "./components/passwordresets/Passwordresetverification.jsx";

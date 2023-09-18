@@ -1,7 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Footer from "./pages/landing_page/footer";
-import LandingPage from "./components/landing_page/landingPage";
 import Passwordreset from "./components/passwordresets/passwordreset";
 import Passwordresetverification from "./components/passwordresets/Passwordresetverification.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,7 +7,10 @@ import "../src/styles/landingPage.css";
 import "../src/styles/dashboard.css";
 
 //pages
-import { CustomerDashBoard, RequestRiderForm, LandingPage, RiderDashboard } from './pages';
+import { CustomerDashBoard, RequestRiderForm, LandingPage, RiderDashboard, RyderEarnings } from './pages';
+
+
+
 
 
 function App() {

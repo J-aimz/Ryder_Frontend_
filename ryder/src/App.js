@@ -8,6 +8,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
 import "../src/styles/dashboard.css";
 import RyderEarnings from "./components/ryderEarnings/earnings";
+// import IncomingRequest from "./components/orderStatus/incomingRequest";
+// import RequestAccepted from "./components/orderStatus/requestAccepted";
+// import OrderCompleted from "./components/orderStatus/orderCompleted";
+
 
 function App() {
   return (
@@ -23,6 +27,7 @@ function App() {
       </div>
     </Router>
     
+   
     
   );
 }

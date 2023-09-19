@@ -128,6 +128,7 @@ const StarRating = ({ rating }) => {
 };
 
 const LandingPage = () => {
+  const linkStyle = {textDecoration: 'none', color: '#000', fontSize: '18px', fontWeight: '600'};
   return (
     <div>
       <AppNavbar/>
@@ -159,15 +160,15 @@ const LandingPage = () => {
             Fast, Reliable & Quality Dispatch Service
           </h1>
           <p className="text-light">Send. Track. Receive.</p>
-          <div className="d-flex justify-content-center mt-4" style={{
-              fontFamily: "Inter",
-            }}>
-              <Link to="/customer-registration" className="btn btn-warning me-2 fw-medium">
-                Register as a Customer
-              </Link>
-              <Link to="/rider-registration" className="btn btn-outline-light fw-medium">
-                Register as a Rider
-              </Link>
+          <div className="containr d-flex justify-content-center row">
+            <div className="d-flex justify-content-center mt-4 col-6">
+              <button className="btn btn-warning me-2 col-md-6">
+                <Link to="/customerSignUp" style={linkStyle}>Register as a Customer</Link>
+              </button>
+              <button className="btn btn-outline-light col-md-6">
+                <Link to="/riderSignUp" style={linkStyle}>Register as a Rider</Link>
+              </button>
+            </div>
           </div>
         </div>
       </section>

@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
-//import Footer from "./pages/landing_page/footer";
 import CustomerSignUp from "./components/sign_page/customerSignUp";
 import RiderSignUp from "./components/sign_page/riderSignUp";
 import Passwordreset from "./components/passwordresets/passwordreset";
@@ -30,9 +29,6 @@ function App() {
           <Route path="/passwordreset" exact element={<Passwordreset />} />
           <Route path="/passwordresetverification" exact element={<Passwordresetverification/>} />
         </Routes>
-      
-     
-        {/* <Footer /> */}
 
       </div>
     </Router>

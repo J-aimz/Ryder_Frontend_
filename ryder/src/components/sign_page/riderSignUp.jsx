@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-//import "../../styles/signUp.css";
 import axios from 'axios';
 import SignUpBanner from '../../images/RyderImg.svg';
 import RyderLogo from '../../images/Ryder-Logo.svg';
@@ -254,15 +253,15 @@ function RiderSignUp() {
                             </div>
 
                             {/* Display error message */}
-                            {error && <div className="form-holder col-md-8" style={{ color: 'red', textAlign: 'center' }}>
+                            {error && <div className={`${styles.messages}form-holder col-md-8`}>
                                 <small><b>{error}</b></small>
                             </div>}
                             {/* Display success message */}
-                            {successMessage && <div className="form-holder col-md-8" style={{ color: 'green', textAlign: 'center' }}>
+                            {successMessage && <div className={`${styles.messages1}form-holder col-md-8`}>
                                 <small><b>{successMessage}</b></small>
                             </div>}
                             {/* Display loading spinner */}
-                            {loading && <div className="form-holder col-md-8" style={{ textAlign: 'center' }}>
+                            {loading && <div className={`${styles.messages2}form-holder col-md-8`}>
                                 <small>Loading...</small>
                             </div>}
 

@@ -6,7 +6,19 @@
     justify-content: right;
     align-items: center;
 }
-.right{
+
+.messages {
+    color: red;
+    text-align: center;
+}
+.messages1 {
+    color: green;
+    text-align: center;
+}
+.messages2 {
+    text-align: center;
+}
+.right {
     margin-left: 50px;
 }
 .right .content{

@@ -204,18 +204,18 @@ function CustomerSignUp() {
                                 />
                             </div>
 
-                            {/* Display error message */}
-                            {error && <div className="form-holder col-md-7" style={{ color: 'red', textAlign: 'center' }}>
-                                <small><b>{error}</b></small>
-                            </div>}
-                            {/* Display success message */}
-                            {successMessage && <div className="form-holder col-md-7" style={{ color: 'green', textAlign: 'center' }}>
-                                <small><b>{successMessage}</b></small>
-                            </div>}
-                            {/* Display loading spinner */}
-                            {loading && <div className="form-holder col-md-7" style={{ textAlign: 'center' }}>
-                                <small>Loading...</small>
-                            </div>} 
+                              {/* Display error message */}
+                              {error && <div className={`${styles.messages}form-holder col-md-7`}>
+                                  <small><b>{error}</b></small>
+                              </div>}
+                              {/* Display success message */}
+                              {successMessage && <div className={`${styles.messages1}form-holder col-md-7`}>
+                                  <small><b>{successMessage}</b></small>
+                              </div>}
+                              {/* Display loading spinner */}
+                              {loading && <div className={`${styles.messages2}form-holder col-md-7`}>
+                                  <small>Loading...</small>
+                              </div>} 
 
                             <div className="form-holder col-md-7" >
                                 <button

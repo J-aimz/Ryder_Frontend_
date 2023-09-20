@@ -30,10 +30,7 @@ function App() {
         </Routes>
 y
       </div>
-    </Router>
-    
-   
-    
+    </Router>    
   );
 }
 

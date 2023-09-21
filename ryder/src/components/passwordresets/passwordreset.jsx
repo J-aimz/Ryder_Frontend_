@@ -61,7 +61,7 @@ const Passwordreset = () => {
       setForgetPassword('');
     } catch (error) {
       if (error.response) {
-        setSuccessMessage("");
+        setSuccessMessage("" );
         setError(error.response.data.data);
         failed();
       } else {
@@ -79,7 +79,7 @@ const Passwordreset = () => {
         <div className="holders">
           <form className="forgotpassword-form" action="">
             <div className="forgetpassword-container">
-              <h1 className="text-one">ForgotPassword</h1>
+              <h1 className="text-one">Forgot Password</h1>
               <p>
                 Enter the email associated with your account and we will send an
                 email with instruction to reset your password

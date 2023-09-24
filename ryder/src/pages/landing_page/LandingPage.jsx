@@ -160,21 +160,21 @@ const LandingPage = () => {
             Fast, Reliable & Quality <br /> Dispatch Service
           </h1>
           <p className="text-light">Send. Track. Receive.</p>
-          <div className="containr d-flex justify-content-center row">
-            <div className="d-flex justify-content-center mt-4 col-6">
-              <Link
-                to="/customerSignUp"
-                className="btn btn-warning me-2 fw-medium"
-              >
-                Register as a Customer
-              </Link>
-              <Link
-                to="/riderSignUp"
-                className="btn btn-outline-light fw-medium"
-              >
-                Register as a Rider
-              </Link>
-            </div>
+          <div
+            className="d-flex justify-content-center mt-4"
+            style={{
+              fontFamily: "Inter"
+            }}
+          >
+            <Link
+              to="/customerSignUp"
+              className="btn btn-warning me-2 fw-medium"
+            >
+              Register as a Customer
+            </Link>
+            <Link to="/riderSignUp" className="btn btn-outline-light fw-medium">
+              Register as a Rider
+            </Link>
           </div>
         </div>
       </section>

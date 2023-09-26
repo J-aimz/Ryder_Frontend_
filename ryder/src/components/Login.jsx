@@ -7,6 +7,9 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import '../styles/Login.css'
+import AppNavbar from "./AppNavbar";
+import Footer from "../pages/landing_page/footer";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -106,6 +109,8 @@ const Login = () => {
   };
 
   return (
+    <div>
+    <AppNavbar/>
     <div className="wrapper-login row">
       <div className="holder-login col-md-12">
         <div className="left-login col-md-7">
@@ -156,7 +161,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <button href="/passwordreset" className="text-wrapper-6">Forgot password?</button>
+              <button  className="text-wrapper-6">  <Link to="/passwordreset">Forgot password?</Link>  </button>
 
               {/* Display error message */}
               {error && (
@@ -202,7 +207,7 @@ const Login = () => {
                 <label>
                   <p>
                     {" "}
-                    Don't have an account? <a className="create" href="/customerSignup">Create account</a>
+                    Don't have an account? <a className="create" > <Link to="/customerSignup">Create account</Link> </a>
                   </p>
                 </label>
               </div>
@@ -210,6 +215,8 @@ const Login = () => {
           </div>
         </div>
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 };

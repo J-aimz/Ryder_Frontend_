@@ -5,6 +5,10 @@ import RyderLogo from '../../images/Ryder-Logo.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import styles from '../../styles/signUp.module.css';
 import 'react-toastify/dist/ReactToastify.css';
+import mailLogo from '../../../src/images/icons/Email.png';
+import Cloud from '../../../src/images/icons/Cloud.png';
+import PasswordLogo from '../../../src/images/icons/Password.png';
+
 
 function RiderSignUp() {
     const [firstName, setFirstName] = useState('');
@@ -149,54 +153,67 @@ function RiderSignUp() {
         <div className={`${styles.wrapper} row`}>
             <div className={`${styles.holder} col-md-12`}>
                 <div className= {`${styles.left} col-md-6`}>
-                    <img src={SignUpBanner} alt="" srcset="" height={1000}/>
+                    <img src={SignUpBanner} alt="" height={1000}/>
                 </div>
                 <div className={`${styles.right} col-md-5`}>
                     <div className={`${styles.content}`}>
-                        <div className={`${styles.logoholder} mt-6`}> <img src={RyderLogo} alt="" srcset="" /></div>
+                        <div className={`${styles.logoholder} mt-6`}> <img src={RyderLogo} alt=""/></div>
 
                         <form action="" method="post" className='elements'>
                             <h2 className={`${styles.SignUp_H4} mt-4`}>Sign Up as a Rider</h2>
                             <div className="form-holder col-md-8">
                                 <label className='mt-4'><b>First Name</b></label>
-                                <input
+                                <div className={`${styles.input_container}`}>
+                                    <input
                                     type="text"
                                     placeholder="Enter your first name"
-                                    className="form-control mt-1"
+                                    className={`${styles.form_control} form-control px-5 mt-1`}
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
-                                />
+                                    />
+                                    <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
+                                </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-2'><b>Last Name</b></label>
-                                <input
+                                <label className='mt-4'><b>Last Name</b></label>
+                                <div className={`${styles.input_container}`}>
+                                    <input
                                     type="text"
                                     placeholder="Enter your last name"
-                                    className="form-control mt-1"
+                                    className={`${styles.form_control} form-control px-5 mt-1`}
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
-                                />
+                                    />
+                                    <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
+                                </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-2'><b>Phone Number</b></label>
-                                <input
+                                <label className='mt-4'><b>Phone Number</b></label>
+                                <div className={`${styles.input_container}`}>
+                                    <input
                                     type="text"
                                     placeholder="Enter your phone number"
-                                    className="form-control mt-1"
+                                    className={`${styles.form_control} form-control px-5 mt-1`}
                                     value={phoneNumber}
                                     onChange={(e) => setPhoneNumber(e.target.value)}
-                                />
+                                    />
+                                    <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
+                                </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-2'><b>Email Address</b></label>
-                                <input
+                                <label className='mt-4'><b>Email Address</b></label>
+                                <div className={`${styles.input_container}`}>
+                                    <input
                                     type="text"
                                     placeholder="Enter your email address"
-                                    className="form-control mt-1"
+                                    className={`${styles.form_control} form-control px-5 mt-1`}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                />
+                                    />
+                                    <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
+                                </div>
                             </div>
+                            
                             <div className="form-holder col-md-8">
                                 <label className='mt-2'><b>City</b></label>
                                 <select name="" id="" className='form-control' required>
@@ -209,11 +226,14 @@ function RiderSignUp() {
                             </div>
                             <div className="form-holder col-md-8">
                                 <label className='mt-2'><b>Bike Documents</b></label>
-                                <input type="file" name="bikeDocument" 
-                                className='form-control mt-1' 
-                                value={bikeDocument}
-                                onChange={(e) => setBikeDocument(e.target.value)}
-                                required/>
+                                <div className={`${styles.input_container}`}>
+                                    <input type="file" name="bikeDocument" placeholder=''
+                                    className={`${styles.form_control} form-control mt-1`}
+                                    value={bikeDocument}
+                                    onChange={(e) => setBikeDocument(e.target.value)}
+                                    required/>
+                                    <img src={Cloud} alt="" className={`icon ${styles.icon}`} />
+                                </div>
                             </div>
                             <div className="form-holder col-md-8">
                                 <label className='mt-2'><b>Valid Id Card</b></label>
@@ -231,40 +251,59 @@ function RiderSignUp() {
                                 onChange={(e) => setPassport(e.target.value)}
                                 required/>
                             </div>
+
                             <div className="form-holder col-md-8">
-                                <label className='mt-2'><b>Password</b></label>
-                                <input
-                                    type="password"
-                                    placeholder="Enter your password"
-                                    className="form-control mt-1"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
+                                <label className='mt-4'><b>Phone Number</b></label>
+                                <div className={`${styles.input_container}`}>
+                                    <input
+                                    type="text"
+                                    placeholder="Enter your phone number"
+                                    className={`${styles.form_control} form-control px-5 mt-1`}
+                                    value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                    />
+                                    <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
+                                </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-2'><b>Confirm Password</b></label>
-                                <input
-                                    type="password"
+                                <label className='mt-4'><b>Password</b></label>
+                                <div className={`${styles.input_container}`}>
+                                    <input
+                                    type="text"
+                                    placeholder="Enter your password"
+                                    className={`${styles.form_control} form-control px-5 mt-1`}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                    <img src={PasswordLogo} alt="" className={`icon ${styles.icon}`} />
+                                </div>
+                            </div>
+                            <div className="form-holder col-md-8">
+                                <label className='mt-4'><b>Confirm Password</b></label>
+                                <div className={`${styles.input_container}`}>
+                                    <input
+                                    type="text"
                                     placeholder="Confirm your password"
-                                    className="form-control mt-1"
+                                    className={`${styles.form_control} form-control px-5 mt-1`}
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
-                                />
+                                    />
+                                    <img src={PasswordLogo} alt="" className={`icon ${styles.icon}`} />
+                                </div>
                             </div>
 
                             {/* Display error message */}
-                            {error && <div className={`${styles.messages}form-holder col-md-8`}>
-                                <small><b>{error}</b></small>
-                            </div>}
-                            {/* Display success message */}
-                            {successMessage && <div className={`${styles.messages1}form-holder col-md-8`}>
-                                <small><b>{successMessage}</b></small>
-                            </div>}
-                            {/* Display loading spinner */}
-                            {loading && <div className={`${styles.messages2}form-holder col-md-8`}>
-                                <small>Loading...</small>
-                            </div>}
-
+                            {error && <div className={`${styles.messages}form-holder col-md-7`} style={{ textAlign: 'center', color: 'red' }}>
+                                  <small><b>{error}</b></small>
+                              </div>}
+                              {/* Display success message */}
+                              {successMessage && <div className={`${styles.messages1}form-holder col-md-7`} style={{ textAlign: 'center', color: 'green' }}>
+                                  <small><b>{successMessage}</b></small>
+                              </div>}
+                              {/* Display loading spinner */}
+                              {loading && <div className={`${styles.messages2}form-holder col-md-7`} style={{ textAlign: 'center', color: 'yellow' }}>
+                                  <small>Loading...</small>
+                              </div>} 
 
                             <div className="form-holder col-md-8" >
                                 <button

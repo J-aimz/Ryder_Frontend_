@@ -1,6 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;600&family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500;6..12,600&display=swap');
 
-
+.input_container {
+    position: relative;
+}
+.icon {
+    position: absolute;
+    left: 10px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    color: #000000; 
+    z-index: 1; 
+    pointer-events: none; 
+}
+.form_control {
+    padding-left: 10px;
+    background-color: red; /* Increase the left padding to create space for the icon */
+  }
 .left {
     display: flex;
     justify-content: right;

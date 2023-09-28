@@ -80,6 +80,23 @@ button {
     cursor: pointer;
 }
 
+ul {
+    list-style: none;
+    background: var(--secondary-bg);
+    margin: 0;
+    padding-left: 0 !important;
+}
+
+li {
+    cursor: pointer;
+    padding: .7rem;
+
+}
+
+li:hover {
+    background-color: #fff;
+}
+
 button:hover {
     color: var(--text-prompt);
     

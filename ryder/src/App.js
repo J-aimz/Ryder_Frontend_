@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import CustomerSignUp from "./components/sign_page/customerSignUp";
 import RiderSignUp from "./components/sign_page/riderSignUp";
 import Passwordreset from "./components/passwordresets/passwordreset";
+import ResetPassword from "./components/passwordresets/ResetPassword";
 import Passwordresetverification from "./components/passwordresets/Passwordresetverification.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
@@ -30,8 +31,8 @@ function App() {
           <Route path="/riderSignUp" exact element={<RiderSignUp />} />
           <Route path="/passwordreset" exact element={<Passwordreset />} />
           <Route path="/passwordresetverification" exact element={<Passwordresetverification/>} />
+          <Route Path="/ResetPassword" exact element={<ResetPassword/>} />
         </Routes>
-y
       </div>
     </Router>
     

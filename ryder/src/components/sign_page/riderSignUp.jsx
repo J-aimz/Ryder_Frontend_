@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SignUpBanner from '../../images/RyderImg.svg';
 import RyderLogo from '../../images/Ryder-Logo.svg';
-import { ToastContainer, toast } from 'react-toastify';
 import styles from '../../styles/signUp.module.css';
 import 'react-toastify/dist/ReactToastify.css';
 import mailLogo from '../../../src/images/icons/Email.png';
@@ -16,7 +16,7 @@ function RiderSignUp() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
-    const [bikeDocument, setBikeDocument] = useState('');
+    const [bikeDocument, setBikeDocument] = useState(null);
     const [validID, setValidID] = useState('');
     const [passport, setPassport] = useState('');
     const [password, setPassword] = useState('');
@@ -28,32 +28,35 @@ function RiderSignUp() {
     const isEmailValid = emailRegex.test(email);
     const [loading, setLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
 
-    function successMess(successMessage){
-        toast.success(successMessage, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-    }
-    function errorMesage(error){
-        toast.error(error, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-    }
-
+    const handleFileChange = (e, setFile, maxFileSize, setError) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+          if (selectedFile.size > maxFileSize) {
+            setError(`File size exceeds ${maxFileSize / (1024 * 1024)}MB limit`);
+            setFile(null);
+          } else {
+            setError(null);
+            setFile(selectedFile);
+          }
+        }
+    };
+    const handlePhoneNumberChange = (e) => {
+        const inputValue = e.target.value;
+        // Remove non-digit characters
+        const numericValue = inputValue.replace(/\D/g, '');
+        // Limit the phone number to 11 digits
+        const limitedValue = numericValue.substring(0, 11);
+        setPhoneNumber(limitedValue);
+    
+        // Validation: Check if the phone number is exactly 11 digits
+        if (limitedValue.length !== 11) {
+            setError('Phone number must be exactly 11 digits.');
+        } else {
+            setError(''); // Reset the error message if valid
+        }
+    };
     const handleRegister = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -62,61 +65,45 @@ function RiderSignUp() {
             
             if (!isEmailValid) {
                 setError('Please enter a valid email address.');
-                errorMesage('Please enter a valid email address.');
                 setSuccessMessage('');
                 return;
             }
             if (password !== confirmPassword) {
                 setError('Passwords do not match');
-                errorMesage('Passwords do not match');
                 setSuccessMessage('');
                 return;
             }
   
             if (!isPasswordValid) {
                 setError('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
-                errorMesage('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
                 setSuccessMessage('');
                 return;
             }
            
-            const response = await axios.post('http://', {
+            const response = await axios.post('https://localhost:7173/api/v1/Authentication/CreateRider/', {
                 firstName,
                 lastName,
-                phoneNumber,
                 email,
-                city,
-                bikeDocument,
+                phoneNumber,
+                password,
                 validID,
                 passport,
-                password,
+                bikeDocument,
+                city,
             });
-            function sendOTP() {
-            axios
-                .post('http://', { email: email })
-                .then(response => {
-                console.log('OTP Sent:', response.data);
-                })
-                .catch(error => {
-                console.error('Error sending OTP:', error);
-                });
-            };
-            
+           
             // Handle the response here, e.g., show a success message to the user.
             console.log(response.data);
             if (!response.data.succeeded) {
                  setSuccessMessage('');
                 setError(response.data.data);
-                errorMesage(response.data.data);
                 // Display the error message 
             }
             else {
                 setError(''); // Clear any previous error
                 setSuccessMessage(response.data.data);
-                successMess(response.data.data);
                 localStorage.setItem('email', email);
-                sendOTP();
-                //navigate("/opt-verification");
+                navigate("/login");
             }
             // Clear input fields after successful registration
             setFirstName('');
@@ -135,12 +122,10 @@ function RiderSignUp() {
             if (error.response) {
                 setSuccessMessage('');
                 setError(error.response.data.data); 
-                errorMesage(error.response.data.data);
             }
             else {
                 console.error(error);
                 setError('An error occurred during Rigistration');
-                errorMesage('An error occurred during Rigistration')
             }
         }
         finally
@@ -162,7 +147,7 @@ function RiderSignUp() {
                         <form action="" method="post" className='elements'>
                             <h2 className={`${styles.SignUp_H4} mt-4`}>Sign Up as a Rider</h2>
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>First Name</b></label>
+                                <label className='mt-1'><b>First Name</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="text"
@@ -175,7 +160,7 @@ function RiderSignUp() {
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Last Name</b></label>
+                                <label className='mt-1'><b>Last Name</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="text"
@@ -188,20 +173,21 @@ function RiderSignUp() {
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Phone Number</b></label>
+                                <label className='mt-1'><b>Phone Number</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="text"
                                     placeholder="Enter your phone number"
                                     className={`${styles.form_control} form-control px-5 mt-1`}
                                     value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                    onChange={handlePhoneNumberChange}
                                     />
                                     <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
                                 </div>
                             </div>
+
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Email Address</b></label>
+                                <label className='mt-1'><b>Email Address</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="text"
@@ -224,52 +210,80 @@ function RiderSignUp() {
                                     <option value={city} onChange={(e) => setCity(e.target.value)}>Portharcort</option>
                                 </select>
                             </div>
+
                             <div className="form-holder col-md-8">
-                                <label className='mt-2'><b>Bike Documents</b></label>
-                                <div className={`${styles.input_container}`}>
-                                    <input type="file" name="bikeDocument" placeholder=''
-                                    className={`${styles.form_control} form-control mt-1`}
-                                    value={bikeDocument}
-                                    onChange={(e) => setBikeDocument(e.target.value)}
-                                    required/>
-                                    <img src={Cloud} alt="" className={`icon ${styles.icon}`} />
+                            <label className='mt-2'><b>Bike Documents</b></label>
+                            <div className={`input_container form-control ${styles.input_container}`}>
+                                <div className={`${styles.takers}`}>
+                                <label className={`${styles.selection}`}>
+                                    <input
+                                    type="file"
+                                    style={{ display: 'none' }}
+                                    onChange={(e) => handleFileChange(e, setBikeDocument, 2 * 1024 * 1024, setError)}
+                                    required
+                                    />
+                                    <img src={Cloud} alt="" className={`iconn ${styles.iconn}`} />
+                                    <span>Upload</span>
+                                </label>
+                                <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                    {bikeDocument && (
+                                    <span> {bikeDocument.name} </span>
+                                    )}
+                                </div>
                                 </div>
                             </div>
-                            <div className="form-holder col-md-8">
-                                <label className='mt-2'><b>Valid Id Card</b></label>
-                                <input type="file" name="validIdCard" 
-                                className='form-control mt-1' 
-                                value={validID}
-                                onChange={(e) => setValidID(e.target.value)}
-                                required/>
-                            </div>
-                            <div className="form-holder col-md-8">
-                                <label className='mt-2'><b>Passport Photo</b></label>
-                                <input type="file" name="PassportPhoto" 
-                                className='form-control mt-1' 
-                                value={passport}
-                                onChange={(e) => setPassport(e.target.value)}
-                                required/>
                             </div>
 
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Phone Number</b></label>
-                                <div className={`${styles.input_container}`}>
+                            <label className='mt-2'><b>Valid ID</b></label>
+                            <div className={`input_container form-control ${styles.input_container}`}>
+                                <div className={`${styles.takers}`}>
+                                <label className={`${styles.selection}`}>
                                     <input
-                                    type="text"
-                                    placeholder="Enter your phone number"
-                                    className={`${styles.form_control} form-control px-5 mt-1`}
-                                    value={phoneNumber}
-                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                    type="file"
+                                    style={{ display: 'none' }}
+                                    onChange={(e) => handleFileChange(e, setValidID, 2 * 1024 * 1024, setError)}
+                                    required
                                     />
-                                    <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
+                                    <img src={Cloud} alt="" className={`iconn ${styles.iconn}`} />
+                                    <span>Upload</span>
+                                </label>
+                                <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                    {validID && (
+                                    <span> {validID.name} </span>
+                                    )}
+                                </div>
                                 </div>
                             </div>
+                            </div>
+
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Password</b></label>
+                            <label className='mt-2'><b>Passport</b></label>
+                            <div className={`input_container form-control ${styles.input_container}`}>
+                                <div className={`${styles.takers}`}>
+                                <label className={`${styles.selection}`}>
+                                    <input
+                                    type="file"
+                                    style={{ display: 'none' }}
+                                    onChange={(e) => handleFileChange(e, setPassport, 2 * 1024 * 1024, setError)}
+                                    required
+                                    />
+                                    <img src={Cloud} alt="" className={`iconn ${styles.iconn}`} />
+                                    <span>Upload</span>
+                                </label>
+                                <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                    {passport && (
+                                    <span> {passport.name} </span>
+                                    )}
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div className="form-holder col-md-8">
+                                <label className='mt-1'><b>Password</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
-                                    type="text"
+                                    type="password"
                                     placeholder="Enter your password"
                                     className={`${styles.form_control} form-control px-5 mt-1`}
                                     value={password}
@@ -279,10 +293,10 @@ function RiderSignUp() {
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Confirm Password</b></label>
+                                <label className='mt-1'><b>Confirm Password</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
-                                    type="text"
+                                    type="password"
                                     placeholder="Confirm your password"
                                     className={`${styles.form_control} form-control px-5 mt-1`}
                                     value={confirmPassword}
@@ -293,9 +307,7 @@ function RiderSignUp() {
                             </div>
 
                             {/* Display error message */}
-                            {error && <div className={`${styles.messages}form-holder col-md-7`} style={{ textAlign: 'center', color: 'red' }}>
-                                  <small><b>{error}</b></small>
-                              </div>}
+                              {error && <div className="error-message col-md-7" style={{ textAlign: 'center', color: 'red' }}>{error}</div>}
                               {/* Display success message */}
                               {successMessage && <div className={`${styles.messages1}form-holder col-md-7`} style={{ textAlign: 'center', color: 'green' }}>
                                   <small><b>{successMessage}</b></small>
@@ -314,7 +326,7 @@ function RiderSignUp() {
                             </div>
                             <div className="form-holder mt-2" style={{ textAlign: 'left' }}>
                                 <label>
-                                    <p> Already have an account? <a href="/address">SignIn</a></p>
+                                    <p> Already have an account? <a href="/login">SignIn</a></p>
                                 </label>
                             </div>
                     </form>
@@ -322,10 +334,8 @@ function RiderSignUp() {
                 </div>
             </div>
         </div>
-        <ToastContainer />
     </>
   )
 }
 
 export default RiderSignUp;
-

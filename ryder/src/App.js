@@ -30,7 +30,7 @@ function App() {
           <Route path="/passwordreset" exact element={<Passwordreset />} />
           <Route path="/passwordresetverification" exact element={<Passwordresetverification/>} />
         </Routes>
-        {/* <SignalRChat/> */}
+       
       </div>
     </Router>    
   );

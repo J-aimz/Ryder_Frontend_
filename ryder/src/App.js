@@ -10,7 +10,7 @@ import Passwordresetverification from "./components/passwordresets/Passwordreset
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
 import "../src/styles/dashboard.css";
-
+import SignalRChat from "./components/SignalRChat";
 //pages
 import { CustomerDashBoard, RequestRiderForm, LandingPage, RiderDashboard, RyderEarnings } from './pages';
 
@@ -31,7 +31,7 @@ function App() {
           <Route path="/passwordreset" exact element={<Passwordreset />} />
           <Route path="/passwordresetverification" exact element={<Passwordresetverification/>} />
         </Routes>
-y
+        {/* <SignalRChat/> */}
       </div>
     </Router>
     

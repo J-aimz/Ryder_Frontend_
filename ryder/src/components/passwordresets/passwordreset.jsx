@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "../../styles/passwordreset.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,9 +11,9 @@ const Passwordreset = () => {
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
   const [error, setError] = useState("");
   const isEmailValid = emailRegex.test(forgetpass);
-  const [successMessage, setSuccessMessage]   = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  function successful() {
+  function successful(successMessage) {
     toast.success(successMessage, {
       position: "top-right",
       autoClose: 3000,
@@ -24,7 +25,7 @@ const Passwordreset = () => {
       theme: "colored",
     });
   }
-  function failed() {
+  function failed(error) {
     toast.error(error, {
       position: "top-right",
       autoClose: 3000,
@@ -41,7 +42,7 @@ const Passwordreset = () => {
     try {
       if (!isEmailValid) {
         setError("Please enter a valid email address.");
-       failed();
+        failed();
         setSuccessMessage("");
         return;
       }
@@ -52,22 +53,22 @@ const Passwordreset = () => {
       if (!response.data.succeeded) {
         setSuccessMessage("");
         setError(response.data.data);
-        failed();
+        failed(response.data.data);
       } else {
         setError("");
         setSuccessMessage(response.data.data);
-        successful();
+        successful(response.data.data);
       }
-      setForgetPassword('');
+      setForgetPassword("");
     } catch (error) {
       if (error.response) {
-        setSuccessMessage("" );
+        setSuccessMessage("");
         setError(error.response.data.data);
-        failed();
+        failed(error.response.data.data);
       } else {
         console.error(error);
-        setError("An error occurred during Registration");
-        failed();
+        setError("Invalid Email Account");
+        failed("Invalid Email Account");
       }
     } finally {
       setLoading(false);
@@ -133,7 +134,9 @@ const Passwordreset = () => {
               )}
             </div>
           </form>
-          <button className="redirect-login">Back to login</button>
+          <Link to="/login" className="redirect-login">
+            Back to login
+          </Link>
         </div>
       </div>
       <ToastContainer />

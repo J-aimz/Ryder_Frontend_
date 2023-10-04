@@ -3,14 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import CustomerSignUp from "./components/sign_page/customerSignUp";
 import RiderSignUp from "./components/sign_page/riderSignUp";
-<<<<<<< HEAD
-import Passwordreset from "./components/passwordresets/passwordreset";
-import ResetPassword from "./components/passwordresets/ResetPassword";
-import Passwordresetverification from "./components/passwordresets/Passwordresetverification.jsx";
-import Notification from "./components/notification/Notification.jsx";
-=======
 import ForgetPassword from "./components/passwordresets/forgetPassword";
->>>>>>> 8c6f096a0f1ca7769bdda5e1d6d9378551324bf6
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
 import "../src/styles/dashboard.css";

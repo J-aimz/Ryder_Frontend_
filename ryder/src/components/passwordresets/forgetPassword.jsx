@@ -80,11 +80,7 @@ const ForgetPassword = () => {
         <div className="holders">
           <form className="forgotpassword-form" action="">
             <div className="forgetpassword-container">
-<<<<<<< HEAD:ryder/src/components/passwordresets/passwordreset.jsx
-              <h1 className="text-one">Forgot Password</h1>
-=======
               <h1 className="text-one">Forget Password</h1>
->>>>>>> 8c6f096a0f1ca7769bdda5e1d6d9378551324bf6:ryder/src/components/passwordresets/forgetPassword.jsx
               <p>
                 Enter the email associated with your account and we will send an
                 email with instruction to reset your password

@@ -16,6 +16,7 @@ import {
 } from "./pages";
 import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset";
 import VerifyEmail from "./components/verifyEmail";
+import ResetPassword from "./components/passwordresets/resetPassword";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             element={<ConfirmPasswordReset />}
           />
           <Route path="/verify-email" exact element={<VerifyEmail />} />
+          <Route path="/reset-password" exact element={<ResetPassword />} />
         </Routes>
       </div>
     </Router>

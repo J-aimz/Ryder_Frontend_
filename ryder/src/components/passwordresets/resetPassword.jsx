@@ -51,7 +51,9 @@ const ResetPassword = () => {
             height: "100vh",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "flex-end"
+            justifyContent: "flex-end",
+            alignItems: "center",
+            position: "relative"
           }}
         >
           <div style={h1Style}>

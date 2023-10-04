@@ -34,15 +34,6 @@ function App() {
           <Route path="dashboard" element={<CustomerDashBoard />} />
           <Route path="request-form" element={<RequestRiderForm />} />
           <Route path="ryder-dasboard" element={<RiderDashboard />} />
-<<<<<<< HEAD
-          <Route path="/earnings" element={<RyderEarnings/>}/>
-          <Route path="/customerSignUp" exact element={<CustomerSignUp />} />
-          <Route path="/riderSignUp" exact element={<RiderSignUp />} />
-          <Route path="/passwordreset" exact element={<Passwordreset />} />
-          <Route path="/passwordresetverification" exact element={<Passwordresetverification/>} />
-          <Route Path="/ResetPassword" exact element={<ResetPassword/>} />
-          <Route path="/Notification" exact element={<Notification/>}/>
-=======
           <Route path="/earnings" element={<RyderEarnings />} />
           <Route path="/customer-signUp" exact element={<CustomerSignUp />} />
           <Route path="/rider-signup" exact element={<RiderSignUp />} />
@@ -53,7 +44,6 @@ function App() {
             element={<ConfirmPasswordReset />}
           />
           <Route path="/verify-email" exact element={<VerifyEmail />} />
->>>>>>> 8c6f096a0f1ca7769bdda5e1d6d9378551324bf6
         </Routes>
       </div>
     </Router>

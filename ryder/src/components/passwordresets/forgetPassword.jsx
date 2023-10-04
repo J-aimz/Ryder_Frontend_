@@ -5,7 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Passwordreset = () => {
+const ForgetPassword = () => {
   const [forgetpass, setForgetPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
@@ -22,7 +22,7 @@ const Passwordreset = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored",
+      theme: "colored"
     });
   }
   function failed(error) {
@@ -34,7 +34,7 @@ const Passwordreset = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored",
+      theme: "colored"
     });
   }
   const handleSubmit = async (e) => {
@@ -47,7 +47,7 @@ const Passwordreset = () => {
         return;
       }
       const response = await axios.post("http://", {
-        forgetpass,
+        forgetpass
       });
 
       if (!response.data.succeeded) {
@@ -80,7 +80,11 @@ const Passwordreset = () => {
         <div className="holders">
           <form className="forgotpassword-form" action="">
             <div className="forgetpassword-container">
+<<<<<<< HEAD:ryder/src/components/passwordresets/passwordreset.jsx
               <h1 className="text-one">Forgot Password</h1>
+=======
+              <h1 className="text-one">Forget Password</h1>
+>>>>>>> 8c6f096a0f1ca7769bdda5e1d6d9378551324bf6:ryder/src/components/passwordresets/forgetPassword.jsx
               <p>
                 Enter the email associated with your account and we will send an
                 email with instruction to reset your password
@@ -143,4 +147,4 @@ const Passwordreset = () => {
     </>
   );
 };
-export default Passwordreset;
+export default ForgetPassword;

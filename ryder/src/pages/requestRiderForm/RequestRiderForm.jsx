@@ -1,23 +1,23 @@
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./RequestRiderForm.module.css";
 import { backArrowIcon } from "../../assets";
 
 function RequestRiderForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     pickUpLocation: "",
     dropOffLocation: "",
     dropOffPhoneNumber: "",
-    Offer: 0,
+    Offer: 0
   });
 
   const [pickUpSuggestions, setPickUpSuggestions] = useState([]);
   const [dropOffSuggestions, setDropOffSuggestions] = useState([]);
   const [selectedPickUpLocation, setSelectedPickUpLocation] = useState("");
   const [selectedDropOffLocation, setSelectedDropOffLocation] = useState("");
-  const [showPickUpSuggestions, setShowPickUpSuggestions] = useState(true)
-  const [showDropOffSuggestions, setShowDropOffSuggestions] = useState(true)
+  const [showPickUpSuggestions, setShowPickUpSuggestions] = useState(true);
+  const [showDropOffSuggestions, setShowDropOffSuggestions] = useState(true);
 
   useEffect(() => {
     if (formData.pickUpLocation) {
@@ -53,50 +53,49 @@ function RequestRiderForm() {
           console.error("Error fetching drop-off location suggestions:", error)
         );
     } else {
-      setDropOffSuggestions([])
+      setDropOffSuggestions([]);
     }
-  }, [formData.dropOffLocation])
+  }, [formData.dropOffLocation]);
 
   const handlePickUpInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }))
-    setSelectedPickUpLocation(value)
-    setShowPickUpSuggestions(true)
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setSelectedPickUpLocation(value);
+    setShowPickUpSuggestions(true);
   };
 
   const handleDropOffInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }))
-    setSelectedDropOffLocation(value)
-    setShowDropOffSuggestions(true)
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setSelectedDropOffLocation(value);
+    setShowDropOffSuggestions(true);
   };
 
   const handleSelectPickUpLocation = (location) => {
     setSelectedPickUpLocation(location.description);
     setFormData((prev) => ({ ...prev, pickUpLocation: location.description }));
-    setShowPickUpSuggestions(false); 
-  }
+    setShowPickUpSuggestions(false);
+  };
 
   const handleSelectDropOffLocation = (location) => {
     setSelectedDropOffLocation(location.description);
     setFormData((prev) => ({ ...prev, dropOffLocation: location.description }));
-    setShowDropOffSuggestions(false)
-  }
+    setShowDropOffSuggestions(false);
+  };
 
   const handlePickUpInputBlur = () => {
-    setShowPickUpSuggestions(false)
-  }
+    setShowPickUpSuggestions(false);
+  };
 
   const handleDropOffInputBlur = () => {
-    setShowDropOffSuggestions(false)
-  }
-
+    setShowDropOffSuggestions(false);
+  };
 
   return (
     <div className={styles.con}>
-          <div className={styles.body_container}>
+      <div className={styles.body_container}>
         <div className={styles.header}>
-          <div className={styles.back_btn} onClick={()=>navigate(-1)}>
+          <div className={styles.back_btn} onClick={() => navigate(-1)}>
             <img src={backArrowIcon} alt="" />
             <span>Back</span>
           </div>
@@ -118,7 +117,9 @@ function RequestRiderForm() {
                 {pickUpSuggestions.map((location) => (
                   <li
                     key={location.place_id}
-                    onClick={() => handleSelectPickUpLocation(location.description)}
+                    onClick={() =>
+                      handleSelectPickUpLocation(location.description)
+                    }
                   >
                     {location.description}
                   </li>
@@ -180,8 +181,8 @@ function RequestRiderForm() {
           </button>
         </div>
       </div>
-      </div>
+    </div>
   );
-};
+}
 
 export default RequestRiderForm;

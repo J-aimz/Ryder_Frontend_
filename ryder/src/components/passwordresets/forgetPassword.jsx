@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ForgetPassword = () => {
-  const [forgetpass, setForgetPassword] = useState("");
+  const [forgetpass, setForget] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
   const [error, setError] = useState("");
@@ -46,9 +46,12 @@ const ForgetPassword = () => {
         setSuccessMessage("");
         return;
       }
-      const response = await axios.post("http://", {
-        forgetpass
-      });
+      const response = await axios.post(
+        "https://ryder-test.onrender.com/api/v1/Authentication/forget-password",
+        {
+          forgetpass,
+        }
+      );
 
       if (!response.data.succeeded) {
         setSuccessMessage("");

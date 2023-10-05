@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import mailLogo from '../../../src/images/icons/Email.png';
 import Cloud from '../../../src/images/icons/Cloud.png';
 import PasswordLogo from '../../../src/images/icons/Password.png';
-
+import GoogleMap from './googleMap';
 
 function RiderSignUp() {
     const [firstName, setFirstName] = useState('');
@@ -89,7 +89,7 @@ function RiderSignUp() {
                 validID,
                 passport,
                 bikeDocument,
-                city,
+                // city,
             });
            
             // Handle the response here, e.g., show a success message to the user.
@@ -147,6 +147,7 @@ function RiderSignUp() {
                         <form action="" method="post" className='elements'>
                             <h2 className={`${styles.SignUp_H4} mt-4`}>Sign Up as a Rider</h2>
                             <div className="form-holder col-md-8">
+                                <GoogleMap />
                                 <label className='mt-1'><b>First Name</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input

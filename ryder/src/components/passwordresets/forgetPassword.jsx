@@ -72,13 +72,15 @@ const ForgetPassword = () => {
         setSuccessMessage(data.message);
         successful();
 
-        // To navigate to a different route
-        navigate("/password-reset-verification");
+        // Pass the email as a state when navigating to ConfirmPasswordReset
+        navigate("/password-reset-verification", {
+          state: { email: forgetpass }
+        });
       }
       setForgetPassword("");
     } catch (error) {
       console.error(error);
-      setError("An error occurred");
+      setError("An error occurred while sending the email");
       failed();
     } finally {
       setLoading(false);

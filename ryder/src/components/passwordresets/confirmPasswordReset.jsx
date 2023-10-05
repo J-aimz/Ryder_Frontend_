@@ -3,7 +3,10 @@ import React from "react";
 import Email from "../../images/Email.svg";
 import "../../styles/confirmPasswordReset.css";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 // Define a styled component for the body
 const BodyContainer = styled.body`
@@ -17,9 +20,66 @@ const BodyContainer = styled.body`
 `;
 
 const ConfirmPasswordReset = () => {
-  const handleResendEmail = () => {
-    // Call the SendEmail handler to resend the email
-    //SendEmail(yourUserId);
+  const location = useLocation();
+  const [isResending, setIsResending] = useState(false);
+  const emailFromPreviousPage = location.state && location.state.email;
+
+  const successful = (message) => {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    });
+  };
+
+  const failed = (message) => {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    });
+  };
+
+  const handleResendEmail = async () => {
+    try {
+      setIsResending(true);
+      // Use the email from the previous page
+      const emailToResend = emailFromPreviousPage;
+
+      // Make an API call to resend the email using the emailToResend
+      const apiUrl = process.env.REACT_APP_API_URL_FORGOT_PASSWORD; // Use the same API endpoint
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: emailToResend })
+      });
+
+      const data = await response.json();
+      console.log("response retry: ", data);
+
+      if (data.success) {
+        successful("Email resend successful!");
+      } else {
+        failed("Email resend failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error resending email:", error);
+      failed("An error occurred while resending the email.");
+    } finally {
+      setIsResending(false);
+    }
   };
 
   return (

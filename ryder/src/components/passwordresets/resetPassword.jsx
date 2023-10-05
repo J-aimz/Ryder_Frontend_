@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import Bike from "../../images/Bike.svg";
 import RyderLogo from "../../images/Ryder-Logo.svg";
@@ -37,6 +38,61 @@ const ResetPassword = () => {
     fontWeight: "700",
     lineHeight: "48px",
     letterSpacing: "0em"
+  };
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  const token = queryParams.get("token");
+  const email = queryParams.get("email");
+
+  //console.log("Token: ", token);
+  //console.log("Email: ", email);
+
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // process.env.REACT_APP_API_URL_RESET_PASSWORD
+  const apiUrl = "https://localhost:7173/api/v1/Authentication/reset-password";
+  const requestData = {
+    newPassword: newPassword,
+    confirmPassword: confirmPassword,
+    resetToken: token,
+    email: email
+  };
+
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setSuccessMessage("");
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(requestData)
+      });
+
+      const data = await response.json();
+      //console.log("reset data: ", data);
+
+      if (!data.succeeded) {
+        setError(data.message);
+      } else {
+        setSuccessMessage("Password reset successfully");
+      }
+    } catch (error) {
+      console.error(error);
+      setError("An error occurred while resetting the password.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -82,6 +138,8 @@ const ResetPassword = () => {
                 className="form-control"
                 id="newPassword"
                 placeholder="Enter your password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -93,9 +151,17 @@ const ResetPassword = () => {
                 className="form-control"
                 id="confirmPassword"
                 placeholder="Re-Enter your password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
-            <button>Reset Password</button>
+            <button onClick={handleResetPassword} disabled={loading}>
+              {loading ? "Resetting Password..." : "Reset Password"}
+            </button>
+            {error && <div style={{ color: "red" }}>{error}</div>}
+            {successMessage && (
+              <div style={{ color: "green" }}>{successMessage}</div>
+            )}
           </div>
         </div>
       </div>

@@ -61,7 +61,7 @@ const ForgetPassword = () => {
       });
 
       const data = await response.json();
-      console.log("response data: ", data);
+      //console.log("response data: ", data);
 
       if (!data.succeeded) {
         setSuccessMessage("");

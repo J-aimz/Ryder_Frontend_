@@ -3,6 +3,7 @@ import React from "react";
 import Email from "../../images/Email.svg";
 import "../../styles/confirmPasswordReset.css";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // Define a styled component for the body
 const BodyContainer = styled.body`
@@ -52,7 +53,14 @@ const ConfirmPasswordReset = () => {
             </p>
 
             <div className="div-wrapper">
-              <button style={{ width: "204px" }}>Back to Login</button>
+              <button style={{ width: "204px" }}>
+                <Link
+                  to="/login"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  Back to Login
+                </Link>
+              </button>
             </div>
           </div>
         </div>

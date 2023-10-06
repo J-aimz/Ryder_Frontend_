@@ -6,11 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ForgetPassword = () => {
-  const [forgetpass, setForget] = useState("");
+  const [email, setemail] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
   const [error, setError] = useState("");
-  const isEmailValid = emailRegex.test(forgetpass);
+  const isEmailValid = emailRegex.test(email);
   const [successMessage, setSuccessMessage] = useState("");
 
   function successful(successMessage) {
@@ -22,7 +22,7 @@ const ForgetPassword = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored"
+      theme: "colored",
     });
   }
   function failed(error) {
@@ -34,7 +34,7 @@ const ForgetPassword = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored"
+      theme: "colored",
     });
   }
   const handleSubmit = async (e) => {
@@ -49,7 +49,7 @@ const ForgetPassword = () => {
       const response = await axios.post(
         "https://ryder-test.onrender.com/api/v1/Authentication/forget-password",
         {
-          forgetpass,
+          email,
         }
       );
 
@@ -62,7 +62,7 @@ const ForgetPassword = () => {
         setSuccessMessage(response.data.data);
         successful(response.data.data);
       }
-      setForgetPassword("");
+      setemail("");
     } catch (error) {
       if (error.response) {
         setSuccessMessage("");
@@ -95,8 +95,8 @@ const ForgetPassword = () => {
                 className="form-control p-3"
                 placeholder="Enter your email address"
                 type="text"
-                value={forgetpass}
-                onChange={(e) => setForgetPassword(e.target.value)}
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
               />
               <button className="forgotpassword-send" onClick={handleSubmit}>
                 Reset password

@@ -44,6 +44,7 @@ function SignalRChat() {
   }, []);
 
   return (
+    
     <div>
       <h2>Real-Time Notifications</h2>
       <ul>

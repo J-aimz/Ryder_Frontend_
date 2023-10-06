@@ -28,7 +28,7 @@ function App() {
           <Route path="/riderSignUp" exact element={<RiderSignUp />} />
           <Route path="/passwordreset" exact element={<Passwordreset />} />
           <Route path="/passwordresetverification" exact element={<Passwordresetverification/>} />
-          <Route path="/notifications" exact element = {<SignalRChat/>} />
+          <Route path="/notifications" element = {<SignalRChat/>} />
         </Routes>    
       </div>
     </Router>    

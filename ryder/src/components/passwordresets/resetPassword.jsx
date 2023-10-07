@@ -55,8 +55,7 @@ const ResetPassword = () => {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // process.env.REACT_APP_API_URL_RESET_PASSWORD
-  const apiUrl = "https://localhost:7173/api/v1/Authentication/reset-password";
+  const apiUrl = process.env.REACT_APP_API_URL_RESET_PASSWORD;
   const requestData = {
     newPassword: newPassword,
     confirmPassword: confirmPassword,

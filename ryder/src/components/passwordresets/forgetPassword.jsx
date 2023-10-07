@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/passwordreset.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ForgetPassword = () => {
-  const [email, setemail] = useState("");
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
   const [error, setError] = useState("");
   const isEmailValid = emailRegex.test(email);
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
-  function successful(successMessage) {
+  function successful() {
     toast.success(successMessage, {
       position: "top-right",
       autoClose: 3000,
@@ -25,7 +26,7 @@ const ForgetPassword = () => {
       theme: "colored",
     });
   }
-  function failed(error) {
+  function failed() {
     toast.error(error, {
       position: "top-right",
       autoClose: 3000,
@@ -56,22 +57,25 @@ const ForgetPassword = () => {
       if (!response.data.succeeded) {
         setSuccessMessage("");
         setError(response.data.data);
-        failed(response.data.data);
+        console.log(response.data);
+        failed();
       } else {
         setError("");
         setSuccessMessage(response.data.data);
-        successful(response.data.data);
+        navigate("/");
+        console.log(response.data);
+        successful();
       }
-      setemail("");
+      setEmail("");
     } catch (error) {
       if (error.response) {
         setSuccessMessage("");
-        setError(error.response.data.data);
-        failed(error.response.data.data);
+        console.error(error);
+        failed();
       } else {
         console.error(error);
         setError("Invalid Email Account");
-        failed("Invalid Email Account");
+        failed();
       }
     } finally {
       setLoading(false);
@@ -96,7 +100,7 @@ const ForgetPassword = () => {
                 placeholder="Enter your email address"
                 type="text"
                 value={email}
-                onChange={(e) => setemail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <button className="forgotpassword-send" onClick={handleSubmit}>
                 Reset password

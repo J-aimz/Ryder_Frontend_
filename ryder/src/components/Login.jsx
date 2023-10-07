@@ -43,7 +43,7 @@ const Login = () => {
 
       const response = await axios.post("", {
         email,
-        password
+        password,
       });
 
       if (response.data.succeeded) {
@@ -156,9 +156,13 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <button href="/passwordreset" className="text-wrapper-6">
-                Forgot password?
-              </button>
+
+              <a className="text-wrapper-6" href="/forget-password">
+                Forgotpassword?
+              </a>
+              {/* <button href="/forget-password" className="text-wrapper-6">
+                Forgotpassword?
+              </button> */}
 
               {/* Display error message */}
               {error && (

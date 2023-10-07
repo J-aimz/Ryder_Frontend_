@@ -6,15 +6,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ForgetPassword = () => {
-  const [email, setEmail] = useState("");
+  const [email, setemail] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
   const [error, setError] = useState("");
   const isEmailValid = emailRegex.test(email);
   const [successMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  function successful() {
+  function successful(successMessage) {
     toast.success(successMessage, {
       position: "top-right",
       autoClose: 3000,
@@ -26,7 +26,7 @@ const ForgetPassword = () => {
       theme: "colored",
     });
   }
-  function failed() {
+  function failed(error) {
     toast.error(error, {
       position: "top-right",
       autoClose: 3000,
@@ -43,7 +43,7 @@ const ForgetPassword = () => {
     try {
       if (!isEmailValid) {
         setError("Please enter a valid email address.");
-        failed();
+        failed("Please enter a valid email address.");
         setSuccessMessage("");
         return;
       }
@@ -56,26 +56,26 @@ const ForgetPassword = () => {
 
       if (!response.data.succeeded) {
         setSuccessMessage("");
-        setError(response.data.data);
+        setError("Email does not exist");
         console.log(response.data);
-        failed();
+        failed("Email does not exist");
       } else {
         setError("");
-        setSuccessMessage(response.data.data);
-        navigate("/");
-        console.log(response.data);
-        successful();
+        setSuccessMessage(response.data.message);
+        console.log(response.data.message);
+        // navigate("/");
+        successful("Password reset email sent successfully.");
       }
-      setEmail("");
+      setemail("");
     } catch (error) {
       if (error.response) {
         setSuccessMessage("");
         console.error(error);
-        failed();
+        failed("Please enter a valid email address.");
       } else {
         console.error(error);
         setError("Invalid Email Account");
-        failed();
+        failed("Invalid Email Account");
       }
     } finally {
       setLoading(false);
@@ -100,7 +100,7 @@ const ForgetPassword = () => {
                 placeholder="Enter your email address"
                 type="text"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setemail(e.target.value)}
               />
               <button className="forgotpassword-send" onClick={handleSubmit}>
                 Reset password
@@ -113,7 +113,8 @@ const ForgetPassword = () => {
                   style={{ color: "red", textAlign: "center" }}
                 >
                   <small>
-                    <b>{error}</b>
+                    {" "}
+                    <b>{error}</b>{" "}
                   </small>
                 </div>
               )}

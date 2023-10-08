@@ -2,6 +2,7 @@
 import React from "react";
 import Email from "../../images/Email.svg";
 import "../../styles/confirmPasswordReset.css";
+import axios from "axios";
 import styled from "styled-components";
 
 // Define a styled component for the body
@@ -15,8 +16,11 @@ const BodyContainer = styled.body`
   height: 100vh;
 `;
 
-const ConfirmPasswordReset = () => {
-  const handleResendEmail = () => {
+const ConfirmPasswordReset = async (e) => {
+  const handleResendEmail = async (e) => {
+    const response = await axios.post(
+      "https://ryder-test.onrender.com/api/v1/Authentication/SendConfirmEmail"
+    );
     // Call the SendEmail handler to resend the email
     //SendEmail(yourUserId);
   };
@@ -44,7 +48,7 @@ const ConfirmPasswordReset = () => {
                 onClick={handleResendEmail}
                 style={{
                   textDecoration: "none",
-                  color: "#FB8500"
+                  color: "#FB8500",
                 }}
               >
                 Click to Resend link

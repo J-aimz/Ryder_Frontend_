@@ -2,6 +2,7 @@
 import React from "react";
 import Email from "../../images/Email.svg";
 import "../../styles/confirmPasswordReset.css";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -16,13 +17,17 @@ const BodyContainer = styled.body`
   height: 100vh;
 `;
 
-const ConfirmPasswordReset = async (e) => {
-  const handleResendEmail = async (e) => {
-    const response = await axios.post(
-      "https://ryder-test.onrender.com/api/v1/Authentication/SendConfirmEmail"
-    );
-    // Call the SendEmail handler to resend the email
-    //SendEmail(yourUserId);
+const ConfirmPasswordReset = () => {
+  const handleResendEmail = async () => {
+    try {
+      const response = await axios.post(
+        "https://ryder-test.onrender.com/api/v1/Authentication/SendConfirmEmail"
+      );
+      // Handle the response if necessary
+    } catch (error) {
+      // Handle errors here
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -54,10 +59,9 @@ const ConfirmPasswordReset = async (e) => {
                 Click to Resend link
               </a>
             </p>
-
-            <div className="div-wrapper">
+            <Link to="/login" className="div-wrapper">
               <button style={{ width: "204px" }}>Back to Login</button>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

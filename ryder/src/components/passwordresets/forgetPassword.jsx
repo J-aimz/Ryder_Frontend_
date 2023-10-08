@@ -12,7 +12,7 @@ const ForgetPassword = () => {
   const [error, setError] = useState("");
   const isEmailValid = emailRegex.test(email);
   const [successMessage, setSuccessMessage] = useState("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   function successful(successMessage) {
     toast.success(successMessage, {
@@ -56,17 +56,20 @@ const ForgetPassword = () => {
 
       if (!response.data.succeeded) {
         setSuccessMessage("");
-        setError("Email does not exist");
-        console.log(response.data);
+        setError(response.data.message);
+        console.log(response.data.message);
         failed("Email does not exist");
       } else {
         setError("");
         setSuccessMessage(response.data.message);
         console.log(response.data.message);
-        // navigate("/");
         successful("Password reset email sent successfully.");
       }
       setemail("");
+      setTimeout(async () => {
+        // Make sure your navigation logic works correctly.
+        await navigate("/password-reset-verification");
+      }, 6000); // 20,00
     } catch (error) {
       if (error.response) {
         setSuccessMessage("");
@@ -114,7 +117,7 @@ const ForgetPassword = () => {
                 >
                   <small>
                     {" "}
-                    <b>{error}</b>{" "}
+                    <b style={{ color: "red" }}>{error}</b>{" "}
                   </small>
                 </div>
               )}
@@ -128,7 +131,7 @@ const ForgetPassword = () => {
                 >
                   <small>
                     {" "}
-                    <b>{successMessage}</b>{" "}
+                    <b style={{ color: "green" }}>{successMessage}</b>{" "}
                   </small>
                 </div>
               )}

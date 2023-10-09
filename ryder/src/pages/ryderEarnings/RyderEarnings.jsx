@@ -3,7 +3,7 @@ import React from "react";
 import "../../styles/ryderEarnings.css";
 import Vector from "../../images/Vector.svg";
 import Time from "../../images/Time.svg";
-import { RiderNavbar } from "../../components";;
+import { RiderNavbar } from "../../components";
 
 export default function RyderEarnings() {
   return (

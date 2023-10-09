@@ -13,10 +13,10 @@ import {
   RequestRiderForm,
   LandingPage,
   RiderDashboard,
-  RyderEarnings,
 } from "./pages";
 import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset";
 import VerifyEmail from "./components/verifyEmail";
+import RyderEarnings from "./pages/ryderEarnings/RyderEarnings"
 
 function App() {
   return (

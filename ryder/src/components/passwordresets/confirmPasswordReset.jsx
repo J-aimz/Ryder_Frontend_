@@ -26,7 +26,7 @@ const ConfirmPasswordReset = () => {
       // Handle the response if necessary
     } catch (error) {
       // Handle errors here
-      console.error("Error:", error);
+      console.error("Error occurred while sending email:", error);
     }
   };
 

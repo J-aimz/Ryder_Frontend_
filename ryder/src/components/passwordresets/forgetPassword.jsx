@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ForgetPassword = () => {
-  const [email, setemail] = useState("");
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
   const [error, setError] = useState("");
@@ -14,7 +14,7 @@ const ForgetPassword = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
-  function successful(successMessage) {
+  const successful = (successMessage) => {
     toast.success(successMessage, {
       position: "top-right",
       autoClose: 3000,
@@ -25,9 +25,11 @@ const ForgetPassword = () => {
       progress: undefined,
       theme: "colored",
     });
-  }
-  function failed(error) {
-    toast.error(error, {
+  };
+
+  const failed = (errorMessage) => {
+    setError(errorMessage);
+    toast.error(errorMessage, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -37,9 +39,11 @@ const ForgetPassword = () => {
       progress: undefined,
       theme: "colored",
     });
-  }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (!isEmailValid) {
         setError("Please enter a valid email address.");
@@ -47,6 +51,7 @@ const ForgetPassword = () => {
         setSuccessMessage("");
         return;
       }
+
       const response = await axios.post(
         "https://ryder-test.onrender.com/api/v1/Authentication/forget-password",
         {
@@ -64,15 +69,13 @@ const ForgetPassword = () => {
         setSuccessMessage(response.data.message);
         console.log(response.data.message);
         successful("Password reset email sent successfully.");
+        setTimeout(() => {
+          navigate("/password-reset-verification");
+        }, 3000);
       }
-      setemail("");
-      setTimeout(async () => {
-        // Make sure your navigation logic works correctly.
-        await navigate("/password-reset-verification");
-      }, 6000); // 20,00
+      setEmail("");
     } catch (error) {
       if (error.response) {
-        setSuccessMessage("");
         console.error(error);
         failed("Please enter a valid email address.");
       } else {
@@ -84,6 +87,7 @@ const ForgetPassword = () => {
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className="forgotpassword">
@@ -93,7 +97,7 @@ const ForgetPassword = () => {
               <h1 className="text-one">Forget Password</h1>
               <p>
                 Enter the email associated with your account and we will send an
-                email with instruction to reset your password
+                email with instructions to reset your password
               </p>
             </div>
             <div className="forget">
@@ -103,13 +107,13 @@ const ForgetPassword = () => {
                 placeholder="Enter your email address"
                 type="text"
                 value={email}
-                onChange={(e) => setemail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <button className="forgotpassword-send" onClick={handleSubmit}>
-                Reset password
+                {loading ? "Resetting..." : "Reset password"}
               </button>
-              {/* Display error message */}
 
+              {/* Display error message */}
               {error && (
                 <div
                   className="form-holder"
@@ -123,7 +127,6 @@ const ForgetPassword = () => {
               )}
 
               {/* Display success message */}
-
               {successMessage && (
                 <div
                   className="form-holder"
@@ -133,14 +136,6 @@ const ForgetPassword = () => {
                     {" "}
                     <b style={{ color: "green" }}>{successMessage}</b>{" "}
                   </small>
-                </div>
-              )}
-
-              {/* Display loading spinner  */}
-
-              {loading && (
-                <div className="form-holder" style={{ textAlign: "center" }}>
-                  <small>Loading...</small>
                 </div>
               )}
             </div>
@@ -154,4 +149,5 @@ const ForgetPassword = () => {
     </>
   );
 };
+
 export default ForgetPassword;

@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "../../styles/passwordreset.css";
-import axios from "axios";
+import styles from "../../styles/signUp.module.css";
+//import axios from "axios";
+import SignUpBanner from "../../images/RyderImg.svg";
+import RyderLogo from "../../images/Ryder-Logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ForgetPassword = () => {
-  const [email, setEmail] = useState("");
+function ResetPassword() {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const isPasswordValid = passwordRegex.test(password);
   const [loading, setLoading] = useState(false);
-  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
-  const [error, setError] = useState("");
-  const isEmailValid = emailRegex.test(email);
   const [successMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate();
 
-  const successful = (successMessage) => {
+  function successMess(successMessage) {
     toast.success(successMessage, {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -25,11 +26,9 @@ const ForgetPassword = () => {
       progress: undefined,
       theme: "colored",
     });
-  };
-
-  const failed = (errorMessage) => {
-    setError(errorMessage);
-    toast.error(errorMessage, {
+  }
+  function errorMesage(error) {
+    toast.error(error, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -39,115 +38,87 @@ const ForgetPassword = () => {
       progress: undefined,
       theme: "colored",
     });
-  };
+  }
 
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      if (!isEmailValid) {
-        setError("Please enter a valid email address.");
-        failed("Please enter a valid email address.");
-        setSuccessMessage("");
-        return;
-      }
-
-      const response = await axios.post(
-        "https://ryder-test.onrender.com/api/v1/Authentication/forget-password",
-        {
-          email,
-        }
-      );
-
-      if (!response.data.succeeded) {
-        setSuccessMessage("");
-        setError(response.data.message);
-        console.log(response.data.message);
-        failed("Email does not exist");
-      } else {
-        setError("");
-        setSuccessMessage(response.data.message);
-        console.log(response.data.message);
-        successful("Password reset email sent successfully.");
-        setTimeout(() => {
-          navigate("/password-reset-verification");
-        }, 3000);
-      }
-      setEmail("");
-    } catch (error) {
-      if (error.response) {
-        console.error(error);
-        failed("Please enter a valid email address.");
-      } else {
-        console.error(error);
-        setError("Invalid Email Account");
-        failed("Invalid Email Account");
-      }
-    } finally {
-      setLoading(false);
-    }
   };
-
   return (
     <>
-      <div className="forgotpassword">
-        <div className="holders">
-          <form className="forgotpassword-form" action="">
-            <div className="forgetpassword-container">
-              <h1 className="text-one">Forget Password</h1>
-              <p>
-                Enter the email associated with your account and we will send an
-                email with instructions to reset your password
-              </p>
-            </div>
-            <div className="forget">
-              <h5>Email</h5>
-              <input
-                className="form-control p-3"
-                placeholder="Enter your email address"
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <button className="forgotpassword-send" onClick={handleSubmit}>
-                {loading ? "Resetting..." : "Reset password"}
-              </button>
+      <div className={`${styles.wrapper} row`}>
+        <div className={`${styles.holder} col-md-12`}>
+          <div className={`${styles.left} col-md-7`}>
+            <img src={SignUpBanner} alt="" srcset="" height={700} />
+          </div>
+          <div className={`${styles.right} col-md-5`}>
+            <div className={`${styles.content}`}>
+              <div className={`${styles.logoholder} mt-6`}>
+                {" "}
+                <img src={RyderLogo} alt="" srcset="" />
+              </div>
 
-              {/* Display error message */}
-              {error && (
-                <div
-                  className="form-holder"
-                  style={{ color: "red", textAlign: "center" }}
-                >
-                  <small>
-                    {" "}
-                    <b style={{ color: "red" }}>{error}</b>{" "}
-                  </small>
+              <form action="" method="post" className="elements">
+                <h3 className={`${styles.SignUp_H4} mt-4`}>Reset Password</h3>
+                <div className="form-holder col-md-7">
+                  <label className="mt-2">
+                    <b>Password</b>
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="Enter your password"
+                    className="form-control mt-1"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
-              )}
+                <div className="form-holder col-md-7">
+                  <label className="mt-2">
+                    <b>Confirm Password</b>
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="Confirm your password"
+                    className="form-control mt-1"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
 
-              {/* Display success message */}
-              {successMessage && (
-                <div
-                  className="form-holder"
-                  style={{ color: "green", textAlign: "center" }}
-                >
-                  <small>
+                {/* Display success message */}
+                {successMessage && (
+                  <div className={`${styles.messages1}form-holder col-md-7`}>
+                    <small>
+                      <b>{successMessage}</b>
+                    </small>
+                  </div>
+                )}
+                {/* Display loading spinner */}
+                {loading && (
+                  <div className={`${styles.messages2}form-holder col-md-7`}>
+                    <small>Loading...</small>
+                  </div>
+                )}
+
+                <div className="form-holder col-md-7">
+                  <button
+                    className={`${styles.submitting}`}
+                    type="submit"
+                    onClick={handleRegister}
+                    //disabled={!isPasswordValid} // Disable button if password is not a match
+                  >
                     {" "}
-                    <b style={{ color: "green" }}>{successMessage}</b>{" "}
-                  </small>
+                    Reset Password{" "}
+                  </button>
                 </div>
-              )}
+              </form>
             </div>
-          </form>
-          <Link to="/login" className="redirect-login">
-            Back to login
-          </Link>
+          </div>
         </div>
       </div>
       <ToastContainer />
     </>
   );
-};
+}
 
-export default ForgetPassword;
+export default ResetPassword;

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/passwordreset.css";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -59,7 +60,9 @@ const ForgetPassword = () => {
         }
       );
 
-      if (!response.data.succeeded) {
+      const data = await response.json();
+
+      if (!data.succeeded) {
         setSuccessMessage("");
         setError(response.data.message);
         console.log(response.data.message);
@@ -125,7 +128,6 @@ const ForgetPassword = () => {
                   </small>
                 </div>
               )}
-
               {/* Display success message */}
               {successMessage && (
                 <div

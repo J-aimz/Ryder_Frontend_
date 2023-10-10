@@ -5,6 +5,10 @@ import "../../styles/confirmPasswordReset.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 // Define a styled component for the body
 const BodyContainer = styled.body`
@@ -18,6 +22,7 @@ const BodyContainer = styled.body`
 `;
 
 const ConfirmPasswordReset = () => {
+<<<<<<< HEAD
   const handleResendEmail = async () => {
     try {
       const response = await axios.post(
@@ -27,6 +32,67 @@ const ConfirmPasswordReset = () => {
     } catch (error) {
       // Handle errors here
       console.error("Error occurred while sending email:", error);
+=======
+  const location = useLocation();
+  const [isResending, setIsResending] = useState(false);
+  const emailFromPreviousPage = location.state && location.state.email;
+
+  const successful = (message) => {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    });
+  };
+
+  const failed = (message) => {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored"
+    });
+  };
+
+  const handleResendEmail = async () => {
+    try {
+      setIsResending(true);
+      // Use the email from the previous page
+      const emailToResend = emailFromPreviousPage;
+
+      // Make an API call to resend the email using the emailToResend
+      const apiUrl = process.env.REACT_APP_API_URL_FORGOT_PASSWORD; // Use the same API endpoint
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: emailToResend })
+      });
+
+      const data = await response.json();
+      console.log("response retry: ", data);
+
+      if (data.success) {
+        successful("Email resend successful!");
+      } else {
+        failed("Email resend failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error resending email:", error);
+      failed("An error occurred while resending the email.");
+    } finally {
+      setIsResending(false);
+>>>>>>> 2bfd5f90ea487bac35b8bcfe0b02d0d5ae3a88ae
     }
   };
 
@@ -59,9 +125,23 @@ const ConfirmPasswordReset = () => {
                 Click to Resend link
               </a>
             </p>
+<<<<<<< HEAD
             <Link to="/login" className="div-wrapper">
               <button style={{ width: "204px" }}>Back to Login</button>
             </Link>
+=======
+
+            <div className="div-wrapper">
+              <button style={{ width: "204px" }}>
+                <Link
+                  to="/login"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  Back to Login
+                </Link>
+              </button>
+            </div>
+>>>>>>> 2bfd5f90ea487bac35b8bcfe0b02d0d5ae3a88ae
           </div>
         </div>
       </div>

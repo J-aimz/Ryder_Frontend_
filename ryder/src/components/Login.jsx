@@ -5,7 +5,7 @@ import Logo from "../images/RyderLogo.svg";
 // import passimgage from "../images/Password.svg";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
 const Login = () => {
@@ -156,6 +156,7 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+<<<<<<< HEAD
 
               <a className="text-wrapper-6" href="/forget-password">
                 Forgotpassword?
@@ -163,6 +164,15 @@ const Login = () => {
               {/* <button href="/forget-password" className="text-wrapper-6">
                 Forgotpassword?
               </button> */}
+=======
+              <Link
+                to="/forget-password"
+                className="text-wrapper-6"
+                style={{ textDecoration: "none" }}
+              >
+                Forgot password?
+              </Link>
+>>>>>>> 2bfd5f90ea487bac35b8bcfe0b02d0d5ae3a88ae
 
               {/* Display error message */}
               {error && (

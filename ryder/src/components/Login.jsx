@@ -43,7 +43,7 @@ const Login = () => {
 
       const response = await axios.post("", {
         email,
-        password
+        password,
       });
 
       if (response.data.succeeded) {

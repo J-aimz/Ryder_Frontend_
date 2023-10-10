@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import CustomerSignUp from "./components/sign_page/customerSignUp";
 import RiderSignUp from "./components/sign_page/riderSignUp";
+import SignalRChat from "./components/SignalRChat";
 import ForgetPassword from "./components/passwordresets/forgetPassword";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
@@ -12,15 +13,16 @@ import {
   RequestRiderForm,
   LandingPage,
   RiderDashboard,
-  RyderEarnings
 } from "./pages";
 import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset";
 import VerifyEmail from "./components/verifyEmail";
+import RyderEarnings from "./pages/ryderEarnings/RyderEarnings"
 
 function App() {
   return (
     <Router>
       <div>
+      
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
@@ -36,6 +38,7 @@ function App() {
             exact
             element={<ConfirmPasswordReset />}
           />
+          <Route path="/notifications" element={<SignalRChat />} />
           <Route path="/verify-email" exact element={<VerifyEmail />} />
         </Routes>
       </div>

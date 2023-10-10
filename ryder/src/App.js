@@ -16,12 +16,13 @@ import {
 } from "./pages";
 import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset";
 import VerifyEmail from "./components/verifyEmail";
-import RyderEarnings from "./pages/ryderEarnings/RyderEarnings"
+import ResetPassword from "./components/passwordresets/resetPassword";
+import RyderEarnings from "./pages/ryderEarnings/RyderEarnings";
 
 function App() {
   return (
     <Router>
-      <div>     
+      <div>
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
@@ -37,6 +38,7 @@ function App() {
           />
           <Route path="/notifications" element={<SignalRChat />} />
           <Route path="/verify-email" exact element={<VerifyEmail />} />
+          <Route path="/reset-password" exact element={<ResetPassword />} />
         </Routes>
       </div>
     </Router>

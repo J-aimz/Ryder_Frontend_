@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "../../styles/passwordreset.css";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
   const [forgetpass, setForgetPassword] = useState("");
@@ -12,8 +13,8 @@ const ForgetPassword = () => {
   const isEmailValid = emailRegex.test(forgetpass);
   const [successMessage, setSuccessMessage] = useState("");
 
-  function successful() {
-    toast.success(successMessage, {
+  const successful = (message) => {
+    toast.success(message, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -23,9 +24,10 @@ const ForgetPassword = () => {
       progress: undefined,
       theme: "colored"
     });
-  }
-  function failed() {
-    toast.error(error, {
+  };
+
+  const failed = (message) => {
+    toast.error(message, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -35,7 +37,10 @@ const ForgetPassword = () => {
       progress: undefined,
       theme: "colored"
     });
-  }
+  };
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -45,34 +50,42 @@ const ForgetPassword = () => {
         setSuccessMessage("");
         return;
       }
-      const response = await axios.post("http://", {
-        forgetpass
+
+      const apiUrl = process.env.REACT_APP_API_URL_FORGOT_PASSWORD;
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: forgetpass })
       });
 
-      if (!response.data.succeeded) {
+      const data = await response.json();
+
+      if (!data.succeeded) {
         setSuccessMessage("");
-        setError(response.data.data);
+        setError(data.message);
         failed();
       } else {
         setError("");
-        setSuccessMessage(response.data.data);
+        setSuccessMessage(data.message);
         successful();
+
+        // Pass the email as a state when navigating to ConfirmPasswordReset
+        navigate("/password-reset-verification", {
+          state: { email: forgetpass }
+        });
       }
       setForgetPassword("");
     } catch (error) {
-      if (error.response) {
-        setSuccessMessage("");
-        setError(error.response.data.data);
-        failed();
-      } else {
-        console.error(error);
-        setError("An error occurred during Registration");
-        failed();
-      }
+      console.error(error);
+      setError("An error occurred while sending the email");
+      failed();
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className="forgotpassword">
@@ -81,8 +94,8 @@ const ForgetPassword = () => {
             <div className="forgetpassword-container">
               <h1 className="text-one">Forget Password</h1>
               <p>
-                Enter the email associated with your account and we will send an
-                email with instruction to reset your password
+                Enter the email associated with your account, and we will send
+                an email with instructions to reset your password.
               </p>
             </div>
             <div className="forget">
@@ -95,10 +108,9 @@ const ForgetPassword = () => {
                 onChange={(e) => setForgetPassword(e.target.value)}
               />
               <button className="forgotpassword-send" onClick={handleSubmit}>
-                Reset password
+                Reset Password
               </button>
               {/* Display error message */}
-
               {error && (
                 <div
                   className="form-holder"
@@ -109,23 +121,18 @@ const ForgetPassword = () => {
                   </small>
                 </div>
               )}
-
               {/* Display success message */}
-
               {successMessage && (
                 <div
                   className="form-holder"
                   style={{ color: "green", textAlign: "center" }}
                 >
                   <small>
-                    {" "}
-                    <b>{successMessage}</b>{" "}
+                    <b>{successMessage}</b>
                   </small>
                 </div>
               )}
-
               {/* Display loading spinner  */}
-
               {loading && (
                 <div className="form-holder" style={{ textAlign: "center" }}>
                   <small>Loading...</small>
@@ -133,11 +140,14 @@ const ForgetPassword = () => {
               )}
             </div>
           </form>
-          <button className="redirect-login">Back to login</button>
+          <Link to="/login">
+            <button className="redirect-login">Back to login</button>
+          </Link>
         </div>
       </div>
       <ToastContainer />
     </>
   );
 };
+
 export default ForgetPassword;

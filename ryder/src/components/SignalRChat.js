@@ -9,10 +9,9 @@ function SignalRChat() {
   useEffect(() => {
     // Initialize the SignalR connection
     const newConnection = new signalR.HubConnectionBuilder()
-      .withUrl("http://localhost:7173/notification/negotiate?negotiateVersion=1") // Replace with the actual URL of your SignalR hub
+      .withUrl("http://localhost:7173/notificationsHub") // Replace with the actual URL of your SignalR hub
       .build();
-      
-      
+           
     // Set up event handlers for incoming messages
     newConnection.on("IncomingRequest", (message) => {
       // Handle incoming request notification
@@ -31,8 +30,7 @@ function SignalRChat() {
 
     // Start the SignalR connection
     newConnection.start().then(() => {
-      setConnection(newConnection);
-     
+      setConnection(newConnection);   
     });
 
     return () => {
@@ -44,7 +42,7 @@ function SignalRChat() {
   }, []);
 
   return (
-    
+   
     <div>
       <h2>Real-Time Notifications</h2>
       <ul>

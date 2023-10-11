@@ -1,9 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-<<<<<<< HEAD
-//import Footer from "./pages/landing_page/footer";
-=======
->>>>>>> 8c6f096a0f1ca7769bdda5e1d6d9378551324bf6
 import Login from "./components/Login";
 import CustomerSignUp from "./components/sign_page/customerSignUp";
 import RiderSignUp from "./components/sign_page/riderSignUp";

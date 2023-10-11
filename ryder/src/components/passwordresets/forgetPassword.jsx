@@ -3,14 +3,16 @@ import "../../styles/passwordreset.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from 'react-router-dom';
 
 const ForgetPassword = () => {
-  const [forgetpass, setForgetPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
   const [error, setError] = useState("");
-  const isEmailValid = emailRegex.test(forgetpass);
+  const isEmailValid = emailRegex.test(email);
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   function successful() {
     toast.success(successMessage, {
@@ -45,23 +47,27 @@ const ForgetPassword = () => {
         setSuccessMessage("");
         return;
       }
-      const response = await axios.post("http://", {
-        forgetpass
+      const response = await axios.post('https://localhost:7173/api/v1/Authentication/forget-password', {
+        email
       });
-
+      
       if (!response.data.succeeded) {
         setSuccessMessage("");
         setError(response.data.data);
+        console.log(response.data)
         failed();
       } else {
         setError("");
         setSuccessMessage(response.data.data);
+        navigate("/");
+        console.log(response.data)
         successful();
       }
-      setForgetPassword("");
+      setEmail("");
     } catch (error) {
       if (error.response) {
         setSuccessMessage("");
+        console.error(error);
         setError(error.response.data.data);
         failed();
       } else {
@@ -91,8 +97,8 @@ const ForgetPassword = () => {
                 className="form-control p-3"
                 placeholder="Enter your email address"
                 type="text"
-                value={forgetpass}
-                onChange={(e) => setForgetPassword(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <button className="forgotpassword-send" onClick={handleSubmit}>
                 Reset password

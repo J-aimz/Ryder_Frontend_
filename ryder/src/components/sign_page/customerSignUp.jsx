@@ -71,15 +71,15 @@ function CustomerSignUp() {
             });
   
             // Handle the response here, e.g., show a success message to the user.
-            console.log(response.data);
             if (!response.data.succeeded) {
                 setSuccessMessage('');
-                setError(response.data.message);
+                setError(response.message);
+                console.log(response.data.message)
             }
             else {
                 setError(''); // Clear any previous error
-                setSuccessMessage(response.data.data);
-                navigate('/login');
+                setSuccessMessage(response.data.message);
+                navigate('/verify-email');
             }
             // Clear input fields after successful registration
             setFirstName('');
@@ -130,7 +130,8 @@ function CustomerSignUp() {
                                     />
                                     <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
                                 </div>
-                            </div>
+                              </div>
+
                             <div className="form-holder col-md-8">
                                 <label className='mt-4'><b>Last Name</b></label>
                                 <div className={`${styles.input_container}`}>

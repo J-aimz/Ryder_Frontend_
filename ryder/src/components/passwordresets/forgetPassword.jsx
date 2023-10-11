@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/passwordreset.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -14,7 +15,7 @@ const ForgetPassword = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
-  function successful() {
+  const successful = (successMessage) => {
     toast.success(successMessage, {
       position: "top-right",
       autoClose: 3000,
@@ -23,11 +24,13 @@ const ForgetPassword = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored"
+      theme: "colored",
     });
-  }
-  function failed() {
-    toast.error(error, {
+  };
+
+  const failed = (errorMessage) => {
+    setError(errorMessage);
+    toast.error(errorMessage, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -35,50 +38,57 @@ const ForgetPassword = () => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "colored"
+      theme: "colored",
     });
-  }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (!isEmailValid) {
         setError("Please enter a valid email address.");
-        failed();
+        failed("Please enter a valid email address.");
         setSuccessMessage("");
         return;
       }
-      const response = await axios.post('https://localhost:7173/api/v1/Authentication/forget-password', {
-        email
-      });
-      
+
+      const response = await axios.post(
+        "https://ryder-test.onrender.com/api/v1/Authentication/forget-password",
+        {
+          email,
+        }
+      );
+
       if (!response.data.succeeded) {
         setSuccessMessage("");
-        setError(response.data.data);
-        console.log(response.data)
-        failed();
+        setError(response.data.message);
+        console.log(response.data.message);
+        failed("Email does not exist");
       } else {
         setError("");
-        setSuccessMessage(response.data.data);
-        navigate("/");
-        console.log(response.data)
-        successful();
+        setSuccessMessage(response.data.message);
+        console.log(response.data.message);
+        successful("Password reset email sent successfully.");
+        setTimeout(() => {
+          navigate("/password-reset-verification");
+        }, 3000);
       }
       setEmail("");
     } catch (error) {
       if (error.response) {
-        setSuccessMessage("");
         console.error(error);
-        setError(error.response.data.data);
-        failed();
+        failed("Please enter a valid email address.");
       } else {
         console.error(error);
-        setError("An error occurred during Registration");
-        failed();
+        setError("Invalid Email Account");
+        failed("Invalid Email Account");
       }
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className="forgotpassword">
@@ -88,7 +98,7 @@ const ForgetPassword = () => {
               <h1 className="text-one">Forget Password</h1>
               <p>
                 Enter the email associated with your account and we will send an
-                email with instruction to reset your password
+                email with instructions to reset your password
               </p>
             </div>
             <div className="forget">
@@ -101,23 +111,23 @@ const ForgetPassword = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <button className="forgotpassword-send" onClick={handleSubmit}>
-                Reset password
+                {loading ? "Resetting..." : "Reset password"}
               </button>
-              {/* Display error message */}
 
+              {/* Display error message */}
               {error && (
                 <div
                   className="form-holder"
                   style={{ color: "red", textAlign: "center" }}
                 >
                   <small>
-                    <b>{error}</b>
+                    {" "}
+                    <b style={{ color: "red" }}>{error}</b>{" "}
                   </small>
                 </div>
               )}
 
               {/* Display success message */}
-
               {successMessage && (
                 <div
                   className="form-holder"
@@ -125,25 +135,20 @@ const ForgetPassword = () => {
                 >
                   <small>
                     {" "}
-                    <b>{successMessage}</b>{" "}
+                    <b style={{ color: "green" }}>{successMessage}</b>{" "}
                   </small>
-                </div>
-              )}
-
-              {/* Display loading spinner  */}
-
-              {loading && (
-                <div className="form-holder" style={{ textAlign: "center" }}>
-                  <small>Loading...</small>
                 </div>
               )}
             </div>
           </form>
-          <button className="redirect-login">Back to login</button>
+          <Link to="/login" className="redirect-login">
+            Back to login
+          </Link>
         </div>
       </div>
       <ToastContainer />
     </>
   );
 };
+
 export default ForgetPassword;

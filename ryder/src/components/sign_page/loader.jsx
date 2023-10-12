@@ -2,7 +2,7 @@ import React from 'react'
 import { RevolvingDot } from  'react-loader-spinner'
 import '../../styles/special.css'
 
-function Loader() {
+function Loader({visiblility}) {
   return (
     <div>
         <div className='holderprocess'>
@@ -15,7 +15,7 @@ function Loader() {
                 ariaLabel="revolving-dot-loading"
                 wrapperStyle={{}}
                 wrapperClass=""
-                visible={true}
+                visible={visiblility}
                 />
                 <span>Processing Information...</span>
             </div>

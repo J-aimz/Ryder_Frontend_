@@ -68,44 +68,50 @@ function RiderSignUp() {
         let city = '';
         let state = '';
         let country = '';
-
+    
         geocodeByAddress(newAddress)
-        .then((results) => {
-            if (results && results[0]) {
-            const result = results[0];
-
-            // Extract address components (city, state, country)
-            const addressComponents = result.address_components;
-            for (const component of addressComponents) {
-                if (component.types.includes('locality')) {
-                city = component.long_name;
-                } else if (component.types.includes('administrative_area_level_1')) {
-                state = component.long_name;
-                } else if (component.types.includes('country')) {
-                country = component.long_name;
+            .then((results) => {
+                if (results && results[0]) {
+                    const result = results[0];
+    
+                    // Extract address components (city, state, country)
+                    const addressComponents = result.address_components;
+                    for (const component of addressComponents) {
+                        if (component.types.includes('locality')) {
+                            city = component.long_name;
+                        } else if (component.types.includes('administrative_area_level_1')) {
+                            state = component.long_name;
+                        } else if (component.types.includes('country')) {
+                            country = component.long_name;
+                        }
+                    }
+    
+                    // Extract latitude and longitude
+                    return getLatLng(result);
                 }
-            }
-
-            // Extract latitude and longitude
-            return getLatLng(result);
-            }
-        })
-        .then((latLng) => {
-            if (latLng) {
-            // Update location data
-            setLocationData({
-                city,
-                state,
-                country,
-                latitude: latLng.lat,
-                longitude: latLng.lng,
-            });
-            setAddress(newAddress); // Update the address state with the selected suggestion
-            console.log('Location Data:', locationData);
-            }
-        })
-        .catch((error) => console.error('Error', error));
+            })
+            .then((latLng) => {
+                if (latLng) {
+                    // Update location data
+                    setLocationData({
+                        city,
+                        state,
+                        country,
+                        latitude: latLng.lat,
+                        longitude: latLng.lng,
+                    });
+    
+                    setAddress(newAddress); // Update the address state with the selected suggestion
+                }
+            })
+            .catch((error) => console.error('Error', error));
     };
+    console.log('Location Data:', locationData);
+
+    
+    
+    
+
     const handleFileChange = (e, setFile, maxFileSize, setError) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
@@ -222,7 +228,7 @@ function RiderSignUp() {
                                     value={FirstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                     />
-                                    <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
+                                    <img src={mailLogo} alt="" className={`${styles.icon}`} />
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
@@ -235,7 +241,7 @@ function RiderSignUp() {
                                     value={LastName}
                                     onChange={(e) => setLastName(e.target.value)}
                                     />
-                                    <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
+                                    <img src={mailLogo} alt="" className={`${styles.icon}`} />
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
@@ -262,19 +268,19 @@ function RiderSignUp() {
                                     value={Email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     />
-                                    <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
+                                    <img src={mailLogo} alt="" className={`${styles.icon}`} />
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
                                 <label className='mt-1'><b>Location</b></label>
                                 <div className="autocomplete-container">
                                     <PlacesAutocomplete
-                                    value={address}
-                                    onChange={handleChange}
-                                    onSelect={handleSelect}
-                                    onLoad={handleLoadMap}
-                                    googleCallbackName= "handleLoadMap"
-                                    googleCallbackParams={{ key: process.env.REACT_APP_googleMapsKey }}
+                                        value={address}
+                                        onChange={handleChange}
+                                        onSelect={handleSelect}
+                                        onLoad={handleLoadMap}
+                                        googleCallbackName= "handleLoadMap"
+                                        googleCallbackParams={{ key: process.env.REACT_APP_googleMapsKey }}
                                     >
                                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                     <div>
@@ -306,10 +312,9 @@ function RiderSignUp() {
                                     )}
                                 </PlacesAutocomplete>
                                 </div>
-                            
                             </div>
 
-                              <div className="form-holder col-md-8">
+                              {/* <div className="form-holder col-md-8">
                                   <label className='mt-1'><b>Password</b></label>
                                   <div className={`${styles.input_container}`}>
                                       <input
@@ -319,7 +324,7 @@ function RiderSignUp() {
                                           value={Password}
                                           onChange={(e) => setPassword(e.target.value)}
                                       />
-                                      <img src={PasswordLogo} alt="" className={`icon ${styles.icon}`} />
+                                      <img src={PasswordLogo} alt="" className={`${styles.icon}`} />
                                   </div>
                               </div>
                               <div className="form-holder col-md-8">
@@ -332,28 +337,28 @@ function RiderSignUp() {
                                           value={confirmPassword}
                                           onChange={(e) => setConfirmPassword(e.target.value)}
                                       />
-                                      <img src={PasswordLogo} alt="" className={`icon ${styles.icon}`} />
+                                      <img src={PasswordLogo} alt="" className={`${styles.icon}`} />
                                   </div>
-                              </div>
-                            <div className="form-holder col-md-8">
+                              </div> */}
+                            {/* <div className="form-holder col-md-8">
                             <label className='mt-2'><b>Bike Documents</b></label>
                             <div className={`input_container form-control ${styles.input_container}`}>
                                 <div className={`${styles.takers}`}>
-                                <label className={`${styles.selection}`}>
-                                    <input
-                                    type="file"
-                                    style={{ display: 'none' }}
-                                    onChange={(e) => handleFileChange(e, setBikeDocument, 2 * 1024 * 1024, setError)}
-                                    required
-                                    />
-                                    <img src={Cloud} alt="" className={`iconn ${styles.iconn}`} />
-                                    <span>Upload</span>
-                                </label>
-                                <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                    {BikeDocument && (
-                                    <span> {BikeDocument.name} </span>
-                                    )}
-                                </div>
+                                    <label className={`${styles.selection}`}>
+                                        <input
+                                        type="file"
+                                        style={{ display: 'none' }}
+                                        onChange={(e) => handleFileChange(e, setBikeDocument, 2 * 1024 * 1024, setError)}
+                                        required
+                                        />
+                                        <img src={Cloud} alt="" className={`${styles.iconn}`} />
+                                        <span>Upload</span>
+                                    </label>
+                                    <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                        {BikeDocument && (
+                                        <span> {BikeDocument.name} </span>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                             </div>
@@ -369,7 +374,7 @@ function RiderSignUp() {
                                     onChange={(e) => handleFileChange(e, setValidIdUrl, 2 * 1024 * 1024, setError)}
                                     required
                                     />
-                                    <img src={Cloud} alt="" className={`iconn ${styles.iconn}`} />
+                                    <img src={Cloud} alt="" className={`${styles.iconn}`} />
                                     <span>Upload</span>
                                 </label>
                                 <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -392,7 +397,7 @@ function RiderSignUp() {
                                     onChange={(e) => handleFileChange(e, setPassportPhoto, 2 * 1024 * 1024, setError)}
                                     required
                                     />
-                                    <img src={Cloud} alt="" className={`iconn ${styles.iconn}`} />
+                                    <img src={Cloud} alt="" className={`${styles.iconn}`} />
                                     <span>Upload</span>
                                 </label>
                                 <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -402,21 +407,21 @@ function RiderSignUp() {
                                 </div>
                                 </div>
                             </div>
-                            </div>
+                            </div> */}
                             
 
                             {/* Display error message */}
-                              {error && <div className="error-message col-md-7" style={{ textAlign: 'center', color: 'red' }}>{error}</div>}
-                              {/* Display success message */}
+                              {/* {error && <div className="error-message col-md-7" style={{ textAlign: 'center', color: 'red' }}>{error}</div>}
+                              Display success message
                               {successMessage && <div className={`${styles.messages1}form-holder col-md-7`} style={{ textAlign: 'center', color: 'green' }}>
                                   <small><b>{successMessage}</b></small>
                               </div>}
-                              {/* Display loading spinner */}
+                              Display loading spinner
                               {loading && <div className={`${styles.messages2}form-holder col-md-7`} style={{ textAlign: 'center', color: 'yellow' }}>
                                   <small>Loading...</small>
-                              </div>} 
+                              </div>}  */}
 
-                            <div className="form-holder col-md-8" >
+                            {/* <div className="form-holder col-md-8" >
                                 <button
                                     className={`${styles.submitting}`}
                                     type="submit"
@@ -427,7 +432,7 @@ function RiderSignUp() {
                                 <label>
                                     <p> Already have an account? <a href="/login">SignIn</a></p>
                                 </label>
-                            </div>
+                            </div> */}
                     </form>
                     </div>
                 </div>

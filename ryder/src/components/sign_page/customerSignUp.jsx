@@ -7,6 +7,7 @@ import RyderLogo from '../../images/Ryder-Logo.svg';
 import 'react-toastify/dist/ReactToastify.css';
 import mailLogo from '../../../src/images/icons/Email.png';
 import PasswordLogo from '../../../src/images/icons/Password.png';
+import Loader from './loader';
 
 function CustomerSignUp() {
     const [firstName, setFirstName] = useState('');
@@ -30,19 +31,37 @@ function CustomerSignUp() {
         const limitedValue = numericValue.substring(0, 11);
         setPhoneNumber(limitedValue);
     
-        if (limitedValue.length !== 11) {
+        if (limitedValue.length > 11) {
             setError('Phone number must be exactly 11 digits.');
         } else {
             setError('');
         }
     };
-
+ 
     const handleRegister = async (e) => {
         e.preventDefault();
         setLoading(true);
         
         try {
-            //<Loader />
+            const trimmedFirstName = firstName.trim();
+            const trimmedLastName = lastName.trim();
+
+            // Check if firstName and lastName are empty after trimming
+            if (!trimmedFirstName || !trimmedLastName) {
+                setError('First name and last name are required.');
+                setSuccessMessage('');
+                setLoading(false);
+                return;
+            }
+
+            // Check for special characters or spaces in firstName and lastName
+            const nameRegex = /^[A-Za-z]+$/;
+            if (!nameRegex.test(trimmedFirstName) || !nameRegex.test(trimmedLastName)) {
+                setError('First name and last name should only contain letters.');
+                setSuccessMessage('');
+                setLoading(false);
+                return;
+            }
             if (!isEmailValid) {
                 setError('Please enter a valid email address.');
                 setSuccessMessage('');
@@ -53,7 +72,7 @@ function CustomerSignUp() {
                 setSuccessMessage('');
                 return;
             }
-  
+        
             if (!isPasswordValid) {
                 setError('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
                 setSuccessMessage('');
@@ -62,25 +81,26 @@ function CustomerSignUp() {
             setError('');
             
             const response = await 
-            axios.post('https://localhost:7173/api/v1/Authentication/CreateUser/', {
+            axios.post('https://ryder-test.onrender.com/api/v1/Authentication/CreateUser/', {
                 firstName,
                 lastName,
                 email,
                 phoneNumber,
                 password,
             });
-  
-            // Handle the response here, e.g., show a success message to the user.
+            
             if (!response.data.succeeded) {
-                setSuccessMessage('');
-                setError(response.message);
-                console.log(response.data.message)
+                setError('User with email already exist.')
             }
             else {
                 setError(''); // Clear any previous error
                 setSuccessMessage(response.data.message);
+
+                localStorage.setItem('userEmail', email);
                 navigate('/verify-email');
             }
+            setError('User with email already exist.')
+
             // Clear input fields after successful registration
             setFirstName('');
             setLastName('');
@@ -90,14 +110,14 @@ function CustomerSignUp() {
             setError('');
         }
         catch (error) {     
-            if (error.response) {
+            if (error.response.failed) {
                 setSuccessMessage('');
-                setError(error.response.data.data); 
+                setError(error.response.message); 
             }
             else {
-                console.error(error);
-                setError('An error occurred during Rigistration');
-                console.error('Axios error:', error);
+                if(error.message === 'Request failed with status code 400'){
+                    setError('User with this email exist, try again.')
+                }
             }
         }
         finally
@@ -108,9 +128,10 @@ function CustomerSignUp() {
   return (
     <>
         <div className={`${styles.wrapper} row`}>
+        {loading ? <Loader /> : !<Loader />}
             <div className={`${styles.holder} col-md-12`}>
                 <div className={`${styles.left} col-md-7`}>
-                    <img src={SignUpBanner} alt="" height={800}/>
+                    <img src={SignUpBanner} alt="" height={750}/>
                 </div>
                 <div className={`${styles.right} col-md-5`}>
                     <div className={`${styles.content}`}>
@@ -119,7 +140,7 @@ function CustomerSignUp() {
                         <form action="" method="post" className='elements'>
                             <h3 className={`${styles.SignUp_H4} mt-4`}>Sign Up as a Customer</h3>
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>First Name</b></label>
+                                <label className='mt-2'><b>First Name</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="text"
@@ -133,7 +154,7 @@ function CustomerSignUp() {
                               </div>
 
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Last Name</b></label>
+                                <label className='mt-2'><b>Last Name</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="text"
@@ -146,7 +167,7 @@ function CustomerSignUp() {
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-1'><b>Phone Number</b></label>
+                                <label className='mt-2'><b>Phone Number</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="text"
@@ -159,7 +180,7 @@ function CustomerSignUp() {
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Email Address</b></label>
+                                <label className='mt-2'><b>Email Address</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="text"
@@ -172,7 +193,7 @@ function CustomerSignUp() {
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Password</b></label>
+                                <label className='mt-2'><b>Password</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="password"
@@ -185,7 +206,7 @@ function CustomerSignUp() {
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
-                                <label className='mt-4'><b>Confirm Password</b></label>
+                                <label className='mt-2'><b>Confirm Password</b></label>
                                 <div className={`${styles.input_container}`}>
                                     <input
                                     type="password"
@@ -205,18 +226,13 @@ function CustomerSignUp() {
                             {successMessage && <div className={`${styles.messages1}form-holder col-md-7`} style={{ textAlign: 'center', color: 'green' }}>
                                 <small><b>{successMessage}</b></small>
                             </div>}
-                            {/* Display loading spinner */}
-                            {loading && <div className={`${styles.messages2}form-holder col-md-7`} style={{ textAlign: 'center', color: 'yellow' }}>
-                                <small>Loading...</small>
-                            </div>} 
 
                             <div className="form-holder col-md-8" >
                                 <button
                                     className={`${styles.submitting}`}
                                     type="submit"
                                     onClick={handleRegister}
-                                    //disabled={!isPasswordValid} // Disable button if password is not a match
-                                > Sign Up </button>
+                                > Sign Up</button>
                             </div>
                             <div className="form-holder mt-2" style={{ textAlign: 'left' }}>
                                 <label>
@@ -224,6 +240,7 @@ function CustomerSignUp() {
                                 </label>
                             </div>
                     </form>
+                    
                     </div>
                 </div>
             </div>

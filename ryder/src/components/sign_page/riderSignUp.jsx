@@ -4,26 +4,13 @@ import axios from 'axios';
 import SignUpBanner from '../../images/RyderImg.svg';
 import RyderLogo from '../../images/Ryder-Logo.svg';
 import styles from '../../styles/signUp.module.css';
+import '../../styles/special.css';
 import 'react-toastify/dist/ReactToastify.css';
 import mailLogo from '../../../src/images/icons/Email.png';
 import Cloud from '../../../src/images/icons/Cloud.png';
 import PasswordLogo from '../../../src/images/icons/Password.png';
- 
-//const apiKey = import.meta.env.VITE_APP_GMAP_API;
-const mapApiJs = 'https://maps.googleapis.com/maps/api/js';
-//load google map api js
-function loadAsyncScript(src) {
-    return new Promise( resolve => {
-        const script = document.createElement("script");
-        Object.assign(script, {
-            type: "text/javascript",
-            async: true,
-            src
-        })
-        script.addEventListener("load", () => resolve(script));
-        document.head.appendChild(script);
-    })
-}
+import PlacesAutocomplete from 'react-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 function RiderSignUp() {
     const [FirstName, setFirstName] = useState('');
@@ -48,36 +35,77 @@ function RiderSignUp() {
     const [loading, setLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
-
-
-
-
-
     
-    //init gmap scrip
-    const initMapScript = () => {
-        if(window.google){
-            return Promise.resolve();
-        }
-       // const src = `${mapApiJs}?key=${apiKey}&libraries=places&v=weekly`;
-       // return loadAsyncScript(src);
-    }
+    const [address, setAddress] = useState('');
+    const [locationData, setLocationData] = useState({
+        city: '',
+        state: '',
+        country: '',
+        latitude: null,
+        longitude: null,
+    });
 
-    //load map script after mounted
+    const handleLoadMap = () => {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_googleMapsKey}&libraries=places`;
+        script.async = true;
+        //script.onload = handleScriptLoad;
+        document.head.appendChild(script);
+    };
+
+    // const handleScriptLoad = () => {
+    //     // The Google Maps JavaScript API is now loaded and available for use.
+    // };
     useEffect(() => {
-        initMapScript().then(() => {
-            console.log("map loaded", window.google)
+        handleLoadMap();
+    }, []);
+
+    const handleChange = (newAddress) => {
+        setAddress(newAddress);
+    };
+
+    const handleSelect = (newAddress) => {
+        let city = '';
+        let state = '';
+        let country = '';
+
+        geocodeByAddress(newAddress)
+        .then((results) => {
+            if (results && results[0]) {
+            const result = results[0];
+
+            // Extract address components (city, state, country)
+            const addressComponents = result.address_components;
+            for (const component of addressComponents) {
+                if (component.types.includes('locality')) {
+                city = component.long_name;
+                } else if (component.types.includes('administrative_area_level_1')) {
+                state = component.long_name;
+                } else if (component.types.includes('country')) {
+                country = component.long_name;
+                }
+            }
+
+            // Extract latitude and longitude
+            return getLatLng(result);
+            }
         })
-    }, [])
-
-
-
-
-
-
-
-
-
+        .then((latLng) => {
+            if (latLng) {
+            // Update location data
+            setLocationData({
+                city,
+                state,
+                country,
+                latitude: latLng.lat,
+                longitude: latLng.lng,
+            });
+            setAddress(newAddress); // Update the address state with the selected suggestion
+            console.log('Location Data:', locationData);
+            }
+        })
+        .catch((error) => console.error('Error', error));
+    };
     const handleFileChange = (e, setFile, maxFileSize, setError) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
@@ -104,7 +132,6 @@ function RiderSignUp() {
         setLoading(true);
   
         try {
-            
             if (!isEmailValid) {
                 setError('Please enter a valid email address.');
                 setSuccessMessage('');
@@ -115,7 +142,6 @@ function RiderSignUp() {
                 setSuccessMessage('');
                 return;
             }
-  
             if (!isPasswordValid) {
                 setError('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
                 setSuccessMessage('');
@@ -123,19 +149,8 @@ function RiderSignUp() {
             }
            
             const response = await axios.post('https://localhost:7173/api/v1/Authentication/CreateRider/', {
-                FirstName,
-                LastName,
-                Email,
-                PhoneNumber,
-                Password,
-                City,
-                State,
-                Longitude,
-                Latitude,
-                Country,
-                ValidIdUrl,
-                PassportPhoto,
-                BikeDocument
+                FirstName, LastName, Email, PhoneNumber, Password, City, State, Longitude,
+                Latitude, Country, ValidIdUrl, PassportPhoto, BikeDocument
             });
            
             // Handle the response here, e.g., show a success message to the user.
@@ -250,26 +265,49 @@ function RiderSignUp() {
                                     <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
                                 </div>
                             </div>
-
-                              {/* <div className="search mt-3">
-                                  <input type="text" />
-                              </div>
-                                <div className="address">
-                                    <p>city: <span>...</span></p>
-                                    <p>State: <span>...</span></p>
-                                    <p>Zip: <span>...</span></p>
-                                    <p>Country: <span>...</span></p>
-                                </div> */}
-                              {/*<div className="form-holder col-md-8">*/}
-                              {/*  <label className='mt-2'><b>City</b></label>*/}
-                              {/*  <select name="" id="" className='form-control' required>*/}
-                              {/*        <option value="">Select a City</option>*/}
-                              {/*        <option value={City} onChange={(e) => setCity(e.target.value)}>Lagos</option>*/}
-                              {/*        <option value={City} onChange={(e) => setCity(e.target.value)}>Benue</option>*/}
-                              {/*        <option value={City} onChange={(e) => setCity(e.target.value)}>Abuja</option>*/}
-                              {/*        <option value={City} onChange={(e) => setCity(e.target.value)}>Portharcort</option>*/}
-                              {/*  </select>*/}
-                              {/*</div>*/}
+                            <div className="form-holder col-md-8">
+                                <label className='mt-1'><b>Location</b></label>
+                                <div className="autocomplete-container">
+                                    <PlacesAutocomplete
+                                    value={address}
+                                    onChange={handleChange}
+                                    onSelect={handleSelect}
+                                    onLoad={handleLoadMap}
+                                    googleCallbackName= "handleLoadMap"
+                                    googleCallbackParams={{ key: process.env.REACT_APP_googleMapsKey }}
+                                    >
+                                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div>
+                                        <input
+                                        {...getInputProps({
+                                            placeholder: 'Search Places ...',
+                                            className: 'location-search-input',
+                                        })}
+                                        />
+                                        <div className="autocomplete-dropdown-container" >
+                                            {loading && <div key="loading">Loading...</div>}
+                                            {suggestions.map((suggestion, index) => {
+                                            const className = suggestion.active
+                                            ? 'suggestion-item--active'
+                                            : 'suggestion-item';
+                                            return (
+                                            <div
+                                                key={index}
+                                                {...getSuggestionItemProps(suggestion, {
+                                                className,
+                                                })}
+                                            >
+                                                <span>{suggestion.description}</span>
+                                            </div>
+                                            );
+                                        })}
+                                        </div>
+                                    </div>
+                                    )}
+                                </PlacesAutocomplete>
+                                </div>
+                            
+                            </div>
 
                               <div className="form-holder col-md-8">
                                   <label className='mt-1'><b>Password</b></label>

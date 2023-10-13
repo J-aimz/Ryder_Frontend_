@@ -7,7 +7,6 @@
  import { Link } from "react-router-dom";
  import Bike from "../../images/RyderImg.svg";
  import Logo from "../../images/Ryder-Logo.svg";
-// import 'react-toastify/dist/ReactToastify.css';
 import mailLogo from '../../images/Mailbox.svg';
 import PasswordLogo from '../../../src/images/Password.svg';
 

@@ -37,9 +37,9 @@ export default function RyderEarnings(){
      
   return (
     <div>
-     <RiderNavbar/>
-     <div className='container-fluid parent mt-4'>
-        <div className='container-fluid layer'></div>
+      <RiderNavbar />
+      <div className="container-fluid parent mt-4">
+        <div className="container-fluid layer"></div>
         <div className="card container">
             <div className='container show-earnings text-center py-3'>
                 <p className='myEarnings'>MY EARNINGS</p>
@@ -66,10 +66,9 @@ export default function RyderEarnings(){
               
             </div>
         </div>
-     </div>
+      </div>
     </div>
-    
-  )
+  );
 }
 
 

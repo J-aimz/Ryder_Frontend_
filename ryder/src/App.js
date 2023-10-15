@@ -16,7 +16,7 @@ import {
 } from "./pages";
 import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset";
 import VerifyEmail from "./components/verifyEmail";
-import ResetPassword from "./components/passwordresets/ResetPassword";
+import ResetPassword from "./components/passwordresets/resetPassword";
 import RyderEarnings from "./pages/ryderEarnings/RyderEarnings";
 
 function App() {
@@ -30,9 +30,6 @@ function App() {
           <Route path="/request-form" element={<RequestRiderForm />} />
           <Route path="/ryder-dasboard" element={<RiderDashboard />} />
           <Route path="/earnings" element={<RyderEarnings/>}/>
-          <Route path="/passwordreset" element={<Passwordreset />} />
-          <Route path="/passwordresetverification" element={<Passwordresetverification/>} />
-          <Route path="/confirmEmail" element={<ConfirmEmail />} />
           <Route path="/customer-signUp" exact element={<CustomerSignUp />} />
           <Route path="/rider-signup" exact element={<RiderSignUp />} />
           <Route path="/forget-password" exact element={<ForgetPassword />} />

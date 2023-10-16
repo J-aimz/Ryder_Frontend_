@@ -6,7 +6,9 @@ import Logo from "../images/RyderLogo.svg";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/Login.css";
+import '../styles/Login.css'
+import AppNavbar from "./AppNavbar";
+import Footer from "../pages/landing_page/footer";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -106,6 +108,8 @@ const Login = () => {
   };
 
   return (
+    <div>
+    <AppNavbar/>
     <div className="wrapper-login row">
       <div className="holder-login col-md-12">
         <div className="left-login col-md-7">
@@ -219,6 +223,8 @@ const Login = () => {
           </div>
         </div>
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 };

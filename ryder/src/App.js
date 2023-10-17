@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
+import Login from "./components/Login/Login";
 import CustomerSignUp from "./components/sign_page/customerSignUp";
 import RiderSignUp from "./components/sign_page/riderSignUp";
 import SignalRChat from "./components/SignalRChat";
@@ -16,7 +16,7 @@ import {
 } from "./pages";
 import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset";
 import VerifyEmail from "./components/verifyEmail";
-import ResetPassword from "./components/passwordresets/ResetPassword";
+import ResetPassword from "./components/passwordresets/resetPassword";
 import RyderEarnings from "./pages/ryderEarnings/RyderEarnings";
 
 function App() {
@@ -25,11 +25,11 @@ function App() {
       <div>
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="dashboard" element={<CustomerDashBoard />} />
-          <Route path="request-form" element={<RequestRiderForm />} />
-          <Route path=" " element={<RiderDashboard />} />
-          <Route path="/earnings" element={<RyderEarnings />} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/customer-dashboard" element={<CustomerDashBoard />} />
+          <Route path="/request-form" element={<RequestRiderForm />} />
+          <Route path="/ryder-dasboard" element={<RiderDashboard />} />
+          <Route path="/earnings" element={<RyderEarnings/>}/>
           <Route path="/customer-signUp" exact element={<CustomerSignUp />} />
           <Route path="/rider-signup" exact element={<RiderSignUp />} />
           <Route path="/forget-password" exact element={<ForgetPassword />} />

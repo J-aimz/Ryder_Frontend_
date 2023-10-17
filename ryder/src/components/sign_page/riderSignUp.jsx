@@ -11,18 +11,22 @@ import Cloud from '../../../src/images/icons/Cloud.png';
 import PasswordLogo from '../../../src/images/icons/Password.png';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import Footer from '../../pages/landing_page/footer';
+import { AppNavbar } from "../../components";
+import Loader from './loader';
 
 function RiderSignUp() {
     const [FirstName, setFirstName] = useState('');
     const [LastName, setLastName] = useState('');
     const [PhoneNumber, setPhoneNumber] = useState('');
     const [Email, setEmail] = useState('');
-    const [City, setCity] = useState('');
-    const [State, setState] = useState('');
-    const [Longitude, setLongitude] = useState('');
-    const [Latitude, setLatitude] = useState('');
-    const [Country, setCountry] = useState('');
-    const [BikeDocument, setBikeDocument] = useState(null);
+    const [City, setCity] = useState('Lagos');
+    const [State, setState] = useState('Lagos');
+    const [PostCode, setPostCode] = useState('');
+    const [Longitude, setLongitude] = useState('3.384360');
+    const [Latitude, setLatitude] = useState('6.601700');
+    const [Country, setCountry] = useState('Nigeria');
+    const [BikeDocument, setBikeDocument] = useState('');
     const [ValidIdUrl, setValidIdUrl] = useState('');
     const [PassportPhoto, setPassportPhoto] = useState('');
     const [Password, setPassword] = useState('');
@@ -37,29 +41,18 @@ function RiderSignUp() {
     const navigate = useNavigate();
     
     const [address, setAddress] = useState('');
-    const [locationData, setLocationData] = useState({
-        city: '',
-        state: '',
-        country: '',
-        latitude: null,
-        longitude: null,
-    });
 
     const handleLoadMap = () => {
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_googleMapsKey}&libraries=places`;
+        script.src =`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_googleMapsKey}&libraries=places&callback=initMap`;
         script.async = true;
-        //script.onload = handleScriptLoad;
         document.head.appendChild(script);
     };
 
-    // const handleScriptLoad = () => {
-    //     // The Google Maps JavaScript API is now loaded and available for use.
-    // };
     useEffect(() => {
         handleLoadMap();
     }, []);
-
+    
     const handleChange = (newAddress) => {
         setAddress(newAddress);
     };
@@ -85,93 +78,153 @@ function RiderSignUp() {
                             country = component.long_name;
                         }
                     }
-    
                     // Extract latitude and longitude
                     return getLatLng(result);
                 }
             })
             .then((latLng) => {
                 if (latLng) {
-                    // Update location data
-                    setLocationData({
-                        city,
-                        state,
-                        country,
-                        latitude: latLng.lat,
-                        longitude: latLng.lng,
-                    });
-    
-                    setAddress(newAddress); // Update the address state with the selected suggestion
+                    setAddress(newAddress);
+
+                    setCity(city);
+                    setState(state);
+                    setCountry(country);
+                    setLatitude(latLng.lat);
+                    setLongitude(latLng.lng);
                 }
             })
-            .catch((error) => console.error('Error', error));
+        .catch((error) => console.error('Error', error));
     };
-    console.log('Location Data:', locationData);
-
     
-    
-    
-
     const handleFileChange = (e, setFile, maxFileSize, setError) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
-          if (selectedFile.size > maxFileSize) {
-            setError(`File size exceeds ${maxFileSize / (1024 * 1024)}MB limit`);
-            setFile(null);
-          } else {
-            setError(null);
-            setFile(selectedFile);
-          }
+            if (selectedFile.size > maxFileSize) {
+                setError(`File size exceeds ${maxFileSize / (1024 * 1024)}MB limit`);
+                setFile(null);
+            } else {
+                setError(null);
+                setFile(selectedFile);
+            }
         }
     };
+    
+    const handlePostCodeChange = (e) => {
+        const newValue = e.target.value.replace(/\D/g, '');
+        const maxLength = 6;
+        const truncatedValue = newValue.slice(0, maxLength);
+
+        setPostCode(truncatedValue);
+    };
+
     const handlePhoneNumberChange = (e) => {
         const inputValue = e.target.value;
         const numericValue = inputValue.replace(/\D/g, '');
-        const limitedValue = numericValue.substring(0, 11);
+        const limitedValue = numericValue.substring(0, 12);
         setPhoneNumber(limitedValue);
         if (limitedValue.length !== 11) {
             setError('Phone number must be exactly 11 digits.');
         } else { setError(''); }
     };
+  
     const handleRegister = async (e) => {
         e.preventDefault();
         setLoading(true);
-  
+    
+        if (!BikeDocument || !ValidIdUrl || !PassportPhoto) {
+            setError('Please upload all required documents.');
+            setLoading(false);
+            return;
+        }
+
+        const formData = new FormData();
+    
+        formData.append("FirstName", FirstName);
+        formData.append("LastName", LastName);
+        formData.append("PhoneNumber", PhoneNumber);
+        formData.append("Email", Email);
+        formData.append("City", City);
+        formData.append("State", State);
+        formData.append("PostCode", PostCode);
+        formData.append("Longitude", Longitude);
+        formData.append("Latitude", Latitude);
+        formData.append("Country", Country);
+        formData.append("Password", Password);
+    
+        formData.append("ValidIdUrl", ValidIdUrl, ValidIdUrl.name);
+        formData.append("PassportPhoto", PassportPhoto, PassportPhoto.name);
+        formData.append("BikeDocument", BikeDocument, BikeDocument.name);
+    
         try {
+            const trimmedFirstName = FirstName.trim();
+            const trimmedLastName = LastName.trim();
+    
+            if (!trimmedFirstName || !trimmedLastName) {
+                setError('First name and last name are required.');
+                setSuccessMessage('');
+                setLoading(false);
+                return;
+            }
+    
+            const nameRegex = /^[A-Za-z]+$/;
+            if (!nameRegex.test(trimmedFirstName) || !nameRegex.test(trimmedLastName)) {
+                setError('First name and last name should only contain letters.');
+                setSuccessMessage('');
+                setLoading(false);
+                return;
+            }
+    
             if (!isEmailValid) {
                 setError('Please enter a valid email address.');
-                setSuccessMessage('');
+                setLoading(false);
+                return;
+            }
+            if (!PhoneNumber) {
+                setError('Phone number is required.');
+                setLoading(false);
+                return;
+            }
+            if (!PostCode) {
+                setError('Postcode is required.');
+                setLoading(false);
                 return;
             }
             if (Password !== confirmPassword) {
                 setError('Passwords do not match');
-                setSuccessMessage('');
+                setLoading(false);
                 return;
             }
+    
             if (!isPasswordValid) {
                 setError('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
-                setSuccessMessage('');
+                setLoading(false);
                 return;
             }
-           
-            const response = await axios.post('https://localhost:7173/api/v1/Authentication/CreateRider/', {
-                FirstName, LastName, Email, PhoneNumber, Password, City, State, Longitude,
-                Latitude, Country, ValidIdUrl, PassportPhoto, BikeDocument
+    
+            
+    
+            if (City.trim() === '' || State.trim() === '' || Longitude === '' || Latitude === '' || Country.trim() === '') {
+                setError('A location data is not set, select a valid location');
+                setLoading(false);
+                return;
+            }
+    
+            setError('');
+    
+            const response = await axios.post('https://ryder-test.onrender.com/api/v1/Authentication/CreateRider', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             });
-           
-            // Handle the response here, e.g., show a success message to the user.
-            console.log(response.data);
-            if (!response.data.succeeded) {
-                 setSuccessMessage('');
-                setError(response.data.data);
-                // Display the error message 
+    
+            if (!response.succeeded) {
+                setError('Unable to register at the moment, try again.');
+            } else {
+                setSuccessMessage(response.data.message); 
+                localStorage.setItem('userEmail', Email);
+                navigate('/verify-email');
             }
-            else {
-                setError(''); // Clear any previous error
-                setSuccessMessage(response.data.data);
-                localStorage.setItem('email', Email);
-                navigate("/login");
-            }
+    
             // Clear input fields after successful registration
             setFirstName('');
             setLastName('');
@@ -180,6 +233,7 @@ function RiderSignUp() {
             setEmail('');
             setCity('');
             setState('');
+            setPostCode('');
             setLongitude('');
             setLatitude('');
             setCountry('');
@@ -187,31 +241,25 @@ function RiderSignUp() {
             setPassportPhoto('');
             setBikeDocument('');
             setConfirmPassword('');
-            setError('');
-        }
-        catch (error) {
-            if (error.response) {
-                setSuccessMessage('');
-                setError(error.response.data.data); 
+        } catch (error) {
+            if (error.response && error.response.data.message) {
+                setError(error.response.data.message);
+            } else {
+                setError(error.response.data.message);
             }
-            else {
-                console.error(error);
-                setError('An error occurred during Rigistration');
-            }
-        }
-        finally
-        {
+        } finally {
             setLoading(false);
         }
     };
 
-
   return (
     <>
+    <AppNavbar />
         <div className={`${styles.wrapper} row`}>
+        {loading ? <Loader visiblility={loading}/> : !<Loader />}
             <div className={`${styles.holder} col-md-12`}>
-                <div className= {`${styles.left} col-md-6`}>
-                    <img src={SignUpBanner} alt="" height={1000}/>
+                <div className= {`${styles.left} col-md-5`}>
+                    <img src={SignUpBanner} alt="" height={1100}/>
                 </div>
                 <div className={`${styles.right} col-md-5`}>
                     <div className={`${styles.content}`}>
@@ -221,23 +269,24 @@ function RiderSignUp() {
                             <h2 className={`${styles.SignUp_H4} mt-4`}>Sign Up as a Rider</h2>
                             <div className="form-holder col-md-8">
                                 <label className='mt-1'><b>First Name</b></label>
-                                <div className={`${styles.input_container}`}>
+                                <div className={`${styles.topper_container}`}>
+                                    <img src={mailLogo} alt="" className={`${styles.icon}`} />
+
                                     <input type="text"
                                     placeholder="Enter your first name"
-                                    className={`${styles.form_control} form-control px-5 mt-1`}
+                                    className={`${styles.top_control} mt-1`}
                                     value={FirstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                     />
-                                    <img src={mailLogo} alt="" className={`${styles.icon}`} />
                                 </div>
                             </div>
                             <div className="form-holder col-md-8">
                                 <label className='mt-1'><b>Last Name</b></label>
-                                <div className={`${styles.input_container}`}>
+                                <div className={`${styles.topper_container}`}>
                                     <input
                                     type="text"
                                     placeholder="Enter your last name"
-                                    className={`${styles.form_control} form-control px-5 mt-1`}
+                                    className={`${styles.top_control} mt-1`}
                                     value={LastName}
                                     onChange={(e) => setLastName(e.target.value)}
                                     />
@@ -246,11 +295,11 @@ function RiderSignUp() {
                             </div>
                             <div className="form-holder col-md-8">
                                 <label className='mt-1'><b>Phone Number</b></label>
-                                <div className={`${styles.input_container}`}>
+                                <div className={`${styles.topper_container}`}>
                                     <input
                                     type="text"
                                     placeholder="Enter your phone number"
-                                    className={`${styles.form_control} form-control px-5 mt-1`}
+                                    className={`${styles.top_control} mt-1`}
                                     value={PhoneNumber}
                                     onChange={handlePhoneNumberChange}
                                     />
@@ -260,11 +309,11 @@ function RiderSignUp() {
 
                             <div className="form-holder col-md-8">
                                 <label className='mt-1'><b>Email Address</b></label>
-                                <div className={`${styles.input_container}`}>
+                                <div className={`${styles.topper_container}`}>
                                     <input
                                     type="text"
                                     placeholder="Enter your email address"
-                                    className={`${styles.form_control} form-control px-5 mt-1`}
+                                    className={`${styles.top_control} mt-1`}
                                     value={Email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     />
@@ -313,14 +362,26 @@ function RiderSignUp() {
                                 </PlacesAutocomplete>
                                 </div>
                             </div>
-
-                              {/* <div className="form-holder col-md-8">
+                            <div className="form-holder col-md-8">
+                                <label className='mt-1'><b>Post Code</b></label>
+                                <div className={`${styles.input_container}`}>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter your postcode"
+                                        className={`${styles.form_control} mt-1`}
+                                        value={PostCode}
+                                        onChange={handlePostCodeChange}
+                                    />
+                                    <img src={PasswordLogo} alt="" className={`${styles.icon}`} />
+                                </div>
+                            </div>
+                              <div className="form-holder col-md-8">
                                   <label className='mt-1'><b>Password</b></label>
                                   <div className={`${styles.input_container}`}>
                                       <input
                                           type="password"
                                           placeholder="Enter your password"
-                                          className={`${styles.form_control} form-control px-5 mt-1`}
+                                          className={`${styles.form_control} mt-1`}
                                           value={Password}
                                           onChange={(e) => setPassword(e.target.value)}
                                       />
@@ -333,14 +394,15 @@ function RiderSignUp() {
                                       <input
                                           type="password"
                                           placeholder="Confirm your password"
-                                          className={`${styles.form_control} form-control px-5 mt-1`}
+                                          className={`${styles.form_control} mt-1`}
                                           value={confirmPassword}
                                           onChange={(e) => setConfirmPassword(e.target.value)}
                                       />
                                       <img src={PasswordLogo} alt="" className={`${styles.icon}`} />
                                   </div>
-                              </div> */}
-                            {/* <div className="form-holder col-md-8">
+                              </div>
+                            <div className="form-holder col-md-8">
+                                
                             <label className='mt-2'><b>Bike Documents</b></label>
                             <div className={`input_container form-control ${styles.input_container}`}>
                                 <div className={`${styles.takers}`}>
@@ -348,11 +410,13 @@ function RiderSignUp() {
                                         <input
                                         type="file"
                                         style={{ display: 'none' }}
-                                        onChange={(e) => handleFileChange(e, setBikeDocument, 2 * 1024 * 1024, setError)}
+                                        onChange={(e) => handleFileChange(e, setBikeDocument, 1 * 1024 * 1024, setError)}
                                         required
                                         />
-                                        <img src={Cloud} alt="" className={`${styles.iconn}`} />
-                                        <span>Upload</span>
+                                        <div className="inform">
+                                            <img src={Cloud} alt="" className={`${styles.iconn}`} />
+                                            <>Upload</>
+                                        </div>
                                     </label>
                                     <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                         {BikeDocument && (
@@ -364,26 +428,28 @@ function RiderSignUp() {
                             </div>
 
                             <div className="form-holder col-md-8">
-                            <label className='mt-2'><b>Valid ID</b></label>
-                            <div className={`input_container form-control ${styles.input_container}`}>
-                                <div className={`${styles.takers}`}>
-                                <label className={`${styles.selection}`}>
-                                    <input
-                                    type="file"
-                                    style={{ display: 'none' }}
-                                    onChange={(e) => handleFileChange(e, setValidIdUrl, 2 * 1024 * 1024, setError)}
-                                    required
-                                    />
-                                    <img src={Cloud} alt="" className={`${styles.iconn}`} />
-                                    <span>Upload</span>
-                                </label>
-                                <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                    {ValidIdUrl && (
-                                    <span> {ValidIdUrl.name} </span>
-                                    )}
+                                <label className='mt-2'><b>Valid ID</b></label>
+                                <div className={`input_container form-control ${styles.input_container}`}>
+                                    <div className={`${styles.takers}`}>
+                                    <label className={`${styles.selection}`}>
+                                        <input
+                                        type="file"
+                                        style={{ display: 'none' }}
+                                        onChange={(e) => handleFileChange(e, setValidIdUrl, 1 * 1024 * 1024, setError)}
+                                        required
+                                        />
+                                        <div className="inform">
+                                            <img src={Cloud} alt="" className={`${styles.iconn}`} />
+                                            <>Upload</>
+                                        </div>
+                                    </label>
+                                    <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                        {ValidIdUrl && (
+                                        <span> {ValidIdUrl.name} </span>
+                                        )}
+                                    </div>
+                                    </div>
                                 </div>
-                                </div>
-                            </div>
                             </div>
 
                             <div className="form-holder col-md-8">
@@ -394,11 +460,13 @@ function RiderSignUp() {
                                     <input
                                     type="file"
                                     style={{ display: 'none' }}
-                                    onChange={(e) => handleFileChange(e, setPassportPhoto, 2 * 1024 * 1024, setError)}
+                                    onChange={(e) => handleFileChange(e, setPassportPhoto, 1 * 1024 * 1024, setError)}
                                     required
                                     />
-                                    <img src={Cloud} alt="" className={`${styles.iconn}`} />
-                                    <span>Upload</span>
+                                    <div className="inform">
+                                            <img src={Cloud} alt="" className={`${styles.iconn}`} />
+                                            <>Upload</>
+                                        </div>
                                 </label>
                                 <div className="txt" style={{ width: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                     {PassportPhoto && (
@@ -407,21 +475,17 @@ function RiderSignUp() {
                                 </div>
                                 </div>
                             </div>
-                            </div> */}
+                            </div>
                             
 
-                            {/* Display error message */}
-                              {/* {error && <div className="error-message col-md-7" style={{ textAlign: 'center', color: 'red' }}>{error}</div>}
-                              Display success message
+                              {/* Display error message */}
+                              {error && <div className="error-message col-md-7" style={{ textAlign: 'center', justifyContent: 'center', color: 'red' }}>{error}</div>}
+                              {/* Display success message */}
                               {successMessage && <div className={`${styles.messages1}form-holder col-md-7`} style={{ textAlign: 'center', color: 'green' }}>
                                   <small><b>{successMessage}</b></small>
                               </div>}
-                              Display loading spinner
-                              {loading && <div className={`${styles.messages2}form-holder col-md-7`} style={{ textAlign: 'center', color: 'yellow' }}>
-                                  <small>Loading...</small>
-                              </div>}  */}
 
-                            {/* <div className="form-holder col-md-8" >
+                            <div className="form-holder col-md-8" >
                                 <button
                                     className={`${styles.submitting}`}
                                     type="submit"
@@ -432,12 +496,13 @@ function RiderSignUp() {
                                 <label>
                                     <p> Already have an account? <a href="/login">SignIn</a></p>
                                 </label>
-                            </div> */}
+                            </div>
                     </form>
                     </div>
                 </div>
             </div>
         </div>
+        <Footer />
     </>
   )
 }

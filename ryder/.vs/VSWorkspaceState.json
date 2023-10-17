@@ -3,8 +3,10 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\components\\sign_page"
+    "\\src\\components\\passwordresets",
+    "\\src\\components\\sign_page",
+    "\\src\\styles"
   ],
-  "SelectedNode": "\\src\\App.js",
+  "SelectedNode": "\\src\\.env",
   "PreviewInSolutionExplorer": false
 }

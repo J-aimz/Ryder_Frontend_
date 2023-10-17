@@ -8,6 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import mailLogo from '../../../src/images/icons/Email.png';
 import PasswordLogo from '../../../src/images/icons/Password.png';
 import Loader from './loader';
+import Footer from '../../pages/landing_page/footer';
+import { AppNavbar } from "../../components";
+
 
 function CustomerSignUp() {
     const [firstName, setFirstName] = useState('');
@@ -93,7 +96,7 @@ function CustomerSignUp() {
                 setError('User with email already exist.')
             }
             else {
-                setError(''); // Clear any previous error
+                setError(''); 
                 setSuccessMessage(response.data.message);
 
                 localStorage.setItem('userEmail', email);
@@ -108,28 +111,22 @@ function CustomerSignUp() {
             setPassword('');
             setConfirmPassword('');
             setError('');
-        }
-        catch (error) {     
-            if (error.response.failed) {
-                setSuccessMessage('');
-                setError(error.response.message); 
+        } catch (error) {
+            if (error.response && error.response.data.message) {
+                setError(error.response.data.message);
+            } else {
+                setError(error.response.data.message);
             }
-            else {
-                if(error.message === 'Request failed with status code 400'){
-                    setError('User with this email exist, try again.')
-                }
-            }
-        }
-        finally
-        {
-        setLoading(false);
+        } finally {
+            setLoading(false);
         }
     };
   return (
     <>
+    <AppNavbar />
         <div className={`${styles.wrapper} row`}>
         {loading ? <Loader visiblility={loading}/> : !<Loader />}
-            <div className={`${styles.holder} col-md-12`}>
+            <div className={`${styles.holder1} col-md-12`}>
                 <div className={`${styles.left} col-md-7`}>
                     <img src={SignUpBanner} alt="" height={750}/>
                 </div>
@@ -151,7 +148,7 @@ function CustomerSignUp() {
                                     />
                                     <img src={mailLogo} alt="" className={`icon ${styles.icon}`} />
                                 </div>
-                              </div>
+                            </div>
 
                             <div className="form-holder col-md-8">
                                 <label className='mt-2'><b>Last Name</b></label>
@@ -245,6 +242,7 @@ function CustomerSignUp() {
                 </div>
             </div>
         </div>
+        <Footer />
     </>
   )
 }

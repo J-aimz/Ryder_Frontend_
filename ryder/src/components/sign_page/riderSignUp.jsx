@@ -258,12 +258,12 @@ function RiderSignUp() {
         <div className={`${styles.wrapper} row`}>
         {loading ? <Loader visiblility={loading}/> : !<Loader />}
             <div className={`${styles.holder} col-md-12`}>
-                <div className= {`${styles.left} col-md-5`}>
-                    <img src={SignUpBanner} alt="" height={1100}/>
+                <div className= {`${styles.left} col-md-9`}>
+                    <img src={SignUpBanner} alt="" height={1000}/>
                 </div>
                 <div className={`${styles.right} col-md-5`}>
                     <div className={`${styles.content}`}>
-                        <div className={`${styles.logoholder} mt-6`}> <img src={RyderLogo} alt=""/></div>
+                        {/* <div className={`${styles.logoholder} mt-6`}> <img src={RyderLogo} alt=""/></div> */}
 
                         <form action="" method="post" className='elements'>
                             <h2 className={`${styles.SignUp_H4} mt-4`}>Sign Up as a Rider</h2>

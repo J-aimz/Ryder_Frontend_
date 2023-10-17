@@ -132,7 +132,7 @@ function CustomerSignUp() {
                 </div>
                 <div className={`${styles.right} col-md-5`}>
                     <div className={`${styles.content}`}>
-                        <div className={`${styles.logoholder} mt-6`}> <img src={RyderLogo} alt="" /></div>
+                        {/* <div className={`${styles.logoholder} mt-6`}> <img src={RyderLogo} alt="" /></div> */}
 
                         <form action="" method="post" className='elements'>
                             <h3 className={`${styles.SignUp_H4} mt-4`}>Sign Up as a Customer</h3>

@@ -16,7 +16,7 @@ import {
 } from "./pages";
 import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset";
 import VerifyEmail from "./components/verifyEmail";
-import ResetPassword from "./components/passwordresets/resetPassword";
+import ResetPassword from "./components/passwordresets/ResetPassword";
 import RyderEarnings from "./pages/ryderEarnings/RyderEarnings";
 
 function App() {

@@ -67,7 +67,7 @@ function RiderSignUp() {
                 if (results && results[0]) {
                     const result = results[0];
     
-                    // Extract address components (city, state, country)
+                    // Extracting address components (city, state, country)
                     const addressComponents = result.address_components;
                     for (const component of addressComponents) {
                         if (component.types.includes('locality')) {

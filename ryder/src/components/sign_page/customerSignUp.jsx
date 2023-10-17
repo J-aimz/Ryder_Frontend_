@@ -126,7 +126,7 @@ function CustomerSignUp() {
     <AppNavbar />
         <div className={`${styles.wrapper} row`}>
         {loading ? <Loader visiblility={loading}/> : !<Loader />}
-            <div className={`${styles.holder1} col-md-12`}>
+            <div className={`${styles.holder} col-md-12`}>
                 <div className={`${styles.left} col-md-7`}>
                     <img src={SignUpBanner} alt="" height={750}/>
                 </div>

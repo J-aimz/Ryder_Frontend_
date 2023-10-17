@@ -105,7 +105,6 @@
 
 .elements{
     gap: 20px;
-    /* position: relative; */
 }
 .wrapper{
     display: flex;
@@ -113,19 +112,11 @@
     align-items: center;
     font-family: Inter;
     width: 100%;
-    /* position: relative; */
-}
-.holder1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .holder{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 300px;
-    /* background-color: red; */
 }
 
 .submitting{

@@ -18,6 +18,7 @@ import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordRes
 import VerifyEmail from "./components/verifyEmail";
 import ResetPassword from "./components/passwordresets/ResetPassword";
 import RyderEarnings from "./pages/ryderEarnings/RyderEarnings";
+import VerificationConfirm from "./components/verificationConfirm";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/notifications" element={<SignalRChat />} />
           <Route path="/verify-email" exact element={<VerifyEmail />} />
           <Route path="/reset-password" exact element={<ResetPassword />} />
+          <Route path="/confirmation" exact element={<VerificationConfirm />} />
         </Routes>
       </div>
     </Router>

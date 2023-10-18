@@ -217,7 +217,7 @@ function RiderSignUp() {
                 },
             });
     
-            if (!response.succeeded) {
+            if (!response.data.succeeded) {
                 setError('Unable to register at the moment, try again.');
             } else {
                 setSuccessMessage(response.data.message); 

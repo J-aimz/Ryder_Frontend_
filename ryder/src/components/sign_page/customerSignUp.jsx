@@ -93,7 +93,7 @@ function CustomerSignUp() {
             });
             
             if (!response.data.succeeded) {
-                setError('User with email already exist.')
+                setError(response.data.message)
             }
             else {
                 setError(''); 

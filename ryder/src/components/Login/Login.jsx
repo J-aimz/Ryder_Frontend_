@@ -32,7 +32,6 @@ const Login = () => {
       ...formData,
       [name]: value,
     });
-    console.log(formData)
   };
       
 
@@ -45,42 +44,48 @@ const Login = () => {
             if (!isEmailValid) {
                 setError('Please enter a valid email address.');
                 setSuccessMessage('');
+                setLoading(false);
                 return;
             }
   
             if (!isPasswordValid) {
                 setError('Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.');
                 setSuccessMessage('');
+                setLoading(false);
                 return;
             }
             setError('');
 
             
-            const response = await axios.post('https://ryder-test.onrender.com/api/v1/Authentication/Login', formData );
-  
-            if (response.data.succeeded) {
-               if (response.data.data.userRole === 'Rider') {
-                navigate('/ryder-dasboard');
-             } else if (response.data.data.userRole === 'Customer') {
-               navigate('/customer-dashboard');
-             }
-                setSuccessMessage('');
-                setError(response.data.message);
-
-                console.log(response.data.message)
-            }
-            else {
-                setError('response.message'); // Clear any previous error
+        const response = await axios.post('https://ryder-test.onrender.com/api/v1/Authentication/Login', formData );
+        console.log(response)
+                    
+           if (response.data.succeeded) {
+                localStorage.setItem('userId', response.data.data.userId)
+                localStorage.setItem('riderId', response.data.data.riderId)
+                localStorage.setItem( 'token', response.data.data.token)
+                
+                var res = response.data.data.userRole;
+                if (res === 'Rider') {
+                    navigate('/ryder-dasboard');
+                } else if (res === 'Customer') {
+                    navigate('/customer-dashboard');
+                }
+                    setSuccessMessage('');
+                    setError(response.data.message);
+            } else {
+                setError('response.message'); 
                 setSuccessMessage(response.data.message);
             }
             // Clear input fields after successful registration
-            setFormData('');
+            setFormData({ email: '', password: '' });
             setError('');
+           
         }
         catch (error) {     
             if (error.response) {
                 setSuccessMessage('');
-                setError(error.response.data.data); 
+                setError(error.response.data.message); 
             }
             else {
                 console.error(error);
@@ -105,8 +110,7 @@ const Login = () => {
                 <div className={`${styles.right} col-md-5`}>
                     <div className={`${styles.content}`}>
                         <div className={`${styles.logoholder} mt-6`}> 
-                        <img src={Logo} alt="" />
-                        
+                        <img src={Logo} alt="" />                        
                         </div>
 
                         <form action="" method="post" className='elements'>

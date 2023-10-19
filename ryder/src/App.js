@@ -29,7 +29,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/customer-dashboard" element={<CustomerDashBoard />} />
           <Route path="/request-form" element={<RequestRiderForm />} />
-          <Route path="/ryder-dasboard" element={<RiderDashboard />} />
+          <Route path="/ryder-dashboard" element={<RiderDashboard />} />
           <Route path="/earnings" element={<RyderEarnings />} />
           <Route path="/customer-signUp" exact element={<CustomerSignUp />} />
           <Route path="/rider-signup" exact element={<RiderSignUp />} />

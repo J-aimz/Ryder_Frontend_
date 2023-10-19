@@ -4,7 +4,7 @@ import Login from "./components/Login/Login";
 import CustomerSignUp from "./components/sign_page/customerSignUp";
 import RiderSignUp from "./components/sign_page/riderSignUp";
 import SignalRChat from "./components/SignalRChat";
-import ForgetPassword from "./components/passwordresets/forgetPassword";
+import ForgetPassword from "./components/passwordResets/forgetPassword";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/styles/landingPage.css";
 import "../src/styles/dashboard.css";
@@ -14,9 +14,9 @@ import {
   LandingPage,
   RiderDashboard,
 } from "./pages";
-import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset";
+import ConfirmPasswordReset from "./components/passwordResets/confirmPasswordReset";
 import VerifyEmail from "./components/verifyEmail";
-import ResetPassword from "./components/passwordresets/ResetPassword";
+import ResetPassword from "./components/passwordResets/resetPassword";
 import RyderEarnings from "./pages/ryderEarnings/RyderEarnings";
 import VerificationConfirm from "./components/verificationConfirm";
 

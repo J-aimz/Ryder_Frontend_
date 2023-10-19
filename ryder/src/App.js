@@ -26,16 +26,18 @@ function App() {
       <div>
         <Routes>
           <Route path="/" exact element={<LandingPage />} />
-          <Route path="/login" element={<Login/>} />
+          <Route path="/login" element={<Login />} />
           <Route path="/customer-dashboard" element={<CustomerDashBoard />} />
           <Route path="/request-form" element={<RequestRiderForm />} />
           <Route path="/ryder-dasboard" element={<RiderDashboard />} />
-          <Route path="/earnings" element={<RyderEarnings/>}/>
+          <Route path="/earnings" element={<RyderEarnings />} />
           <Route path="/customer-signUp" exact element={<CustomerSignUp />} />
           <Route path="/rider-signup" exact element={<RiderSignUp />} />
           <Route path="/forget-password" exact element={<ForgetPassword />} />
           <Route
-             path="/password-reset-verification" exact element={<ConfirmPasswordReset />}
+            path="/password-reset-verification"
+            exact
+            element={<ConfirmPasswordReset />}
           />
           <Route path="/notifications" element={<SignalRChat />} />
           <Route path="/verify-email" exact element={<VerifyEmail />} />

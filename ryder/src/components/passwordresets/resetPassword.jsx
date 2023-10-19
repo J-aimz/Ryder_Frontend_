@@ -6,7 +6,7 @@ import RyderLogo from "../../images/Ryder-Logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function ResetPassword() {
+const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const passwordRegex =
@@ -15,7 +15,7 @@ function ResetPassword() {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
-  function successMess(successMessage) {
+  const successMess = (successMessage) => {
     toast.success(successMessage, {
       position: "top-right",
       autoClose: 2000,
@@ -26,8 +26,8 @@ function ResetPassword() {
       progress: undefined,
       theme: "colored",
     });
-  }
-  function errorMesage(error) {
+  };
+  const errorMesage = (error) => {
     toast.error(error, {
       position: "top-right",
       autoClose: 3000,
@@ -38,7 +38,7 @@ function ResetPassword() {
       progress: undefined,
       theme: "colored",
     });
-  }
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -119,6 +119,6 @@ function ResetPassword() {
       <ToastContainer />
     </>
   );
-}
+};
 
 export default ResetPassword;

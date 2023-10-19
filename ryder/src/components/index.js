@@ -6,3 +6,4 @@ export { default as MapComponent } from "./map/MapComponent";
 export { default as RiderNavbar } from "./dashboard/riderNavbar";
 export { default as UserNavbar } from "./dashboard/userNavbar";
 export { default as ForgetPassword } from "./passwordResets/forgetPassword";
+export { default as ConfirmPasswordReset } from "./passwordResets/confirmPasswordReset";

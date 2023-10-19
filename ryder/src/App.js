@@ -13,8 +13,7 @@ import {
   LandingPage,
   RiderDashboard,
 } from "./pages";
-import { ForgetPassword } from "./components";
-import ConfirmPasswordReset from "./components/passwordResets/confirmPasswordReset";
+import { ForgetPassword, ConfirmPasswordReset } from "./components";
 import VerifyEmail from "./components/verifyEmail";
 import ResetPassword from "./components/passwordResets/resetPassword";
 import RyderEarnings from "./pages/ryderEarnings/RyderEarnings";

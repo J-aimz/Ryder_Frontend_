@@ -131,6 +131,7 @@ function RequestRiderForm() {
             <span>Request a Rider</span>
           </div>
           <div className={styles.form_con}>
+            
             <label htmlFor="pickUpLocation">
               <span>Pick Up Location</span>
               <input
@@ -156,6 +157,7 @@ function RequestRiderForm() {
                 </ul>
               )}
             </label>
+
             <label htmlFor="dropOffLocation">
               <span>Drop off Location</span>
               <input

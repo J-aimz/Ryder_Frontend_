@@ -38,4 +38,5 @@ sketch
 .ionide
 .env
 .vs/*
+.vs
 # End of https://www.toptal.com/developers/gitignore/api/react,visualstudiocode

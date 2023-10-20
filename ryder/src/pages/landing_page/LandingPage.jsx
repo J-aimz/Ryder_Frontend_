@@ -169,12 +169,12 @@ const LandingPage = () => {
             }}
           >
             <Link
-              to="/customerSignUp"
+              to="/customer-signUp"
               className="btn btn-warning me-2 fw-medium"
             >
               Register as a Customer
             </Link>
-            <Link to="/riderSignUp" className="btn btn-outline-light fw-medium">
+            <Link to="/rider-signup" className="btn btn-outline-light fw-medium">
               Register as a Rider
             </Link>
           </div>

@@ -52,7 +52,7 @@ const RiderNavbar = ({ riderData }) => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="mx-auto">
-            <LinkContainer to="/bidding">
+            <LinkContainer to="/ryder-dasboard">
               <Nav.Link>Bidding</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/ride-history">
@@ -61,7 +61,7 @@ const RiderNavbar = ({ riderData }) => {
             <LinkContainer to="/earnings">
               <Nav.Link>Earnings</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/">
+            <LinkContainer to="/ryder-dasboard">
               <Nav.Link>Availability</Nav.Link>
             </LinkContainer>
             {/* Render the appropriate icon based on the isOnline state */}
@@ -80,6 +80,9 @@ const RiderNavbar = ({ riderData }) => {
                 style={{ color: "#FB8500" }}
               />
             )}
+            <LinkContainer to="/">
+              <Nav.Link>Logout</Nav.Link>
+            </LinkContainer>
           </Nav>
           <Nav>
             <Dropdown alignRight>

@@ -15,7 +15,7 @@ function AllOrders() {
         },
       })
         .then((response) => response.json())
-        .then((data) => setOrders(data.data))
+        .then((data) => setOrders(data.data || []))
         .catch((error) => console.error(error));
     }
   }, [appUserId, token]);

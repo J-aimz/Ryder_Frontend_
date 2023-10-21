@@ -2,7 +2,11 @@
 import React from "react";
 import Email from "../../images/Email.svg";
 import "../../styles/confirmPasswordReset.css";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
+import "react-toastify/dist/ReactToastify.css";
+// import { Link, useLocation } from "react-router-dom";
 
 // Define a styled component for the body
 const BodyContainer = styled.body`
@@ -16,9 +20,16 @@ const BodyContainer = styled.body`
 `;
 
 const ConfirmPasswordReset = () => {
-  const handleResendEmail = () => {
-    // Call the SendEmail handler to resend the email
-    //SendEmail(yourUserId);
+  const handleResendEmail = async () => {
+    try {
+      const response = await axios.post(
+        "https://ryder-test.onrender.com/api/v1/Authentication/SendConfirmEmail"
+      );
+      // Handle the response if necessary
+    } catch (error) {
+      // Handle errors here
+      console.error("Error occurred while sending email:", error);
+    }
   };
 
   return (
@@ -44,16 +55,15 @@ const ConfirmPasswordReset = () => {
                 onClick={handleResendEmail}
                 style={{
                   textDecoration: "none",
-                  color: "#FB8500"
+                  color: "#FB8500",
                 }}
               >
                 Click to Resend link
               </a>
             </p>
-
-            <div className="div-wrapper">
+            <Link to="/login" className="div-wrapper">
               <button style={{ width: "204px" }}>Back to Login</button>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

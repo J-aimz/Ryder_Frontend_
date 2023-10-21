@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ryder from "../../images/ryder.svg";
 import { LinkContainer } from "react-router-bootstrap";
 import { BsBell } from "react-icons/bs";
-import { FaToggleOff, FaToggleOn } from "react-icons/fa"; // Import the Font Awesome icons for the toggle
+import { FaToggleOff, FaToggleOn } from "react-icons/fa";
 
 import Avatar from "../../images/avatar.svg";
 
@@ -52,7 +52,7 @@ const RiderNavbar = ({ riderData }) => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="mx-auto">
-            <LinkContainer to="/bidding">
+            <LinkContainer to="/ryder-dasboard">
               <Nav.Link>Bidding</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/ride-history">
@@ -61,7 +61,7 @@ const RiderNavbar = ({ riderData }) => {
             <LinkContainer to="/earnings">
               <Nav.Link>Earnings</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/">
+            <LinkContainer to="/ryder-dasboard">
               <Nav.Link>Availability</Nav.Link>
             </LinkContainer>
             {/* Render the appropriate icon based on the isOnline state */}
@@ -80,6 +80,9 @@ const RiderNavbar = ({ riderData }) => {
                 style={{ color: "#FB8500" }}
               />
             )}
+            <LinkContainer to="/">
+              <Nav.Link>Logout</Nav.Link>
+            </LinkContainer>
           </Nav>
           <Nav>
             <Dropdown alignRight>

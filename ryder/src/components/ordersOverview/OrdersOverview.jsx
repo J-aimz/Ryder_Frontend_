@@ -16,10 +16,8 @@ function OrdersOverview() {
     const appUserId = localStorage.getItem("userId");
 
     if (appUserId) {
-      // Use the same API URL as AllOrders
       const apiUrl = `https://ryder-test.onrender.com/api/v1/Order/allOrderProgress/${appUserId}`;
 
-      // Make the API request
       fetch(apiUrl, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -27,9 +25,7 @@ function OrdersOverview() {
       })
         .then((response) => response.json())
         .then((data) => {
-          // Check if the data is an array
           if (Array.isArray(data.data)) {
-            // Filter orders for the specific appUserId and count them
             const total = data.data.filter((order) => order.appUserId === appUserId).length;
             setTotalOrders(total);
           } else {
@@ -44,15 +40,18 @@ function OrdersOverview() {
   return (
     <div className={styles.overview_container}>
       <div className={styles.header}>
+        <span>Total orders</span>
+        <span onClick={handleRequestbtn} className={styles.secondary}>
+          Make a Request
+        </span>
+      </div>
 
       <div className={styles.body}>
         <div>
           <span>{totalOrders}</span>
           <span>orders completed</span>
         </div>
-        
       </div>
-    </div>
     </div>
   )
   }

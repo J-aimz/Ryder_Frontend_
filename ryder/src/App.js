@@ -19,6 +19,7 @@ import VerifyEmail from "./components/verifyEmail";
 import ResetPassword from "./components/passwordresets/resetPassword";
 import RyderEarnings from "./pages/ryderEarnings/RyderEarnings";
 import VerificationConfirm from "./components/verificationConfirm";
+import RiderHistory from "./components/Others/riderHistory";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/verify-email" exact element={<VerifyEmail />} />
           <Route path="/reset-password" exact element={<ResetPassword />} />
           <Route path="/confirmation" exact element={<VerificationConfirm />} />
+          <Route path="/ryder-history" exact element={<RiderHistory />} />
         </Routes>
       </div>
     </Router>

@@ -1,17 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Container, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ryder from "../../images/ryder.svg";
 import { LinkContainer } from "react-router-bootstrap";
 import { BsBell } from "react-icons/bs";
 
-import Avatar from "../../images/avatar.svg";
+import defaultAvatar from "../../images/avatar.svg"; // Default avatar image
+import axios from "axios";
 
-const UserNavbar = ({ userData }) => {
-  userData = {
-    name: "Babatunde", // User's name
-    imageUrl: Avatar // URL to the user's profile image
-  };
+const UserNavbar = () => {
+  const [userData, setUserData] = useState({
+    name: "",
+    imageUrl: defaultAvatar, // Default URL to the user's profile image
+  });
+
+  useEffect(() => {
+    // Check if appUserId and token are available in localStorage
+    const appUserId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+
+    if (appUserId && token) {
+      // Define the URL to fetch user information
+      // const baseUrl = process.env.REACT_APP_USERINFO;
+      // const apiUrl = `${baseUrl}/${appUserId}`;
+      //`https://localhost:7173/api/v1/User/UserInformation/${appUserId}`
+      //`https://ryder-test.onrender.com/api/v1/User/UserInformation/${appUserId}`
+      const apiUrl = `https://ryder-test.onrender.com/api/v1/User/UserInformation/${appUserId}`;
+
+      // Make an HTTP GET request to fetch user information with authorization headers
+      axios
+        .get(apiUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          // Update userData with the fetched data
+          const { data } = response.data;
+          const { firstName, profilePictureUrl } = data;
+
+          const updatedUserData = {
+            name: firstName, // Use the first name as the user's name
+            imageUrl: profilePictureUrl || defaultAvatar, // Use profilePictureUrl if available, otherwise default avatar
+          };
+          setUserData(updatedUserData);
+        })
+        .catch((error) => {
+          console.error("Error fetching user information:", error);
+        });
+    }
+  }, []);
 
   const notifications = [
     {
@@ -58,7 +96,7 @@ const UserNavbar = ({ userData }) => {
           <Nav>
             <Dropdown alignRight>
               <Dropdown.Toggle variant="transparent" className="nav-link">
-                <BsBell size={24} />
+                <BsBell size={24} color="black"/>
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 {notifications.map((notification) => (
@@ -75,12 +113,17 @@ const UserNavbar = ({ userData }) => {
             <div className="d-flex align-items-center ml-3">
               <Link to="/user-profile">
                 <img
-                  src={userData.imageUrl} // Provide the user's image URL
+                  src={userData.imageUrl || defaultAvatar} // Use userData.imageUrl, or fallback to the default avatar
                   alt="User Avatar"
                   className="user-avatar"
+                  onError={() => {
+                  // This function is called when there's an error loading the image
+                  // Set the image source to the default avatar in case of an error
+                  setUserData({ ...userData, imageUrl: defaultAvatar });
+                }}
                 />
               </Link>
-              <span className="ml-2">{userData.name}</span>{" "}
+              <span className="ml-2 ms-2">{" "}{userData.name}</span>{" "}
               {/* Display the user's name */}
             </div>
           </Nav>

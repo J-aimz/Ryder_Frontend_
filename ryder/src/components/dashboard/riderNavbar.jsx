@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Container, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ryder from "../../images/ryder.svg";
@@ -6,14 +6,46 @@ import { LinkContainer } from "react-router-bootstrap";
 import { BsBell } from "react-icons/bs";
 import { FaToggleOff, FaToggleOn } from "react-icons/fa";
 
-import Avatar from "../../images/avatar.svg";
+import defaultAvatar from "../../images/avatar.svg"; // Default avatar image
+import axios from "axios";
 
-const RiderNavbar = ({ riderData }) => {
-  riderData = {
-    name: "Babatunde", // User's name
-    imageUrl: Avatar // URL to the user's profile image
-  };
+const RiderNavbar = () => {
+  const [riderData, setRiderData] = useState({
+    name: "",
+    imageUrl: defaultAvatar, // Default URL to the rider's profile image
+  });
+  useEffect(() => {
+    // Check if appUserId and token are available in localStorage
+    const appUserId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
 
+    if (appUserId && token) {
+      // Define the URL to fetch rider information
+      const apiUrl = `https://ryder-test.onrender.com/api/v1/User/UserInformation/${appUserId}`;
+
+      // Make an HTTP GET request to fetch user information with authorization headers
+      axios
+        .get(apiUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          // Update userData with the fetched data
+          const { data } = response.data;
+          const { firstName, profilePictureUrl } = data;
+
+          const updatedUserData = {
+            name: firstName, // Use the first name as the rider's name
+            imageUrl: profilePictureUrl || defaultAvatar, // Use profilePictureUrl if available, otherwise default avatar
+          };
+          setRiderData(updatedUserData);
+        })
+        .catch((error) => {
+          console.error("Error fetching user information:", error);
+        });
+    }
+  }, []);
   const notifications = [
     {
       id: 1,
@@ -103,12 +135,15 @@ const RiderNavbar = ({ riderData }) => {
             <div className="d-flex align-items-center ml-3">
               <Link to="/rider-profile">
                 <img
-                  src={riderData.imageUrl}
+                  src={riderData.imageUrl || defaultAvatar}
                   alt="Rider Avatar"
                   className="rider-avatar"
+                  onError={() => {
+                  setRiderData({ ...riderData, imageUrl: defaultAvatar });
+                }}
                 />
               </Link>
-              <span className="ml-2">{riderData.name}</span>
+              <span className="ml-2 ms-2">{" "}{riderData.name}</span>{" "}
             </div>
           </Nav>
         </Navbar.Collapse>

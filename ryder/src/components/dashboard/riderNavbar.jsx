@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Container, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ryder from "../../images/ryder.svg";
 import { LinkContainer } from "react-router-bootstrap";
 import { BsBell } from "react-icons/bs";
 import { FaToggleOff, FaToggleOn } from "react-icons/fa";
-import '../../styles/Navbarstyles.css';
+
 import Avatar from "../../images/avatar.svg";
 
 const RiderNavbar = ({ riderData }) => {
   riderData = {
-    name: "Esther Zamani", // User's name
+    name: "Babatunde", // User's name
     imageUrl: Avatar // URL to the user's profile image
   };
 
@@ -83,13 +83,6 @@ const RiderNavbar = ({ riderData }) => {
             <LinkContainer to="/">
               <Nav.Link>Logout</Nav.Link>
             </LinkContainer>
-
-
-            <LinkContainer to="/events">
-              <Nav.Link><div className="events">0</div></Nav.Link>
-            </LinkContainer>
-
-
           </Nav>
           <Nav>
             <Dropdown alignRight>
@@ -110,12 +103,15 @@ const RiderNavbar = ({ riderData }) => {
             <div className="d-flex align-items-center ml-3">
               <Link to="/rider-profile">
                 <img
-                  src={riderData.imageUrl}
+                  src={riderData.imageUrl || defaultAvatar}
                   alt="Rider Avatar"
                   className="rider-avatar"
+                  onError={() => {
+                  setRiderData({ ...riderData, imageUrl: defaultAvatar });
+                }}
                 />
               </Link>
-              <span className="ml-2">{riderData.name}</span>
+              <span className="ml-2 ms-2">{" "}{riderData.name}</span>{" "}
             </div>
           </Nav>
         </Navbar.Collapse>

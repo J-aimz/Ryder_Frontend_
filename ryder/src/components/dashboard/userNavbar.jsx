@@ -7,12 +7,12 @@ import { BsBell } from "react-icons/bs";
 
 import defaultAvatar from "../../images/avatar.svg"; // Default avatar image
 import axios from "axios";
-import { useHistory } from "react-router-dom"; // Import useHistory
+import { useNavigate } from "react-router-dom";
 
 //https://ryder-test.onrender.com/api/v1/Authentication/Logout
 
 const UserNavbar = () => {
-  const history = useHistory(); // Initialize useHistory
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: "",
     imageUrl: defaultAvatar, // Default URL to the user's profile image
@@ -74,7 +74,7 @@ const UserNavbar = () => {
           localStorage.removeItem("token");
           localStorage.removeItem("userId");
 
-          history.push("/login");
+          navigate("/login");
         })
         .catch((error) => {
           console.error("Error logging out:", error);

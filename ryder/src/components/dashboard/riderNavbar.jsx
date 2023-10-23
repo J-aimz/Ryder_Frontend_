@@ -9,6 +9,7 @@ import { FaToggleOff, FaToggleOn } from "react-icons/fa";
 import defaultAvatar from "../../images/avatar.svg"; // Default avatar image
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SignalRChat from "../SignalRChat";
 
 const RiderNavbar = () => {
   const navigate = useNavigate();
@@ -16,6 +17,15 @@ const RiderNavbar = () => {
     name: "",
     imageUrl: defaultAvatar, // Default URL to the rider's profile image
   });
+  
+  const [riderId, setRiderId] = useState("");
+  const [userId, setUserId] = useState("");
+  const [token, setToken] = useState("");
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+  const [isOnline, setIsOnline] = useState(false);
+
+
   useEffect(() => {
     // Check if appUserId and token are available in localStorage
     const appUserId = localStorage.getItem("userId");
@@ -76,29 +86,56 @@ const RiderNavbar = () => {
     }
   };
 
-  const notifications = [
-    {
-      id: 1,
-      text: "New order received.",
-      date: "2 hours ago"
-    },
-    {
-      id: 2,
-      text: "Payment confirmed.",
-      date: "Yesterday"
-    },
-    {
-      id: 3,
-      text: "Delivery in progress.",
-      date: "3 days ago"
-    }
-  ];
+  // const notifications = [
+  //   {
+  //     id: 1,
+  //     text: "New order received.",
+  //     date: "2 hours ago"
+  //   },
+  //   {
+  //     id: 2,
+  //     text: "Payment confirmed.",
+  //     date: "Yesterday"
+  //   },
+  //   {
+  //     id: 3,
+  //     text: "Delivery in progress.",
+  //     date: "3 days ago"
+  //   }
+  // ];
 
-  const [isOnline, setIsOnline] = useState(false);
+ useEffect(() => {
+    const user = localStorage.getItem("userId");
+    setUserId(user);
+    const rider = localStorage.getItem("riderId");
+    setRiderId(rider);
+    const token = localStorage.getItem("token");
+    setToken(token);
+  }, []);
 
   const toggleOnlineStatus = () => {
     setIsOnline(!isOnline);
+
+    try {
+      const data = {
+        availabilityStatus: isOnline === true ? 2 : 1,
+      };
+      const response = axios.post(
+        `https://ryder-test.onrender.com/api/v1/Rider/update-availability/${riderId}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setResponse(response.data);
+      console.log(response.data);
+    } catch (error) {
+      setError(error.message);
+    }
   };
+
 
   return (
     <Navbar bg="white" expand="lg">
@@ -149,17 +186,15 @@ const RiderNavbar = () => {
           <Nav>
             <Dropdown alignRight>
               <Dropdown.Toggle variant="transparent" className="nav-link">
-                <BsBell size={24} />
+                <BsBell size={24} color="black"/>
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                {notifications.map((notification) => (
-                  <Dropdown.Item key={notification.id}>
-                    <LinkContainer to="/notification">
-                      <div>{notification.text}</div>
-                    </LinkContainer>
-                    <div className="text-muted">{notification.date}</div>
-                  </Dropdown.Item>
-                ))}
+                <Dropdown.Item>
+                  <LinkContainer to="/notification">
+                    <SignalRChat />
+                  </LinkContainer>
+                  <div className="text-muted"></div>
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
             <div className="d-flex align-items-center ml-3">

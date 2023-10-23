@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Navbar, Nav, Container, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ryder from "../../images/ryder.svg";
@@ -103,15 +103,12 @@ const RiderNavbar = ({ riderData }) => {
             <div className="d-flex align-items-center ml-3">
               <Link to="/rider-profile">
                 <img
-                  src={riderData.imageUrl || defaultAvatar}
+                  src={riderData.imageUrl}
                   alt="Rider Avatar"
                   className="rider-avatar"
-                  onError={() => {
-                  setRiderData({ ...riderData, imageUrl: defaultAvatar });
-                }}
                 />
               </Link>
-              <span className="ml-2 ms-2">{" "}{riderData.name}</span>{" "}
+              <span className="ml-2">{riderData.name}</span>
             </div>
           </Nav>
         </Navbar.Collapse>

@@ -151,7 +151,7 @@ const RiderNavbar = () => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="mx-auto">
-            <LinkContainer to="/ryder-dasboard">
+            <LinkContainer to="/bidding">
               <Nav.Link>Bidding</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/ride-history">
@@ -179,8 +179,8 @@ const RiderNavbar = () => {
                 style={{ color: "#FB8500" }}
               />
             )}
-            <LinkContainer to="/login">
-              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+            <LinkContainer to="/">
+              <Nav.Link>Logout</Nav.Link>
             </LinkContainer>
           </Nav>
           <Nav>
@@ -200,15 +200,12 @@ const RiderNavbar = () => {
             <div className="d-flex align-items-center ml-3">
               <Link to="/rider-profile">
                 <img
-                  src={riderData.imageUrl || defaultAvatar}
+                  src={riderData.imageUrl}
                   alt="Rider Avatar"
                   className="rider-avatar"
-                  onError={() => {
-                  setRiderData({ ...riderData, imageUrl: defaultAvatar });
-                }}
                 />
               </Link>
-              <span className="ml-2 ms-2">{" "}{riderData.name}</span>{" "}
+              <span className="ml-2">{riderData.name}</span>
             </div>
           </Nav>
         </Navbar.Collapse>

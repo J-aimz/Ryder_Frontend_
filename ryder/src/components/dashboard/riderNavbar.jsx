@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Navbar, Nav, Container, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ryder from "../../images/ryder.svg";
@@ -6,74 +6,12 @@ import { LinkContainer } from "react-router-bootstrap";
 import { BsBell } from "react-icons/bs";
 import { FaToggleOff, FaToggleOn } from "react-icons/fa";
 
-import defaultAvatar from "../../images/avatar.svg"; // Default avatar image
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Avatar from "../../images/avatar.svg";
 
-const RiderNavbar = () => {
-  const navigate = useNavigate();
-  const [riderData, setRiderData] = useState({
-    name: "",
-    imageUrl: defaultAvatar, // Default URL to the rider's profile image
-  });
-  useEffect(() => {
-    // Check if appUserId and token are available in localStorage
-    const appUserId = localStorage.getItem("userId");
-    const token = localStorage.getItem("token");
-
-    if (appUserId && token) {
-      // Define the URL to fetch rider information
-      const apiUrl = `https://ryder-test.onrender.com/api/v1/User/UserInformation/${appUserId}`;
-
-      // Make an HTTP GET request to fetch user information with authorization headers
-      axios
-        .get(apiUrl, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          // Update userData with the fetched data
-          const { data } = response.data;
-          const { firstName, profilePictureUrl } = data;
-
-          const updatedUserData = {
-            name: firstName, // Use the first name as the rider's name
-            imageUrl: profilePictureUrl || defaultAvatar, // Use profilePictureUrl if available, otherwise default avatar
-          };
-          setRiderData(updatedUserData);
-        })
-        .catch((error) => {
-          console.error("Error fetching user information:", error);
-        });
-    }
-  }, []);
-
-  const handleLogout = () => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      // Define the URL for logout
-      const logoutUrl = "https://ryder-test.onrender.com/api/v1/Authentication/Logout";
-
-      // Make an HTTP POST request to log out with authorization headers
-      axios
-        .post(logoutUrl, null, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-
-          localStorage.removeItem("token");
-          localStorage.removeItem("userId");
-
-          navigate("/login");
-        })
-        .catch((error) => {
-          console.error("Error logging out:", error);
-        });
-    }
+const RiderNavbar = ({ riderData }) => {
+  riderData = {
+    name: "Babatunde", // User's name
+    imageUrl: Avatar // URL to the user's profile image
   };
 
   const notifications = [
@@ -114,7 +52,7 @@ const RiderNavbar = () => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="mx-auto">
-            <LinkContainer to="/ryder-dasboard">
+            <LinkContainer to="/bidding">
               <Nav.Link>Bidding</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/ride-history">
@@ -142,8 +80,8 @@ const RiderNavbar = () => {
                 style={{ color: "#FB8500" }}
               />
             )}
-            <LinkContainer to="/login">
-              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+            <LinkContainer to="/">
+              <Nav.Link>Logout</Nav.Link>
             </LinkContainer>
           </Nav>
           <Nav>
@@ -165,15 +103,12 @@ const RiderNavbar = () => {
             <div className="d-flex align-items-center ml-3">
               <Link to="/rider-profile">
                 <img
-                  src={riderData.imageUrl || defaultAvatar}
+                  src={riderData.imageUrl}
                   alt="Rider Avatar"
                   className="rider-avatar"
-                  onError={() => {
-                  setRiderData({ ...riderData, imageUrl: defaultAvatar });
-                }}
                 />
               </Link>
-              <span className="ml-2 ms-2">{" "}{riderData.name}</span>{" "}
+              <span className="ml-2">{riderData.name}</span>
             </div>
           </Nav>
         </Navbar.Collapse>

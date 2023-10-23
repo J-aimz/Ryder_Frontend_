@@ -5,12 +5,12 @@ import ryder from "../../images/ryder.svg";
 import { LinkContainer } from "react-router-bootstrap";
 import { BsBell } from "react-icons/bs";
 import { FaToggleOff, FaToggleOn } from "react-icons/fa";
-
+import '../../styles/Navbarstyles.css';
 import Avatar from "../../images/avatar.svg";
 
 const RiderNavbar = ({ riderData }) => {
   riderData = {
-    name: "Babatunde", // User's name
+    name: "Esther Zamani", // User's name
     imageUrl: Avatar // URL to the user's profile image
   };
 
@@ -52,7 +52,7 @@ const RiderNavbar = ({ riderData }) => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
           <Nav className="mx-auto">
-            <LinkContainer to="/ryder-dasboard">
+            <LinkContainer to="/bidding">
               <Nav.Link>Bidding</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/ride-history">
@@ -83,6 +83,13 @@ const RiderNavbar = ({ riderData }) => {
             <LinkContainer to="/">
               <Nav.Link>Logout</Nav.Link>
             </LinkContainer>
+
+
+            <LinkContainer to="/events">
+              <Nav.Link><div className="events">0</div></Nav.Link>
+            </LinkContainer>
+
+
           </Nav>
           <Nav>
             <Dropdown alignRight>

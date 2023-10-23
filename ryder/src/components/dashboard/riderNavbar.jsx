@@ -8,8 +8,10 @@ import { FaToggleOff, FaToggleOn } from "react-icons/fa";
 
 import defaultAvatar from "../../images/avatar.svg"; // Default avatar image
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RiderNavbar = () => {
+  const navigate = useNavigate();
   const [riderData, setRiderData] = useState({
     name: "",
     imageUrl: defaultAvatar, // Default URL to the rider's profile image
@@ -46,6 +48,34 @@ const RiderNavbar = () => {
         });
     }
   }, []);
+
+  const handleLogout = () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      // Define the URL for logout
+      const logoutUrl = "https://ryder-test.onrender.com/api/v1/Authentication/Logout";
+
+      // Make an HTTP POST request to log out with authorization headers
+      axios
+        .post(logoutUrl, null, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+
+          localStorage.removeItem("token");
+          localStorage.removeItem("userId");
+
+          navigate("/login");
+        })
+        .catch((error) => {
+          console.error("Error logging out:", error);
+        });
+    }
+  };
+
   const notifications = [
     {
       id: 1,
@@ -112,8 +142,8 @@ const RiderNavbar = () => {
                 style={{ color: "#FB8500" }}
               />
             )}
-            <LinkContainer to="/">
-              <Nav.Link>Logout</Nav.Link>
+            <LinkContainer to="/login">
+              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
             </LinkContainer>
           </Nav>
           <Nav>

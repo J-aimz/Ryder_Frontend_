@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../../src/styles/bidding.css';
-import { useNavigate } from 'react-router-dom';
 import info from '../../images/icons/Info.png'
 import RiderNavbar from '../dashboard/riderNavbar';
     

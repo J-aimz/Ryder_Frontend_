@@ -96,7 +96,7 @@ const Bidding = () => {
             setAcceptedOrderIndex(orderHistory.indexOf(acceptedOrder));
             setShowSuccessMessage(true);
                 
-           // Payment Initialization Request
+           // Payment Initialization Requestt
             const paymentData = {
                 amountInKobo: acceptedOrder.Amount,
                 email: email,

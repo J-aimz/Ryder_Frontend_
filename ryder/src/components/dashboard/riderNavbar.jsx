@@ -5,7 +5,6 @@ import ryder from "../../images/ryder.svg";
 import { LinkContainer } from "react-router-bootstrap";
 import { BsBell } from "react-icons/bs";
 import { FaToggleOff, FaToggleOn } from "react-icons/fa";
-
 import defaultAvatar from "../../images/avatar.svg"; // Default avatar image
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

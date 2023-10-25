@@ -37,7 +37,9 @@ const RiderNavbar = ({ riderData }) => {
   const toggleOnlineStatus = () => {
     setIsOnline(!isOnline);
   };
-
+  function logout() {
+    localStorage.clear();
+  }
   return (
     <Navbar bg="white" expand="lg">
       <Container>
@@ -81,7 +83,7 @@ const RiderNavbar = ({ riderData }) => {
               />
             )}
             <LinkContainer to="/">
-              <Nav.Link>Logout</Nav.Link>
+                <Nav.Link onClick={logout}>Logout</Nav.Link>
             </LinkContainer>
           </Nav>
           <Nav>

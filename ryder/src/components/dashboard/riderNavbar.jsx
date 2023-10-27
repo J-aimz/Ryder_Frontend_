@@ -161,7 +161,7 @@ const RiderNavbar = () => {
             <LinkContainer to="/earnings">
               <Nav.Link>Earnings</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/ryder-dasboard">
+            <LinkContainer to="/ryder-dashboard">
               <Nav.Link>Availability</Nav.Link>
             </LinkContainer>
             {/* Render the appropriate icon based on the isOnline state */}

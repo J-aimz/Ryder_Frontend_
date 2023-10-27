@@ -4,7 +4,6 @@ import '../../../src/styles/bidding.css';
 import info from '../../images/icons/Info.png'
 import RiderNavbar from '../dashboard/riderNavbar';
 import { useNavigate } from "react-router-dom";
-import AcceptConfirmed from './acceptConfirmed';
 
 const Bidding = () => {
     const [orderHistory, setOrderHistory] = useState([]);
@@ -16,7 +15,7 @@ const Bidding = () => {
     
     const RideHistoryEntry = ({ pickLocation, droplocation, item, Amount, orderId, onAccept, onDecline, isDeclined, email, name}) => {
     const handleAccept = () => {
-        onAccept(orderId, email);
+        onAccept(orderId, email, name);
     };
 
     const handleDecline = () => {
@@ -62,10 +61,9 @@ const Bidding = () => {
   );
 };
 
-    // localStorage.setItem('token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNlYTQ5YmE3LTI4ZTUtNDIyYy1hMDZkLTg0MDc2NjRkY2M5ZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Ik1vc2VzQGdtYWlsLmNvbSIsImp0aSI6IjdmZjEzMTAxLTAyOTYtNDBkMS1iZTdhLWNjNTYyZWEzMjFiZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6IlByYWlzZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3N1cm5hbWUiOiJNb3NlcyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL21vYmlsZXBob25lIjoiMDgxNDk1MzE0MjQiLCJyb2xlcyI6IlJpZGVyIiwiZXhwIjoxNjk4MTc1MzA4LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MDU0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcwNTQvIn0.b8hvXG0ka8jBWSetOgZ6-GLJziunav1K-MrMXtSAtYM");
     // localStorage.setItem('email', "ogwuchedavid1@gmail.com");
-    // localStorage.setItem('riderId', "3ea49ba7-28e5-422c-a06d-8407664dcc9e")
-
+  localStorage.setItem('riderId', "ccef6b80-797c-4211-adc1-d843a59ebc83")
+  localStorage.setItem('token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNlYTQ5YmE3LTI4ZTUtNDIyYy1hMDZkLTg0MDc2NjRkY2M5ZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Ik1vc2VzQGdtYWlsLmNvbSIsImp0aSI6IjU2NzVjMDM5LTYyMDUtNDhkMy1iZTg3LTFkNTRmZjA2ZDJhZiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6IlByYWlzZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3N1cm5hbWUiOiJNb3NlcyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL21vYmlsZXBob25lIjoiMDgxNDk1MzE0MjQiLCJyb2xlcyI6IlJpZGVyIiwiZXhwIjoxNjk4NDM0MDkxLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MDU0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcwNTQvIn0.enO2PTh2KlKzEL_N2yMxgYlce5t_JCj_H5r2b5W0RoE") 
     /// --------------------------------------------------
     
     var token = localStorage.getItem('token');
@@ -73,7 +71,6 @@ const Bidding = () => {
 
   function handleAccept(orderId, email, name) {
     setOrderLoading({ ...orderLoading, [orderId]: true });
-
 
     axios
         .post(
@@ -98,8 +95,12 @@ const Bidding = () => {
             );
             if (acceptedOrder) {
             setAcceptedOrderIndex(orderHistory.indexOf(acceptedOrder));
-            setShowSuccessMessage(true);
-                
+            navigate('/accept-confirm', {
+              state: {
+                orderData: acceptedOrder,
+              }
+            });
+            
            // Payment Initialization Requestt
             const paymentData = {
                 amountInKobo: acceptedOrder.Amount,
@@ -120,7 +121,6 @@ const Bidding = () => {
                     if (!response.data.succeeded) {
                         console.log("Error", response.data.data.message)
                     } else {
-                        navigate('/accept-confirm', { state: { name } });
                         console.log("Waiting for customer to make paymets");
                     }
                 console.log('Payment Initialization Response:', response.data.data.message);
@@ -232,7 +232,17 @@ const Bidding = () => {
                 <div className="inside_body">
                     <div className="bid_topper">
                         <h2>Bidding Orders</h2>
-                      <div className="message"><img src={info} /><span>You can accept or decline a bid</span></div>
+                        {orderHistory.length === 0 ? (
+                          <div className="message">
+                            <img src={info} />
+                            <span> There are No orders are available, come back later!</span>
+                          </div>
+                        ) : (
+                          <div className="message">
+                            <img src={info} />
+                            <span>You can accept or decline a bid</span>
+                          </div>
+                        )}
                     </div>
                     <div className="inner_content">
                         <div className="title_body">

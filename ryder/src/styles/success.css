@@ -1,0 +1,31 @@
+.holders{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    width: 100%;
+}
+
+.sucess{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(219, 219, 219);
+    padding: 60px;
+    border-radius: 10px;
+}
+.sucess img {
+    width: 80px;
+}
+div .back:hover {
+    background-color: #fff;
+}
+div .take {
+    background-color: rgb(104, 103, 103);
+}
+div .take:hover {
+    color: #fff;
+    background-color: rgb(25, 167, 25);
+}

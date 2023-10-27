@@ -1,17 +1,71 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./RiderDashboard.module.css";
 import { RiderNavbar } from "../../components";
 import Footer from "../landing_page/footer";
-
-
+import { useLocation, useNavigate } from "react-router-dom";
+import request from '../../images/icons/mobile.png'
+import axios from 'axios';
 //imgs
 import { mastercard } from "../../assets";
 
 //components
 import { MapComponent } from "../../components";
 
+
 function RiderDashboard() {
-  const [newNotification, setNewNotication] = useState(false);
+
+  const [rideEnded, setRideEnded] = useState(false);
+  const location = useLocation();
+  const acceptedOrder = location.state?.acceptedOrder;
+  const navigate = useNavigate();
+
+  var riderId = localStorage.getItem('riderId');
+  var token = localStorage.getItem('token');
+  console.log("Id", riderId)
+  console.log("Order", acceptedOrder.orderId)
+
+  const endRide = async () => {
+    try {
+      const response = await axios
+      .post(
+        `https://ryder-test.onrender.com/api/v1/Order/end`,
+        {
+          riderId,
+          orderId: acceptedOrder.orderId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      if (response.data.succeeded) {
+        setRideEnded(true);
+        console.log("Status: ", response.data.data.message);
+        navigate('/success-page'); 
+      } else {
+        console.log("Unable to end ride at the moment")
+      }
+    } catch (error) {
+      console.error('Error ending the ride:', error);
+    }
+  }
+
+  if (!acceptedOrder) {
+    // Handle the case when data is missing
+    return (
+      <>
+        <RiderNavbar />
+        <div className={styles.null_container}>
+          <div className={styles.null_content_body}>
+            <img src={request} alt="" srcset="" />
+            <p>You have not accepted any request yet! Proceed to Bidding!</p>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
   return (
     <>
       <RiderNavbar />
@@ -21,40 +75,45 @@ function RiderDashboard() {
 
           <div>
             <span>Pickup location</span>
-            <p>5, Akintayo Street, Victoria Island, Lagos</p>
+            <p>{acceptedOrder.pickLocation}</p>
           </div>
+
           <div>
             <span>Delivery Location</span>
-            <p>89b, Olumakinde Stree, lekki, Lagos</p>
+            <p>{acceptedOrder.droplocation}</p>
           </div>
+
           <div>
             <span>Package details</span>
-            <p>New Hp core i7 Laptop(fully packed)</p>
+            <p>{acceptedOrder.item}</p>
           </div>
+
           <div>
             <span>Drop off Contact</span>
-            <p>Tomiwa Olatunde</p>
-            <p>080 XXXX XXX</p>
+            <p>{acceptedOrder.name}</p>
+            <p>{acceptedOrder.email}</p>
           </div>
+
           <div>
-            <span>Payment method</span>
-            <p>N3,500</p>
+            <span>Amount paid</span>
+            <p>N{acceptedOrder.Amount}</p>
           </div>
-          <div className={styles.form}>
-            <div>
-              <input type="radio" name="paymentMethod" id="paymentMethod" />
-              <label htmlFor="paymentMethod">Card payment</label>
-            </div>
-            <img src={mastercard} alt="" />
+
+          <div className="status_update">
+            <h6>Update Ride Status</h6>
+            <button type="button"  className="mb-2"
+              onClick={endRide}
+              disabled={rideEnded}
+              >Deliver this Order </button>
+
+            <button className={styles.decline_btn}
+              type="button" onClick={endRide}
+              disabled={rideEnded}
+            >End this Ride</button>
           </div>
-          <button type="button">Accept Request</button>
-          <button className={styles.decline_btn} type="button">
-            Decline request
-          </button>
         </div>
         <div className={styles.map_container}>
           <MapComponent className={styles.map_container} />
-          {/* <Notification  /> */}
         </div>
       </div>
       <Footer />

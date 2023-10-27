@@ -13,6 +13,7 @@ import {
   RequestRiderForm,
   LandingPage,
   RiderDashboard,
+  ChatPage
 } from "./pages";
 import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset"
 import VerifyEmail from "./components/verifyEmail";
@@ -55,6 +56,7 @@ function App() {
           <Route path="/verify-payment" exact element={<VerifyPayment />} />
           <Route path="/accpet-confirm" exact element={<AcceptConfirmed />} />
           <Route path="/wait-for-payments" exact element={<WaitForPayments />} />
+          <Route path="/chat/:order" element={ <ChatPage/>} />
         </Routes>
       </div>
     </Router>

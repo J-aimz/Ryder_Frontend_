@@ -17,24 +17,39 @@ export default function RyderEarnings(){
       });
     
       useEffect(() => {
-        // Make an HTTP GET request to your .NET API endpoint
         const id = localStorage.getItem('riderId')
           axios.get(`https://ryder-test.onrender.com/api/v1/Rider/Rider-Earnings/${id}`)
-            .then((res) => {setEarningsData({
-                totalEarning: res.data.data.totalEarning,
-                rides: res.data.data.totalRides,
-                totalDuration: res.data.data.totalRideDuration,
-                list: res.data.data.rides
+          .then((response) => response.data.data.rides)
+            .then((data) => {
+              // Calculate total earnings from the "amount" property of each element in the response array
+              const totalEarning = data.reduce((total, item) => total + item.amount, 0);
+
+              // Number of rides is the length of the response array
+              const rides = data.length;
+
+              // Calculate total duration from the "startTime" and "endTime" properties of each element
+              const totalDuration = data.reduce((total, item) => {
+                const startTime = new Date(item.startTime);
+                const endTime = new Date(item.endTime);
+                const duration = endTime - startTime;
+                return total + duration;
+              }, 0);
+
+              // Format total duration into HH:MM:SS
+              const totalDurationFormatted = new Date(totalDuration).toISOString().substr(11, 8);
+
+              // Set the state with the calculated values and the response data
+              setEarningsData({
+                totalEarning,
+                rides,
+                totalDuration: totalDurationFormatted,
+                list: data,
+              });
             })
-            .then((response) => response.json());
-        })
-            
           .catch((error) => {
             console.error('Error fetching data:', error);
           });
       }, []);
-      console.log(earningsData.list);
-     
   return (
     <div>
       <RiderNavbar />
@@ -43,7 +58,7 @@ export default function RyderEarnings(){
         <div className="card container">
             <div className='container show-earnings text-center py-3'>
                 <p className='myEarnings'>MY EARNINGS</p>
-                <h4 className='fs-3 fw-bold earning-amount'> N{earningsData.totalEarning.toFixed(2)}</h4>
+            <h4 className='fs-3 fw-bold earning-amount'> N{" "} {earningsData.totalEarning.toFixed(2)}</h4>
                 <div className='container d-flex flex-row justify-content-evenly mt-4'>
                     <section>
                         <img src= {Vector} alt='car'/>
@@ -62,8 +77,6 @@ export default function RyderEarnings(){
                 date = {item.createdAt}
                 time = {item.createdAt}
                 amount = {item.amount.toFixed(2)}/>))}
-               
-              
             </div>
         </div>
       </div>

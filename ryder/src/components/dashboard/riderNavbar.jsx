@@ -135,9 +135,9 @@ const RiderNavbar = () => {
       setError(error.message);
     }
   };
-  function logout() {
-    localStorage.clear();
-  }
+  // function logout() {
+  //   localStorage.clear();
+  // }
   return (
     <Navbar bg="white" expand="lg">
       <Container>

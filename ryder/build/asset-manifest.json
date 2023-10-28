@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.3658a449.css",
-    "main.js": "/static/js/main.8bc978d9.js",
+    "main.css": "/static/css/main.34a6bcd3.css",
+    "main.js": "/static/js/main.4de9c744.js",
     "static/media/Pick-n-Pay.svg": "/static/media/Pick-n-Pay.8d38740578df0590d77ea52a31dfdb92.svg",
     "static/media/RyderImg.svg": "/static/media/RyderImg.fae7f63b64b0ae42b9bd0f21e93167ee.svg",
     "static/media/slider-bg-img.png": "/static/media/slider-bg-img.36647c8ef234e21068c7.png",
@@ -29,12 +29,14 @@
     "static/media/mailIcon.svg": "/static/media/mailIcon.724afc780939cc83683ba9d670b19300.svg",
     "static/media/ic_baseline-access-time.svg": "/static/media/ic_baseline-access-time.db9331e238e0f30fc3e1ace2a6a9a272.svg",
     "static/media/Mailbox.svg": "/static/media/Mailbox.5f9ccb22ec0cf86396418e0e40a309ba.svg",
+    "static/media/send.svg": "/static/media/send.f75afc2cf81799dbcd22ba6ca26e0441.svg",
     "static/media/Email.svg": "/static/media/Email.e45baa88e9d8bf8aea2e45a439363b3a.svg",
-    "main.3658a449.css.map": "/static/css/main.3658a449.css.map",
-    "main.8bc978d9.js.map": "/static/js/main.8bc978d9.js.map"
+    "static/media/oder.svg": "/static/media/oder.331e3618540f3f0a6b63e4b7680f63a9.svg",
+    "main.34a6bcd3.css.map": "/static/css/main.34a6bcd3.css.map",
+    "main.4de9c744.js.map": "/static/js/main.4de9c744.js.map"
   },
   "entrypoints": [
-    "static/css/main.3658a449.css",
-    "static/js/main.8bc978d9.js"
+    "static/css/main.34a6bcd3.css",
+    "static/js/main.4de9c744.js"
   ]
 }

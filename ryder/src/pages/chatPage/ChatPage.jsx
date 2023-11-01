@@ -1,3 +1,4 @@
+import { HubConnectionBuilder } from "@microsoft/signalr";
 import React, { useState, useEffect } from "react";
 import styles from "./ChatPage.module.css";
 import { useParams } from "react-router-dom";
@@ -11,6 +12,7 @@ function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [connection, setConnection] = useState(null);
+
 
 
   useEffect(() => { 
@@ -37,7 +39,7 @@ function ChatPage() {
   },[])
 
   useEffect(() => {
-     const newConnection = new signalR.HubConnectionBuilder()
+     const newConnection = new HubConnectionBuilder()
        .withUrl("http://localhost:7000/messenger")
        .build();
 
@@ -52,7 +54,8 @@ function ChatPage() {
     //    setMessages((prev) => [...prev, value])
     //  );
 
-      newConnection.start().then(() => {
+    newConnection.start().then(() => {
+        conssole.log("connection establised")
         setConnection(newConnection);
       });
 

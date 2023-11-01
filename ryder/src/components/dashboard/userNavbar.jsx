@@ -29,7 +29,8 @@ const UserNavbar = () => {
       // const apiUrl = `${baseUrl}/${appUserId}`;
       //`https://localhost:7173/api/v1/User/UserInformation/${appUserId}`
       //`https://ryder-test.onrender.com/api/v1/User/UserInformation/${appUserId}`
-      const apiUrl = `https://ryder-test.onrender.com/api/v1/User/UserInformation/${appUserId}`;
+      // const apiUrl = `https://ryder-test.onrender.com/api/v1/User/UserInformation/${appUserId}`;
+      const apiUrl = `${process.env.REACT_APP_base}/api/v1/User/UserInformation/${appUserId}`;
 
       // Make an HTTP GET request to fetch user information with authorization headers
       axios
@@ -60,7 +61,10 @@ const UserNavbar = () => {
     
     if (token) {
       // Define the URL for logout
-      const logoutUrl = "https://ryder-test.onrender.com/api/v1/Authentication/Logout";
+      // const logoutUrl =
+        // "https://ryder-test.onrender.com/api/v1/Authentication/Logout";
+      const logoutUrl =
+        `${process.env.REACT_APP_base}/api/v1/Authentication/Logout`;
 
       // Make an HTTP POST request to log out with authorization headers
       axios

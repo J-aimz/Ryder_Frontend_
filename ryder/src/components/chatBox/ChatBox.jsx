@@ -30,7 +30,8 @@ const ChatBox = ({ message, sender, orderId }) => {
       emojie: emoji,
     };
      const response = await fetch(
-       "https://localhost:7000/api/v1/Messages/SendEmoji",
+      //  "https://localhost:7000/api/v1/Messages/SendEmoji",
+       `${process.env.REACT_APP_base}/api/v1/Messages/SendEmoji`,
        {
          method: "POST",
          mode: "cors",

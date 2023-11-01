@@ -76,72 +76,78 @@ const Bidding = () => {
 
 
     axios
-        .post(
-        `https://ryder-test.onrender.com/api/v1/Order/accept/`,
+      .post(
+        // `https://ryder-test.onrender.com/api/v1/Order/accept/`,
+        `${process.env.REACT_APP_base}/api/v1/Order/accept/`,
         {
-            orderId,
-            riderId,
+          orderId,
+          riderId,
         },
         {
-            headers: {
+          headers: {
             Authorization: `Bearer ${token}`,
-            },
+          },
         }
-        )
-        .then((response) => {
+      )
+      .then((response) => {
         if (!response.data.succeeded) {
-            setError(response.data.message);
+          setError(response.data.message);
         } else {
-            setError('');
-            const acceptedOrder = orderHistory.find(
+          setError("");
+          const acceptedOrder = orderHistory.find(
             (order) => order.orderId === orderId
-            );
-            if (acceptedOrder) {
+          );
+          if (acceptedOrder) {
             setAcceptedOrderIndex(orderHistory.indexOf(acceptedOrder));
             setShowSuccessMessage(true);
-                
-           // Payment Initialization Requestt
+
+            // Payment Initialization Requestt
             const paymentData = {
-                amountInKobo: acceptedOrder.Amount,
-                email: email,
-                callbackUrl: 'https://ryder-frontend.vercel.app/verify-payment', 
-                currency: 'NGN', 
+              amountInKobo: acceptedOrder.Amount,
+              email: email,
+              callbackUrl: "https://ryder-frontend.vercel.app/verify-payment",
+              currency: "NGN",
             };
             axios
-                .post( `https://ryder-test.onrender.com/api/payment/initialize-payment/`,
+              .post(
+                // `https://ryder-test.onrender.com/api/payment/initialize-payment/`,
+                `${process.env.REACT_APP_base}/api/payment/initialize-payment/`,
                 paymentData,
                 {
-                    headers: {
+                  headers: {
                     Authorization: `Bearer ${token}`,
-                    },
+                  },
                 }
-                )
-                .then((response) => {
-                    if (!response.data.succeeded) {
-                        console.log("Error", response.data.data.message)
-                    } else {
-                        navigate('/accept-confirm', { state: { name } });
-                        console.log("Waiting for customer to make paymets");
-                    }
-                console.log('Payment Initialization Response:', response.data.data.message);
-                })
-                .catch((error) => {
-                console.error('Error initializing payment:', error);
-                });
-            }
+              )
+              .then((response) => {
+                if (!response.data.succeeded) {
+                  console.log("Error", response.data.data.message);
+                } else {
+                  navigate("/accept-confirm", { state: { name } });
+                  console.log("Waiting for customer to make paymets");
+                }
+                console.log(
+                  "Payment Initialization Response:",
+                  response.data.data.message
+                );
+              })
+              .catch((error) => {
+                console.error("Error initializing payment:", error);
+              });
+          }
         }
-        })
-        .catch((error) => {
+      })
+      .catch((error) => {
         if (error.response && error.response.data.message) {
-            setError(error.response.data.message);
+          setError(error.response.data.message);
         } else {
-            setError(error.response.data.message);
+          setError(error.response.data.message);
         }
-        console.error('Error accepting the order:', error);
-        })
-        .finally(() => {
+        console.error("Error accepting the order:", error);
+      })
+      .finally(() => {
         setOrderLoading({ ...orderLoading, [orderId]: false });
-        });
+      });
     }
 
 
@@ -149,7 +155,8 @@ const Bidding = () => {
 
     axios
       .post(
-        `https://ryder-test.onrender.com/api/v1/Order/decline`,
+        // `https://ryder-test.onrender.com/api/v1/Order/decline`,
+        `${process.env.REACT_APP_base}/api/v1/Order/decline`,
         {
           orderId,
           riderId,
@@ -162,11 +169,11 @@ const Bidding = () => {
       )
       .then((response) => {
         if (response.data.succeeded) {
-          setError('');
+          setError("");
           const declinedOrderIndex = orderHistory.findIndex(
             (order) => order.orderId === orderId
           );
-            console.log("Declined Order: ",declinedOrderIndex);
+          console.log("Declined Order: ", declinedOrderIndex);
 
           if (declinedOrderIndex !== -1) {
             // Make the buttons unclickable for the specific user
@@ -185,44 +192,48 @@ const Bidding = () => {
         if (error.response && error.response.data.message) {
           setError(error.response.data.message);
         } else {
-          setError('Error declining the order');
+          setError("Error declining the order");
         }
-        console.error('Error declining the order:', error);
+        console.error("Error declining the order:", error);
       });
   }
     
     useEffect(() => {
-        axios.get(`https://ryder-test.onrender.com/api/v1/Order/filter`, {
+        // axios.get(`https://ryder-test.onrender.com/api/v1/Order/filter`, {
+        axios
+          .get(`${process.env.REACT_APP_base}/api/v1/Order/filter`, {
             headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        })
-        .then((response) => {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
             const data = response.data.data;
-            console.log("Here:",  data);
+            console.log("Here:", data);
             if (Array.isArray(data)) {
-                const extractedData = data.map(item => ({
-                    pickLocation: item.pickUpLocationAddressDescription,
-                    droplocation: item.dropOffLocationAddressDescription,
-                    item: item.packageDescription,
-                    Amount: item.amount,
-                    status: item.status,
-                    orderId: item.orderId,
-                    declined: false,
-                    email: item.email,
-                    name: item.name
-                }));
+              const extractedData = data.map((item) => ({
+                pickLocation: item.pickUpLocationAddressDescription,
+                droplocation: item.dropOffLocationAddressDescription,
+                item: item.packageDescription,
+                Amount: item.amount,
+                status: item.status,
+                orderId: item.orderId,
+                declined: false,
+                email: item.email,
+                name: item.name,
+              }));
 
-                const filteredData = extractedData.filter(item => !item.declined);
-                setOrderHistory(filteredData);
-                console.log("Hello", extractedData);
+              const filteredData = extractedData.filter(
+                (item) => !item.declined
+              );
+              setOrderHistory(filteredData);
+              console.log("Hello", extractedData);
             } else {
-                console.error('Response data is not as expected:', data);
+              console.error("Response data is not as expected:", data);
             }
-        })
-        .catch((error) => {
-            console.error('Error order details:', error);
-        });
+          })
+          .catch((error) => {
+            console.error("Error order details:", error);
+          });
     }, []);
 
   return (

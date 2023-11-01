@@ -17,10 +17,11 @@ const VerificationConfirm = () => {
         
           try {
             const response = await axios.post(
-              "https://ryder-test.onrender.com/api/v1/Authentication/confirm-email",
+              // "https://ryder-test.onrender.com/api/v1/Authentication/confirm-email",
+              `${process.env.REACT_APP_base}/api/v1/Authentication/confirm-email`,
               {
                 email,
-                token
+                token,
               }
             );
 

@@ -18,7 +18,7 @@ function ChatPage() {
   useEffect(() => { 
     const fetchMessages = async () => {
       const response = await fetch(
-        `https://localhost:7000/api/v1/Messages/GetMessages/${order}`,
+        `${process.env.REACT_APP_base}/api/v1/Messages/GetMessages/${order}`,
         {
           method: "GET",
           mode: "cors",
@@ -40,7 +40,7 @@ function ChatPage() {
 
   useEffect(() => {
      const newConnection = new HubConnectionBuilder()
-       .withUrl("http://localhost:7000/messenger")
+       .withUrl(`${process.env.REACT_APP_base}/messenger`)
        .build();
 
       newConnection.on("sendUserPayementLink", (value) => setMessages(prev => [...prev, value]))
@@ -71,8 +71,6 @@ function ChatPage() {
     setInputValue(event.target.value);
   };
 
-  console.log(process.env.REACT_APP_base);
-
    const handleFormSubmit = async (event) => {
      event.preventDefault();
      setMessages([...messages, inputValue]);
@@ -82,7 +80,7 @@ function ChatPage() {
       body: inputValue,
     };
      const response = await fetch(
-       "https://localhost:7000/api/v1/Messages/SendMessage",
+       `${process.env.REACT_APP_base}/api/v1/Messages/SendMessage`,
        {
          method: "POST",
          mode: "cors",
@@ -90,7 +88,7 @@ function ChatPage() {
          credentials: "same-origin",
          headers: {
            "Content-Type": "application/json",
-          //  Authorization: `Bearer ${token}`,
+           //  Authorization: `Bearer ${token}`,
          },
          body: JSON.stringify(requestBody),
        }

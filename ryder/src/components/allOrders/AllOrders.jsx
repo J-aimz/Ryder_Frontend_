@@ -9,11 +9,15 @@ function AllOrders() {
   useEffect(() => {
     // Check if appUserId and token are available in local storage
     if (appUserId && token) {
-      fetch(`https://ryder-test.onrender.com/api/v1/Order/allOrderProgress/${appUserId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      // fetch(`https://ryder-test.onrender.com/api/v1/Order/allOrderProgress/${appUserId}`, {
+      fetch(
+        `${process.env.REACT_APP_base}/api/v1/Order/allOrderProgress/${appUserId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
         .then((response) => response.json())
         .then((data) => setOrders(data.data || []))
         .catch((error) => console.error(error));

@@ -211,7 +211,8 @@ function RiderSignUp() {
     
             setError('');
     
-            const response = await axios.post('https://ryder-test.onrender.com/api/v1/Authentication/CreateRider', formData, {
+            // const response = await axios.post('https://ryder-test.onrender.com/api/v1/Authentication/CreateRider', formData, {
+            const response = await axios.post(`${process.env.REACT_APP_base}/api/v1/Authentication/CreateRider`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

@@ -222,7 +222,8 @@ function RequestRiderForm() {
     try {
      
       const response = await fetch(
-        "https://ryder-test.onrender.com/api/v1/Order/placeOrder",
+        // "https://ryder-test.onrender.com/api/v1/Order/placeOrder",
+        `${process.env.REACT_APP_base}/api/v1/Order/placeOrder`,
         {
           method: "POST",
           mode: "cors",

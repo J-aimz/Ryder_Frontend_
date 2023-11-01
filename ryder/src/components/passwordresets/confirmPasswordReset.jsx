@@ -23,7 +23,8 @@ const ConfirmPasswordReset = () => {
   const handleResendEmail = async () => {
     try {
       const response = await axios.post(
-        "https://ryder-test.onrender.com/api/v1/Authentication/SendConfirmEmail"
+        // "https://ryder-test.onrender.com/api/v1/Authentication/SendConfirmEmail"
+        `${process.env.REACT_APP_base}/api/v1/Authentication/SendConfirmEmail`
       );
       // Handle the response if necessary
     } catch (error) {

@@ -84,7 +84,8 @@ function CustomerSignUp() {
             setError('');
             
             const response = await 
-            axios.post('https://ryder-test.onrender.com/api/v1/Authentication/CreateUser/', {
+            // axios.post('https://ryder-test.onrender.com/api/v1/Authentication/CreateUser/', {
+            axios.post(`${process.env.REACT_APP_base}/api/v1/Authentication/CreateUser/`, {
                 firstName,
                 lastName,
                 email,

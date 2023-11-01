@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ChatPage.module.css";
 import { useParams } from "react-router-dom";
 import { UserNavbar } from "../../components";
@@ -8,19 +8,99 @@ import ChatBox from "../../components/chatBox/ChatBox";
 import Send from "../../images/send.svg"
 function ChatPage() {
   const { order } = useParams();
-  console.log(order);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [connection, setConnection] = useState(null);
+
+
+  useEffect(() => { 
+    const fetchMessages = async () => {
+      const response = await fetch(
+        `https://localhost:7000/api/v1/Messages/GetMessages/${order}`,
+        {
+          method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+      // setMessages(data);
+    };
+    fetchMessages();
+  },[])
+
+  useEffect(() => {
+     const newConnection = new signalR.HubConnectionBuilder()
+       .withUrl("http://localhost:7000/messenger")
+       .build();
+
+      newConnection.on("sendUserPayementLink", (value) => setMessages(prev => [...prev, value]))
+
+      newConnection.on("sendMessage", (value) =>
+        setMessages((prev) => [...prev, value])
+    );
+    
+    //look into this let it only update the message with an emojie i guess u would have to search for the message with the id and update it
+    //  newConnection.on("updateMessage", (value) =>
+    //    setMessages((prev) => [...prev, value])
+    //  );
+
+      newConnection.start().then(() => {
+        setConnection(newConnection);
+      });
+
+     return () => {
+       if (connection) {
+         connection.stop();
+       }
+     }
+
+  }, [])
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    setMessages([...messages, inputValue]);
-    setInputValue("");
-  };
+  console.log(process.env.REACT_APP_base);
+
+   const handleFormSubmit = async (event) => {
+     event.preventDefault();
+     setMessages([...messages, inputValue]);
+    
+    const requestBody = {
+      oderId: order,
+      body: inputValue,
+    };
+     const response = await fetch(
+       "https://localhost:7000/api/v1/Messages/SendMessage",
+       {
+         method: "POST",
+         mode: "cors",
+         cache: "no-cache",
+         credentials: "same-origin",
+         headers: {
+           "Content-Type": "application/json",
+          //  Authorization: `Bearer ${token}`,
+         },
+         body: JSON.stringify(requestBody),
+       }
+     );
+
+     const data = await response.json();  
+      console.log(data);
+
+     setInputValue("");
+   };
+
+
+
 
   return (
     <>

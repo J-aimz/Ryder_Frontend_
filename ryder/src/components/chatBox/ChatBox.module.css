@@ -8,6 +8,10 @@
     margin-top: .75rem;
 }
 
+.msg_con {
+    position: relative;
+}
+
 .sender {
     color: #fff;
     background: var(--text-prompt);
@@ -19,6 +23,24 @@
     color: var(--text-primary);
 }
 
-.emojis {
-    
+.emojie_container {
+    background-color: #f8f8f842;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: #333;
+    border-radius: 8px;
+    position: absolute;
+    width: 50%;
+    bottom: -2rem;
+    padding: .5rem;
+    z-index: 1; 
 }
+
+
+.emoji {
+    background: #fff;
+    cursor: pointer;
+}
+

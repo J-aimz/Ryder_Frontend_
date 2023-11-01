@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./RiderDashboard.module.css";
 import { RiderNavbar } from "../../components";
 import Footer from "../landing_page/footer";
+import {Link} from "react-router-dom" 
 
 
 //imgs
@@ -12,6 +13,8 @@ import { MapComponent } from "../../components";
 
 function RiderDashboard() {
   const [newNotification, setNewNotication] = useState(false);
+
+  
   return (
     <>
       <RiderNavbar />
@@ -51,6 +54,14 @@ function RiderDashboard() {
           <button className={styles.decline_btn} type="button">
             Decline request
           </button>
+
+          <Link
+            to={"/chat/:order"}
+            className={styles.decline_btn}
+            type="button"
+          >
+            Decline request
+          </Link>
         </div>
         <div className={styles.map_container}>
           <MapComponent className={styles.map_container} />

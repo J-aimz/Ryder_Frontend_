@@ -1,4 +1,4 @@
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./RequestRiderForm.module.css";
 import { backArrowIcon } from "../../assets";

@@ -4,7 +4,7 @@ import '../../../src/styles/bidding.css';
 import info from '../../images/icons/Info.png'
 import RiderNavbar from '../dashboard/riderNavbar';
 import { useNavigate } from "react-router-dom";
-import AcceptConfirmed from './acceptConfirmed';
+// import AcceptConfirmed from './acceptConfirmed';
 
 const Bidding = () => {
     const [orderHistory, setOrderHistory] = useState([]);

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./RiderDashboard.module.css";
 import { RiderNavbar } from "../../components";
 import Footer from "../landing_page/footer";
@@ -12,7 +11,7 @@ import { mastercard } from "../../assets";
 import { MapComponent } from "../../components";
 
 function RiderDashboard() {
-  const [newNotification, setNewNotication] = useState(false);
+  // const [newNotification, setNewNotication] = useState(false);
 
   
   return (

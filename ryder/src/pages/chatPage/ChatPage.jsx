@@ -16,8 +16,8 @@ function ChatPage() {
 
 
   useEffect(() => { 
-    const fetchMessages = async () => {
-      const response = await fetch(
+    // const fetchMessages = async () => {
+      const response = fetch(
         `https://localhost:7000/api/v1/Messages/GetMessages/${order}`,
         {
           method: "GET",
@@ -31,11 +31,11 @@ function ChatPage() {
         }
       );
 
-      const data = await response.json();
+      const data = response.json();
       console.log(data);
       // setMessages(data);
-    };
-    fetchMessages();
+    // };
+    // fetchMessages();
   },[])
 
   useEffect(() => {
@@ -55,7 +55,7 @@ function ChatPage() {
     //  );
 
     newConnection.start().then(() => {
-        conssole.log("connection establised")
+        console.log("connection establised")
         setConnection(newConnection);
       });
 

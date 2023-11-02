@@ -28,7 +28,7 @@ function RiderDashboard() {
     try {
       const response = await axios
       .post(
-        `https://ryder-test.onrender.com/api/v1/Order/end`,
+        `https://ryder-backend-xzhk.onrender.com/api/v1/Order/end`,
         {
           riderId,
           orderId: acceptedOrder.orderId,

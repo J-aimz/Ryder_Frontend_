@@ -16,7 +16,7 @@ function OrdersOverview() {
     const appUserId = localStorage.getItem("userId");
 
     if (appUserId) {
-      const apiUrl = `https://ryder-test.onrender.com/api/v1/Order/allOrderProgress/${appUserId}`;
+      const apiUrl = `https://ryder-backend-xzhk.onrender.com/api/v1/Order/allOrderProgress/${appUserId}`;
 
       fetch(apiUrl, {
         headers: {

@@ -51,7 +51,7 @@ const RiderHistory = () => {
     var userId = localStorage.getItem('riderId');
     const authToken = localStorage.getItem('token');
     useEffect(() => {
-        axios.get(`https://ryder-test.onrender.com/api/v1/Rider/ride-history-by-id/${userId}`, {
+        axios.get(`https://ryder-backend-xzhk.onrender.com/api/v1/Rider/ride-history-by-id/${userId}`, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             }

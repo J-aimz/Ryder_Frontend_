@@ -17,7 +17,7 @@ const WaitForPayments = () => {
         
           try {
             const response = await axios.post(
-              "https://ryder-test.onrender.com/api/payment/verify-payment",
+              "https://ryder-backend-xzhk.onrender.com/api/payment/verify-payment",
               {
                 paymentReference
               },

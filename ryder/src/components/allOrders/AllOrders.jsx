@@ -9,7 +9,7 @@ function AllOrders() {
   useEffect(() => {
     // Check if appUserId and token are available in local storage
     if (appUserId && token) {
-      fetch(`https://ryder-test.onrender.com/api/v1/Order/allOrderProgress/${appUserId}`, {
+      fetch(`https://ryder-backend-xzhk.onrender.com/api/v1/Order/allOrderProgress/${appUserId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

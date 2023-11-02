@@ -57,7 +57,7 @@ const Login = () => {
       setError("");
 
       const response = await axios.post(
-        "https://ryder-test.onrender.com/api/v1/Authentication/Login",
+        "https://ryder-backend-xzhk.onrender.com/api/v1/Authentication/Login",
         formData
       );
       console.log(response);

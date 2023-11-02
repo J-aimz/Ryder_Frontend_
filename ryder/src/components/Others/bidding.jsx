@@ -63,7 +63,7 @@ const Bidding = () => {
 
     // localStorage.setItem('email', "ogwuchedavid1@gmail.com");
   localStorage.setItem('riderId', "ccef6b80-797c-4211-adc1-d843a59ebc83")
-  localStorage.setItem('token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNlYTQ5YmE3LTI4ZTUtNDIyYy1hMDZkLTg0MDc2NjRkY2M5ZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Ik1vc2VzQGdtYWlsLmNvbSIsImp0aSI6IjU2NzVjMDM5LTYyMDUtNDhkMy1iZTg3LTFkNTRmZjA2ZDJhZiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6IlByYWlzZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3N1cm5hbWUiOiJNb3NlcyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL21vYmlsZXBob25lIjoiMDgxNDk1MzE0MjQiLCJyb2xlcyI6IlJpZGVyIiwiZXhwIjoxNjk4NDM0MDkxLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MDU0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcwNTQvIn0.enO2PTh2KlKzEL_N2yMxgYlce5t_JCj_H5r2b5W0RoE") 
+  localStorage.setItem('token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNlYTQ5YmE3LTI4ZTUtNDIyYy1hMDZkLTg0MDc2NjRkY2M5ZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Ik1vc2VzQGdtYWlsLmNvbSIsImp0aSI6IjhjODIzOWFlLTJiZWYtNGI4ZC1iNGE1LTFiMTU3ZWM4OGE3ZCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2dpdmVubmFtZSI6IlByYWlzZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3N1cm5hbWUiOiJNb3NlcyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL21vYmlsZXBob25lIjoiMDgxNDk1MzE0MjQiLCJyb2xlcyI6IlJpZGVyIiwiZXhwIjoxNjk4OTkyMjEyLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MDU0LyIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjcwNTQvIn0.ZN5T1Nsjruaj3atRblYkjISG1AfjBDgpTRHlwf_GXus") 
     /// --------------------------------------------------
     
     var token = localStorage.getItem('token');
@@ -74,7 +74,7 @@ const Bidding = () => {
 
     axios
         .post(
-        `https://ryder-test.onrender.com/api/v1/Order/accept/`,
+        `https://ryder-backend-xzhk.onrender.com/api/v1/Order/accept/`,
         {
             orderId,
             riderId,
@@ -105,11 +105,11 @@ const Bidding = () => {
             const paymentData = {
                 amountInKobo: acceptedOrder.Amount,
                 email: email,
-                callbackUrl: 'https://ryder-frontend.vercel.app/verify-payment', 
+                callbackUrl: 'https://ryder-frontend-gamma.vercel.app/verify-payment', 
                 currency: 'NGN', 
             };
             axios
-                .post( `https://ryder-test.onrender.com/api/payment/initialize-payment/`,
+                .post( `https://ryder-backend-xzhk.onrender.com/api/payment/initialize-payment/`,
                 paymentData,
                 {
                     headers: {
@@ -149,7 +149,7 @@ const Bidding = () => {
 
     axios
       .post(
-        `https://ryder-test.onrender.com/api/v1/Order/decline`,
+        `https://ryder-backend-xzhk.onrender.com/api/v1/Order/decline`,
         {
           orderId,
           riderId,
@@ -192,7 +192,7 @@ const Bidding = () => {
   }
     
     useEffect(() => {
-        axios.get(`https://ryder-test.onrender.com/api/v1/Order/filter`, {
+        axios.get(`https://ryder-backend-xzhk.onrender.com/api/v1/Order/filter`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

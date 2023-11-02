@@ -17,7 +17,7 @@ const VerificationConfirm = () => {
         
           try {
             const response = await axios.post(
-              "https://ryder-test.onrender.com/api/v1/Authentication/confirm-email",
+              "https://ryder-backend-xzhk.onrender.com/api/v1/Authentication/confirm-email",
               {
                 email,
                 token

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import "../styles/Passwordresetverification.css";
 import mail from "../images/Vector.png";
@@ -66,5 +65,3 @@ const VerifyEmail = () => {
 };
 
 export default VerifyEmail;
-=======
->>>>>>> bf50a80b90ce92976ca1b7944eb5d388534198db

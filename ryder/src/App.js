@@ -13,6 +13,7 @@ import {
   RequestRiderForm,
   LandingPage,
   RiderDashboard,
+  ChatPage
 } from "./pages";
 import ConfirmPasswordReset from "./components/passwordresets/confirmPasswordReset"
 import VerifyEmail from "./components/verifyEmail";
@@ -56,7 +57,11 @@ function App() {
           <Route path="/verify-payment" exact element={<VerifyPayment />} />
           <Route path="/accept-confirm" exact element={<AcceptConfirmed />} />
           <Route path="/wait-for-payments" exact element={<WaitForPayments />} />
+<<<<<<< HEAD
           <Route path="/success-page" exact element={<SuccessPage />} />
+=======
+          <Route path="/chat/:order" element={ <ChatPage/>} />
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
         </Routes>
       </div>
     </Router>

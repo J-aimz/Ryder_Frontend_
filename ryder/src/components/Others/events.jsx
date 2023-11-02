@@ -70,31 +70,40 @@ const Events = () => {
     useEffect(() => {
         // const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjU3NGNiOGI3LWQ2NzAtNDE5YS05NDdiLTVkYThhYjBjNTlmZiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6IkF5b21pZGVAZ21haWwuY29tIiwianRpIjoiOGEyZGU1ODctMDBjYi00OWNmLWIxNDUtNWRiNDI4MjU5ZDQ3IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZ2l2ZW5uYW1lIjoiQXlvbWlkZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3N1cm5hbWUiOiJBZGVveWUiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9tb2JpbGVwaG9uZSI6IjExMTExMTExMTExIiwicm9sZXMiOiJDdXN0b21lciIsImV4cCI6MTY5Nzk0ODE2MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzA1NC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo3MDU0LyJ9.7BzertqbOkdvJYUosanuUFz3hW0KARpsAO_mi1d2eIo'; // Replace with your actual authorization token
 
+<<<<<<< HEAD
         axios.get(`https://ryder-backend-xzhk.onrender.com/api/v1/Rider/ride-history-by-id/${userId}`, {
             headers: {
+=======
+        axios
+          .get(
+            `${process.env.REACT_APP_base}/api/v1/Rider/ride-history-by-id/${userId}`,
+            {
+              headers: {
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
                 Authorization: `Bearer ${authToken}`,
+              },
             }
-        })
-        .then((response) => {
+          )
+          .then((response) => {
             const data = response.data.data;
 
             if (Array.isArray(data)) {
-                const extractedData = data.map(item => ({
-                    pickLocation: item.pickUpLocation.city,
-                    droplocation: item.pickUpPhoneNumber,
-                    //dateTime: item.dateTime, // Make sure this property exists in your data
-                    status: item.status,
-                }));
-                setRideHistory(extractedData);
-                console.log(extractedData);
+              const extractedData = data.map((item) => ({
+                pickLocation: item.pickUpLocation.city,
+                droplocation: item.pickUpPhoneNumber,
+                //dateTime: item.dateTime, // Make sure this property exists in your data
+                status: item.status,
+              }));
+              setRideHistory(extractedData);
+              console.log(extractedData);
             } else {
-                console.error('Response data is not as expected:', data);
+              console.error("Response data is not as expected:", data);
             }
-        })
+          })
 
-        .catch((error) => {
-            console.error('Error fetching ride history:', error);
-        });
+          .catch((error) => {
+            console.error("Error fetching ride history:", error);
+          });
     }, []);
   return (
     <div>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import styles from "./RiderDashboard.module.css";
 import { RiderNavbar } from "../../components";
@@ -5,6 +6,14 @@ import Footer from "../landing_page/footer";
 import { useLocation, useNavigate } from "react-router-dom";
 import request from '../../images/icons/mobile.png'
 import axios from 'axios';
+=======
+import styles from "./RiderDashboard.module.css";
+import { RiderNavbar } from "../../components";
+import Footer from "../landing_page/footer";
+import {Link} from "react-router-dom" 
+
+
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
 //imgs
 import { mastercard } from "../../assets";
 
@@ -13,6 +22,7 @@ import { MapComponent } from "../../components";
 
 
 function RiderDashboard() {
+<<<<<<< HEAD
 
   const [rideEnded, setRideEnded] = useState(false);
   const location = useLocation();
@@ -66,6 +76,11 @@ function RiderDashboard() {
       </>
     );
   }
+=======
+  // const [newNotification, setNewNotication] = useState(false);
+
+  
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
   return (
     <>
       <RiderNavbar />
@@ -111,6 +126,21 @@ function RiderDashboard() {
               disabled={rideEnded}
             >End this Ride</button>
           </div>
+<<<<<<< HEAD
+=======
+          <button type="button">Accept Request</button>
+          <button className={styles.decline_btn} type="button">
+            Decline request
+          </button>
+
+          <Link
+            to={"/chat/:order"}
+            className={styles.decline_btn}
+            type="button"
+          >
+            Decline request
+          </Link>
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
         </div>
         <div className={styles.map_container}>
           <MapComponent className={styles.map_container} />

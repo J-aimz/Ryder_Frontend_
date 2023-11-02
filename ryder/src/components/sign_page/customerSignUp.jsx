@@ -84,7 +84,12 @@ function CustomerSignUp() {
             setError('');
             
             const response = await 
+<<<<<<< HEAD
             axios.post('https://ryder-backend-xzhk.onrender.com/api/v1/Authentication/CreateUser/', {
+=======
+            // axios.post('https://ryder-test.onrender.com/api/v1/Authentication/CreateUser/', {
+            axios.post(`${process.env.REACT_APP_base}/api/v1/Authentication/CreateUser/`, {
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
                 firstName,
                 lastName,
                 email,

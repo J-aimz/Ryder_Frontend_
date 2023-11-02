@@ -17,14 +17,18 @@ const VerifyPayment = () => {
         
           try {
             const response = await axios.post(
+<<<<<<< HEAD
               "https://ryder-backend-xzhk.onrender.com/api/payment/verify-payment",
+=======
+              `${process.env.REACT_APP_base}/api/payment/verify-payment`,
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
               {
-                paymentReference
+                paymentReference,
               },
               {
                 headers: {
-                  Authorization: `Bearer ${token}`
-                }
+                  Authorization: `Bearer ${token}`,
+                },
               }
             );
 

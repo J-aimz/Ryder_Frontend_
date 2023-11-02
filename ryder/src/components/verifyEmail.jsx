@@ -17,7 +17,12 @@ const VerifyEmail = () => {
       const email = localStorage.getItem('userEmail');
 
       const response = await axios.post(
+<<<<<<< HEAD
         "https://ryder-backend-xzhk.onrender.com/api/v1/Authentication/SendConfirmEmail",
+=======
+        // "https://ryder-test.onrender.com/api/v1/Authentication/SendConfirmEmail",
+        `${process.env.REACT_APP_base}/api/v1/Authentication/SendConfirmEmail`,
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
         {
           email,
         }

@@ -1,4 +1,4 @@
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./RequestRiderForm.module.css";
 import { backArrowIcon } from "../../assets";
@@ -222,7 +222,12 @@ function RequestRiderForm() {
     try {
      
       const response = await fetch(
+<<<<<<< HEAD
         "https://ryder-backend-xzhk.onrender.com/api/v1/Order/placeOrder",
+=======
+        // "https://ryder-test.onrender.com/api/v1/Order/placeOrder",
+        `${process.env.REACT_APP_base}/api/v1/Order/placeOrder`,
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
         {
           method: "POST",
           mode: "cors",

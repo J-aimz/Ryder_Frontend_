@@ -32,7 +32,12 @@ const RiderNavbar = () => {
 
     if (appUserId && token) {
       // Define the URL to fetch rider information
+<<<<<<< HEAD
       const apiUrl = `https://ryder-backend-xzhk.onrender.com/api/v1/User/UserInformation/${appUserId}`;
+=======
+      // const apiUrl = `https://ryder-test.onrender.com/api/v1/User/UserInformation/${appUserId}`;
+      const apiUrl = `${process.env.REACT_APP_base}/api/v1/User/UserInformation/${appUserId}`;
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
 
       // Make an HTTP GET request to fetch user information with authorization headers
       axios
@@ -63,7 +68,13 @@ const RiderNavbar = () => {
 
     if (token) {
       // Define the URL for logout
+<<<<<<< HEAD
       const logoutUrl = "https://ryder-backend-xzhk.onrender.com/api/v1/Authentication/Logout";
+=======
+      // const logoutUrl = "https://ryder-test.onrender.com/api/v1/Authentication/Logout";
+      const logoutUrl =
+        `${process.env.REACT_APP_base}/api/v1/Authentication/Logout`;
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
 
       // Make an HTTP POST request to log out with authorization headers
       axios
@@ -121,7 +132,12 @@ const RiderNavbar = () => {
         availabilityStatus: isOnline === true ? 2 : 1,
       };
       const response = axios.post(
+<<<<<<< HEAD
         `https://ryder-backend-xzhk.onrender.com/api/v1/Rider/update-availability/${riderId}`,
+=======
+        // `https://ryder-test.onrender.com/api/v1/Rider/update-availability/${riderId}`,
+        `${process.env.REACT_APP_base}/api/v1/Rider/update-availability/${riderId}`,
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
         data,
         {
           headers: {

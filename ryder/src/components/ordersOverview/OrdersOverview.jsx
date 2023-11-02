@@ -16,7 +16,12 @@ function OrdersOverview() {
     const appUserId = localStorage.getItem("userId");
 
     if (appUserId) {
+<<<<<<< HEAD
       const apiUrl = `https://ryder-backend-xzhk.onrender.com/api/v1/Order/allOrderProgress/${appUserId}`;
+=======
+      // const apiUrl = `https://ryder-test.onrender.com/api/v1/Order/allOrderProgress/${appUserId}`;
+      const apiUrl = `${process.env.REACT_APP_base}/api/v1/Order/allOrderProgress/${appUserId}`;
+>>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
 
       fetch(apiUrl, {
         headers: {

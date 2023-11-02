@@ -51,16 +51,11 @@ const RiderHistory = () => {
     var userId = localStorage.getItem('riderId');
     const authToken = localStorage.getItem('token');
     useEffect(() => {
-<<<<<<< HEAD
-        axios.get(`https://ryder-backend-xzhk.onrender.com/api/v1/Rider/ride-history-by-id/${userId}`, {
-            headers: {
-=======
         axios
           .get(
             `h${process.env.REACT_APP_base}/v1/Rider/ride-history-by-id/${userId}`,
             {
               headers: {
->>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
                 Authorization: `Bearer ${authToken}`,
               },
             }

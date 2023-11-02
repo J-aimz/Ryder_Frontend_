@@ -4,7 +4,6 @@ import mail from "../images/Vector.png";
 import axios from "axios";
 
 const VerifyEmail = () => {
-  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -17,12 +16,8 @@ const VerifyEmail = () => {
       const email = localStorage.getItem('userEmail');
 
       const response = await axios.post(
-<<<<<<< HEAD
-        "https://ryder-backend-xzhk.onrender.com/api/v1/Authentication/SendConfirmEmail",
-=======
         // "https://ryder-test.onrender.com/api/v1/Authentication/SendConfirmEmail",
         `${process.env.REACT_APP_base}/api/v1/Authentication/SendConfirmEmail`,
->>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
         {
           email,
         }

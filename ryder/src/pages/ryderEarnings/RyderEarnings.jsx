@@ -19,10 +19,6 @@ export default function RyderEarnings(){
       useEffect(() => {
         // Make an HTTP GET request to your .NET API endpoint
         const id = localStorage.getItem('riderId')
-<<<<<<< HEAD
-          axios.get(`https://ryder-backend-xzhk.onrender.com/api/v1/Rider/Rider-Earnings/${id}`)
-            .then((res) => {setEarningsData({
-=======
           // axios.get(`https://ryder-test.onrender.com/api/v1/Rider/Rider-Earnings/${id}`)
           axios
             .get(
@@ -30,7 +26,6 @@ export default function RyderEarnings(){
             )
             .then((res) => {
               setEarningsData({
->>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
                 totalEarning: res.data.data.totalEarning,
                 rides: res.data.data.totalRides,
                 totalDuration: res.data.data.totalRideDuration,

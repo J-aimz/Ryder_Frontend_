@@ -10,23 +10,6 @@ const VerificationConfirm = () => {
   );
   const navigate = useNavigate();
 
-<<<<<<< HEAD
-    useEffect(() => {
-        const fetchData = async () => {
-          // Extract email and token from the current URL
-          const urlSearchParams = new URLSearchParams(window.location.search);
-          const token = urlSearchParams.get("token");
-          const email = urlSearchParams.get("email");
-        
-          try {
-            const response = await axios.post(
-              "https://ryder-backend-xzhk.onrender.com/api/v1/Authentication/confirm-email",
-              {
-                email,
-                token
-              }
-            );
-=======
   useEffect(() => {
     const fetchData = async () => {
       // Extract email and token from the current URL
@@ -65,7 +48,6 @@ const VerificationConfirm = () => {
 
     fetchData();
   }, []);
->>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
 
   return (
     <div>

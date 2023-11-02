@@ -57,12 +57,8 @@ const Login = () => {
       setError("");
 
       const response = await axios.post(
-<<<<<<< HEAD
-        "https://ryder-backend-xzhk.onrender.com/api/v1/Authentication/Login",
-=======
         // "https://ryder-test.onrender.com/api/v1/Authentication/Login",
         `${process.env.REACT_APP_base}/api/v1/Authentication/Login`,
->>>>>>> 8550554e2ba1ae1fd15e1d814241dac07a874ab0
         formData
       );
 
@@ -73,7 +69,7 @@ const Login = () => {
 
         var res = response.data.data.userRole;
         if (res === "Rider") {
-          navigate("/ryder-dasboard");
+          navigate("/ryder-dashboard");
         } else if (res === "Customer") {
           navigate("/customer-dashboard");
         }

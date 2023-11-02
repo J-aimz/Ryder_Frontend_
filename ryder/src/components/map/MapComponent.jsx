@@ -25,7 +25,7 @@ function MapComponent() {
                 lat: (position.lat + destination.lat) / 2,
                 lng: (position.lng + destination.lng) / 2,
               },
-              mapId: "DEMO_MAP_ID",
+              mapId: "DEMO_MAvP_ID",
             }
           );
 

@@ -26,6 +26,7 @@ import Bidding from "./components/Others/bidding";
 import VerifyPayment from "./components/Others/verifyPayment";
 import AcceptConfirmed from "./components/Others/acceptConfirmed";
 import WaitForPayments from "./components/Others/waitForPayments";
+import SuccessPage from "./components/Others/successPage";
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/customer-dashboard" element={<CustomerDashBoard />} />
           <Route path="/request-form" element={<RequestRiderForm />} />
-          <Route path="/ryder-dasboard" element={<RiderDashboard />} />
+          <Route path="/ryder-dashboard" element={<RiderDashboard />} />
           <Route path="/earnings" element={<RyderEarnings/>}/>
           <Route path="/customer-signUp" exact element={<CustomerSignUp />} />
           <Route path="/rider-signup" exact element={<RiderSignUp />} />
@@ -54,8 +55,9 @@ function App() {
           <Route path="/events" exact element={<Events />} />
           <Route path="/bidding" exact element={<Bidding />} />
           <Route path="/verify-payment" exact element={<VerifyPayment />} />
-          <Route path="/accpet-confirm" exact element={<AcceptConfirmed />} />
+          <Route path="/accept-confirm" exact element={<AcceptConfirmed />} />
           <Route path="/wait-for-payments" exact element={<WaitForPayments />} />
+          <Route path="/success-page" exact element={<SuccessPage />} />
           <Route path="/chat/:order" element={ <ChatPage/>} />
         </Routes>
       </div>

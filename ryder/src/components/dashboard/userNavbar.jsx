@@ -9,7 +9,7 @@ import defaultAvatar from "../../images/avatar.svg"; // Default avatar image
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-//https://ryder-test.onrender.com/api/v1/Authentication/Logout
+//https://ryder-backend-xzhk.onrender.com/api/v1/Authentication/Logout
 
 const UserNavbar = () => {
   const navigate = useNavigate();

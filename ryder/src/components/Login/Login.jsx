@@ -69,7 +69,7 @@ const Login = () => {
 
         var res = response.data.data.userRole;
         if (res === "Rider") {
-          navigate("/ryder-dasboard");
+          navigate("/ryder-dashboard");
         } else if (res === "Customer") {
           navigate("/customer-dashboard");
         }

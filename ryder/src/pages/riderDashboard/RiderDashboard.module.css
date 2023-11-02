@@ -6,6 +6,24 @@
     margin: auto;
 }
 
+.null_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100Vh;
+    width: 95%;
+    margin: auto;
+}
+.null_content_body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.null_content_body img {
+    width: 120px;
+}
 .content_body {
     display: flex;
     flex-direction: column;
@@ -33,6 +51,14 @@
     background: var(--secondary-bg);
     color: var(--text-primary);
 }
+
+.status_update{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 
 @media (min-width: 992px) {
 

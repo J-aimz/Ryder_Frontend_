@@ -165,7 +165,7 @@ const RiderNavbar = () => {
             <LinkContainer to="/earnings">
               <Nav.Link>Earnings</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/ryder-dasboard">
+            <LinkContainer to="/ryder-dashboard">
               <Nav.Link>Availability</Nav.Link>
             </LinkContainer>
             {/* Render the appropriate icon based on the isOnline state */}
@@ -206,8 +206,8 @@ const RiderNavbar = () => {
               <Link to="/rider-profile">
                 <img
                   src={riderData.imageUrl}
-                  alt="Rider Avatar"
-                  className="rider-avatar"
+                  alt="Avatar"
+                  className="rider-avatar mr-2"
                 />
               </Link>
               <span className="ml-2">{riderData.name}</span>

@@ -4,7 +4,6 @@ import mail from "../images/Vector.png";
 import axios from "axios";
 
 const VerifyEmail = () => {
-  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");

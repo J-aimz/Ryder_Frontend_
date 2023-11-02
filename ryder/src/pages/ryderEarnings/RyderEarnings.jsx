@@ -19,19 +19,23 @@ export default function RyderEarnings(){
       useEffect(() => {
         // Make an HTTP GET request to your .NET API endpoint
         const id = localStorage.getItem('riderId')
-          axios.get(`https://ryder-test.onrender.com/api/v1/Rider/Rider-Earnings/${id}`)
-            .then((res) => {setEarningsData({
+          // axios.get(`https://ryder-test.onrender.com/api/v1/Rider/Rider-Earnings/${id}`)
+          axios
+            .get(
+              `${process.env.REACT_APP_base}/api/v1/Rider/Rider-Earnings/${id}`
+            )
+            .then((res) => {
+              setEarningsData({
                 totalEarning: res.data.data.totalEarning,
                 rides: res.data.data.totalRides,
                 totalDuration: res.data.data.totalRideDuration,
-                list: res.data.data.rides
+                list: res.data.data.rides,
+              }).then((response) => response.json());
             })
-            .then((response) => response.json());
-        })
-            
-          .catch((error) => {
-            console.error('Error fetching data:', error);
-          });
+
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+            });
       }, []);
       console.log(earningsData.list);
      

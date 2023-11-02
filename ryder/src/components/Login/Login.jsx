@@ -57,10 +57,10 @@ const Login = () => {
       setError("");
 
       const response = await axios.post(
-        "https://ryder-test.onrender.com/api/v1/Authentication/Login",
+        // "https://ryder-test.onrender.com/api/v1/Authentication/Login",
+        `${process.env.REACT_APP_base}/api/v1/Authentication/Login`,
         formData
       );
-      console.log(response);
 
       if (response.data.succeeded) {
         localStorage.setItem("userId", response.data.data.userId);

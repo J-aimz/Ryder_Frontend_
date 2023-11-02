@@ -51,31 +51,35 @@ const RiderHistory = () => {
     var userId = localStorage.getItem('riderId');
     const authToken = localStorage.getItem('token');
     useEffect(() => {
-        axios.get(`https://ryder-test.onrender.com/api/v1/Rider/ride-history-by-id/${userId}`, {
-            headers: {
+        axios
+          .get(
+            `h${process.env.REACT_APP_base}/v1/Rider/ride-history-by-id/${userId}`,
+            {
+              headers: {
                 Authorization: `Bearer ${authToken}`,
+              },
             }
-        })
-        .then((response) => {
+          )
+          .then((response) => {
             const data = response.data.data;
 
             if (Array.isArray(data)) {
-                const extractedData = data.map(item => ({
-                    location: item.pickUpLocation.city,
-                    contact: item.pickUpPhoneNumber,
-                    dateTime: new Date(item.updatedAt).toLocaleString(), // Make sure this property exists in your data
-                    status: item.status,
-                }));
-                setRideHistory(extractedData);
-                console.log("Hello", extractedData);
+              const extractedData = data.map((item) => ({
+                location: item.pickUpLocation.city,
+                contact: item.pickUpPhoneNumber,
+                dateTime: new Date(item.updatedAt).toLocaleString(), // Make sure this property exists in your data
+                status: item.status,
+              }));
+              setRideHistory(extractedData);
+              console.log("Hello", extractedData);
             } else {
-                console.error('Response data is not as expected:', data);
+              console.error("Response data is not as expected:", data);
             }
-        })
+          })
 
-        .catch((error) => {
-            console.error('Error fetching ride history:', error);
-        });
+          .catch((error) => {
+            console.error("Error fetching ride history:", error);
+          });
     }, []);
 
     return (

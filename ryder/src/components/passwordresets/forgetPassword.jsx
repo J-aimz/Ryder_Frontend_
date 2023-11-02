@@ -53,7 +53,8 @@ const ForgetPassword = () => {
       }
 
       const response = await axios.post(
-        "https://ryder-test.onrender.com/api/v1/Authentication/forget-password",
+        // "https://ryder-test.onrender.com/api/v1/Authentication/forget-password",
+        `${process.env.REACT_APP_base}/api/v1/Authentication/forget-password`,
         {
           email,
         }

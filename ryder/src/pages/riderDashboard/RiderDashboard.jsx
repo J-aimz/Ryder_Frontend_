@@ -100,15 +100,23 @@ function RiderDashboard() {
 
           <div className="status_update">
             <h6>Update Ride Status</h6>
-            <button type="button"  className="mb-2"
+            <button
+              type="button"
+              className="mb-2"
               onClick={endRide}
               disabled={rideEnded}
-              >Deliver this Order </button>
+            >
+              Deliver this Order{" "}
+            </button>
 
-            <button className={styles.decline_btn}
-              type="button" onClick={endRide}
+            <button
+              className={styles.decline_btn}
+              type="button"
+              onClick={endRide}
               disabled={rideEnded}
-            >End this Ride</button>
+            >
+              End this Ride
+            </button>
           </div>
           <button type="button">Accept Request</button>
           <button className={styles.decline_btn} type="button">
@@ -116,11 +124,11 @@ function RiderDashboard() {
           </button>
 
           <Link
-            to={"/chat/:order"}
+            to={`/chat/${acceptedOrder.orderId}`}
             className={styles.decline_btn}
             type="button"
           >
-            Decline request
+            go to chat
           </Link>
         </div>
         <div className={styles.map_container}>

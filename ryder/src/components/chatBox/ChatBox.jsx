@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "./ChatBox.module.css"
 
 
 const ChatBox = ({ message, sender, orderId }) => {
   const [showEmojis, setShowEmojis] = useState(false);
+   
+  const [userId, setUserId] = useState("");
+  const [token, setToken] = useState(""); 
+
+  useEffect(() => {
+     setUserId(localStorage.getItem("userId"));
+     setToken(localStorage.getItem("token"));
+  },[])
 
   function handleMouseEnter() { 
     setTimeout(() => {
@@ -39,7 +47,7 @@ const ChatBox = ({ message, sender, orderId }) => {
          credentials: "same-origin",
          headers: {
            "Content-Type": "application/json",
-           //  Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
          },
          body: JSON.stringify(requestBody),
        }

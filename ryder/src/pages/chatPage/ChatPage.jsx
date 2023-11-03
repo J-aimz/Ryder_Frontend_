@@ -6,102 +6,119 @@ import { UserNavbar } from "../../components";
 import Footer from "../landing_page/footer";
 import Oder from "../../images/oder.svg";
 import ChatBox from "../../components/chatBox/ChatBox";
-import Send from "../../images/send.svg"
+import Send from "../../images/send.svg";
+
+
+
+
 function ChatPage() {
   const { order } = useParams();
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [connection, setConnection] = useState(null);
 
-
-
-  useEffect(() => { 
-    // const fetchMessages = async () => {
-      const response = fetch(
-        `https://localhost:7000/api/v1/Messages/GetMessages/${order}`,
-        {
-          method: "GET",
-          mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-            // Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = response.json();
-      console.log(data);
-      // setMessages(data);
-    // };
-    // fetchMessages();
-  },[])
+  
+  const [userId, setUserId] = useState("");
+  const [token, setToken] = useState(""); 
 
   useEffect(() => {
-     const newConnection = new HubConnectionBuilder()
-       .withUrl(`${process.env.REACT_APP_base}/messenger`)
-       .build();
+      setUserId(localStorage.getItem("userId"));
+      setToken(localStorage.getItem("token"));
 
-      newConnection.on("sendUserPayementLink", (value) => setMessages(prev => [...prev, value]))
 
-      newConnection.on("sendMessage", (value) =>
-        setMessages((prev) => [...prev, value])
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_base}/api/v1/Messages/GetMessages/${order}`,
+          {
+            method: "GET",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // if (!response.ok) {
+        //   console.log("bad request did not go through")
+        //   // throw new Error("Network response was not ok");
+        // }
+
+        const data = await response.json();
+        console.log(data);
+        // setMessages(data);
+      } catch (ex) {
+        console.log(ex)
+      }
+    };
+    fetchMessages();
+  }, []);
+
+  useEffect(() => {
+    const newConnection = new HubConnectionBuilder()
+      .withUrl(`${process.env.REACT_APP_base}/messenger`)
+      .build();
+
+    newConnection.on("sendUserPayementLink", (value) =>
+      setMessages((prev) => [...prev, value])
     );
-    
+
+    newConnection.on("sendMessage", (value) =>
+      setMessages((prev) => [...prev, value])
+    );
+
     //look into this let it only update the message with an emojie i guess u would have to search for the message with the id and update it
     //  newConnection.on("updateMessage", (value) =>
     //    setMessages((prev) => [...prev, value])
     //  );
 
     newConnection.start().then(() => {
-        console.log("connection establised")
-        setConnection(newConnection);
-      });
+      console.log("connection establised");
+      setConnection(newConnection);
+    });
 
-     return () => {
-       if (connection) {
-         connection.stop();
-       }
-     }
-
-  }, [])
+    return () => {
+      if (connection) {
+        connection.stop();
+      }
+    };
+  }, []);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-   const handleFormSubmit = async (event) => {
-     event.preventDefault();
-     setMessages([...messages, inputValue]);
-    
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    setMessages([...messages, inputValue]);
+
     const requestBody = {
       oderId: order,
       body: inputValue,
     };
-     const response = await fetch(
-       `${process.env.REACT_APP_base}/api/v1/Messages/SendMessage`,
-       {
-         method: "POST",
-         mode: "cors",
-         cache: "no-cache",
-         credentials: "same-origin",
-         headers: {
-           "Content-Type": "application/json",
-           //  Authorization: `Bearer ${token}`,
-         },
-         body: JSON.stringify(requestBody),
-       }
-     );
+    const response = await fetch(
+      `${process.env.REACT_APP_base}/api/v1/Messages/SendMessage`,
+      {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          //  Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(requestBody),
+      }
+    );
 
-     const data = await response.json();  
-      console.log(data);
+    const data = await response.json();
+    console.log(data);
 
-     setInputValue("");
-   };
-
-
-
+    setInputValue("");
+  };
 
   return (
     <>
@@ -125,7 +142,9 @@ function ChatPage() {
                 value={inputValue}
                 onChange={handleInputChange}
               />
-                          <button type="submit"><img src={Send} /></button>
+              <button type="submit">
+                <img src={Send} />
+              </button>
             </form>
           </div>
         </div>
